@@ -9,6 +9,9 @@ soit `session.txt`.
 En particulier, un dépôt de code ne doit jamais contenir les fichiers
 compilés (`.o`, exécutable, etc.).
 
+Ce répertoire contient une version initiale de `maccess.c` pour
+illustrer l’utilisation de `getopt` et ainsi vous aider à démarrer.
+
 Vous éditerez ce fichier pour qu’il contienne un compte-rendu du
 travail effectué (qu’est-ce qui marche, qu’est-ce qui ne marche pas,
 etc.).
