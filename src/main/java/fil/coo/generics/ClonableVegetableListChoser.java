@@ -11,6 +11,10 @@ public class ClonableVegetableListChoser {
 	// qui de plus sont clonables (donc implémentent l'interface
 	// java.lang.Clonable).
 	// quel(s) changement(s) apporter à la méthode de ListChoser ?
+	
+	public <T extends Vegetable & Cloneable> T chose(String message, List<T> list){
+		return new ListChoser().chose(message, list);
+	}
 
 	public static void main(String[] args) {
 

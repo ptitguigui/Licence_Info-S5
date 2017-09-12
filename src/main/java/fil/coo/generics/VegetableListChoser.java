@@ -9,7 +9,11 @@ public class VegetableListChoser {
     // elle est similaire a celle de ListChoser simplement elle ne fonctionne
     // qu'avec des listes d'objets de type Legume (cf. interface Legume)
     // quel changement apporter a la methode de ListChoser  ?
-    
+	
+	public <T extends Vegetable> T chose(String message, List<T> list){
+		return new ListChoser().chose(message, list);
+	}
+	
     public static void main(String[] args) {
 		List<Carrot> lCarrots = new ArrayList<Carrot>();
 		lCarrots.add(new Carrot(1));

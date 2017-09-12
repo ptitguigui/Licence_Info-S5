@@ -15,6 +15,22 @@ public class ListChoser {
 	//
 	// ...methode chose...
 	//
+	
+	public <T> T chose(String message, List<T> list){
+		int i=1;
+		System.out.println(message);
+		System.out.println("0- Rien");
+		for (T object : list) {
+			System.out.println(i+"- "+object);
+			i++;
+		}
+		int choix = ScannerInt.readInt(i);
+		
+		if(choix == 0)
+			return null;
+		else
+			return list.get(choix-1);
+	}
 
 	public static void main(String[] args) {
 		// JEU DE TEST
