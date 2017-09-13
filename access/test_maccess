@@ -20,7 +20,10 @@ chmod 600 ./dir_no_access
 
 # start testing
 cd ..
+echo -e "displaying test files with permissions:\n"
 tree test
+
+echo -e "\ntesting will now start:\n"
 
 # 1 - EACCESS - permission denied
 ./maccess -wv ./test/read_only
