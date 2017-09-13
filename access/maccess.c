@@ -1,7 +1,16 @@
 #include <unistd.h>
 #include <stdio.h>
+#include <limits.h>
 
 int vflag, rflag, wflag, xflag;
+
+
+/* affiche la valeur des constantes NAME_MAX et PATH_MAX */
+void prlimit() {
+  printf("%d\n", NAME_MAX);
+  printf("%d\n", PATH_MAX);
+}
+
 
 void usage (char *prog) {
    printf("usage : %s [rvwx] file", prog);
@@ -16,6 +25,7 @@ int maccess (int argc, char **argv) {
    }
    return 1;
 }
+
 
 int main (int argc, char **argv) {
    int ch;
