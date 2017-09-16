@@ -10,6 +10,10 @@ package fil.coo.generics;
 
 public class Collector<T> {
 
+	/**
+	 * constructor of Collector
+	 * @param name
+	 */
 	public Collector(String name) {
 		this.name = name;
 	}
@@ -22,22 +26,43 @@ public class Collector<T> {
 		return this.name;
 	}
 
+	/**
+	 * method to describe which object the colletor carries
+	 * @return String
+	 */
 	public String description() {
 		return this.name + " carries " + this.carriedObject;
 	}
 
+	/**
+	 * method to get the object carries
+	 * @return T
+	 */
 	public T getCarriedObject() {
 		return carriedObject;
 	}
-
+	
+	/**
+	 * method to set the object carries
+	 * @param carriedObject
+	 */
 	public void setCarriedObject(T carriedObject) {
 		this.carriedObject = carriedObject;
 	}
 
+	/**
+	 * method to know if the collector can take an object
+	 * @return boolean
+	 */
 	public boolean canTake() {
 		return getCarriedObject() == null;
 	}
-
+	
+	/**
+	 * method to take an object
+	 * @param t
+	 * @throws AlreadyCarryingException
+	 */
 	public void take(T t) throws AlreadyCarryingException {
 		if (canTake())
 			setCarriedObject(t);
@@ -45,6 +70,10 @@ public class Collector<T> {
 			throw new AlreadyCarryingException();
 	}
 
+	/**
+	 * method to drop the object carries
+	 * @return the object carries or null
+	 */
 	public T drop() {
 		T tmp = getCarriedObject();
 		if (tmp != null) {
@@ -54,6 +83,12 @@ public class Collector<T> {
 		return null;
 	}
 
+	/**
+	 * method to give the object carries to another collector
+	 * @param c the other collector
+	 * @return the object given or null
+	 * @throws AlreadyCarryingException
+	 */
 	public T giveTo(Collector<? super T> c) throws AlreadyCarryingException {
 		if (!this.canTake()) {
 			if (!c.canTake())
@@ -65,7 +100,11 @@ public class Collector<T> {
 		}
 		return null;
 	}
-
+	/**
+	 * is the the same method than take ?
+	 * @param t
+	 * @throws AlreadyCarryingException
+	 */
 	public void collect(T t) throws AlreadyCarryingException {
 		this.take(t);
 	}
@@ -81,8 +120,6 @@ public class Collector<T> {
 		Collector<Carrot> carrotCollector1 = new Collector<Carrot>("carrot-collector-1");
 		Collector<Carrot> carrotCollector2 = new Collector<Carrot>("carrot-collector-2");
 		Collector<Apple> appleCollector1 = new Collector<Apple>("apple-collector-1");
-
-		// attention ici le type d'objets ramasses est Legume :
 		Collector<Vegetable> vegetableCollector = new Collector<Vegetable>("vegetable-collector");
 
 		carrotCollector1.take(c3);
@@ -110,8 +147,6 @@ public class Collector<T> {
 		try {
 			carrotCollector1.giveTo(carrotCollector2);
 		} catch (AlreadyCarryingException e) {
-			// System.out.println("*** exception : " + carrotCollector2 + " porte deja qque
-			// chose");
 			System.out.println(" * " + e.getMessage());
 		}
 
@@ -120,8 +155,6 @@ public class Collector<T> {
 		try {
 			appleCollector1.collect(p1);
 		} catch (AlreadyCarryingException e) {
-			// System.out.println("*** exception : " + appleCollector1 + " porte deja qque
-			// chose");
 			System.out.println(" * " + e.getMessage());
 		}
 		appleCollector1.drop();
