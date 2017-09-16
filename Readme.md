@@ -5,7 +5,7 @@ Premier tp de COO en license 3 informatique. Le but de se tp de familiariser ave
 # Achievements
 
 Lors de ce tp :
-    - j'ai recuprer l'archive donnee sur le portail
+    - j'ai recuprer l'archive donnee sur le portail \n
     - ecris la methode chose afin de choisir un element parmis une liste d'objets
     - la methode chose créer selon different type de class (ListChoser.class, VegetableListChoser.class, ClonableVegetableListChoser.class)
     - creations de methodes pour la classe Collector.class
