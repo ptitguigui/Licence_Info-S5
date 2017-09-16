@@ -1,7 +1,7 @@
 package fil.coo.scanner;
 
-import java.util.*;
-import java.util.regex.*;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class ScannerInt {
 	private static final Scanner scanner = new Scanner(System.in);

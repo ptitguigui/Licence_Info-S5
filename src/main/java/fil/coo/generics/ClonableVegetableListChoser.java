@@ -1,16 +1,17 @@
 package fil.coo.generics;
 
-import fil.coo.scanner.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class ClonableVegetableListChoser {
 
-	// methode "chose"
-	// elle est similaire a celles de ListChoser et ListChoserLegume
-	// simplement elle ne fonctionne qu'avec des listes d'objets de type Legume
-	// qui de plus sont clonables (donc implémentent l'interface
-	// java.lang.Clonable).
-	// quel(s) changement(s) apporter à la méthode de ListChoser ?
+	/**
+     * use the method ListChoser for the vegetable and cloneable objects
+     * @param message String
+     * @param list List of T
+     * @return T extends vegetable and cloneable
+     */
 	
 	public <T extends Vegetable & Cloneable> T chose(String message, List<T> list){
 		return new ListChoser().chose(message, list);

@@ -1,15 +1,16 @@
 package fil.coo.generics;
 
-import fil.coo.scanner.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VegetableListChoser {
 
-    // methode chose
-    // elle est similaire a celle de ListChoser simplement elle ne fonctionne
-    // qu'avec des listes d'objets de type Legume (cf. interface Legume)
-    // quel changement apporter a la methode de ListChoser  ?
-	
+    /**
+     * use the method ListChoser for the Vegetable objects
+     * @param message String
+     * @param list List of T
+     * @return <T extends Vegetable>
+     */
 	public <T extends Vegetable> T chose(String message, List<T> list){
 		return new ListChoser().chose(message, list);
 	}

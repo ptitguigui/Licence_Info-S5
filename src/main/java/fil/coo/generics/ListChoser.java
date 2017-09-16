@@ -1,21 +1,19 @@
 package fil.coo.generics;
 
-import fil.coo.scanner.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import fil.coo.scanner.ScannerInt;
 
 public class ListChoser {
 
-	// Definir la methode chose, qui prend en premier parametre
-	// un message sous forme de chaene de caracteres et en second une liste.
-	// Cette liste est typee mais sans restriction sur les types admis.
-	// Cette methode propose de choisir un element de la liste en saisissant
-	// sa position dans la liste.
-	// L'element choisi est retourne par la methode, null si le choix 0 est
-	// fait.
-	//
-	// ...methode chose...
-	//
 	
+	/**
+	 * Method to choose an element from the list 
+	 * @param message String
+	 * @param list List of T
+	 * @return T or null
+	 */
 	public <T> T chose(String message, List<T> list){
 		int i=1;
 		System.out.println(message);
