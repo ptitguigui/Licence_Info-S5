@@ -1,8 +1,8 @@
-#TP1 : generics
+# TP1 : generics
 
 Premier tp de COO en license 3 informatique. Le but de se tp de familiariser avec les generiques que ce soit dans des methodes ou des types.
 
-#Achievements
+# Achievements
 
 Lors de ce tp :
     - j'ai recuprer l'archive donnee sur le portail
@@ -14,7 +14,7 @@ Lors de ce tp :
     - generation de la javadoc sur le code ecris
     - generation d'un UML
 
-#Quelques precisions
+# Quelques precisions
 
 Pour utiliser la methode chose() de façon generique dans ListChoser.class, VegetableListChoser.class et ClonableVegetableListChoser.class
 j'utilise "extends" afin de lister tous les objets qui heritents de mon type T
