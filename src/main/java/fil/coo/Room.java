@@ -41,5 +41,9 @@ public class Room {
 	public void addDirection(Direction direction, Room neighbour){
 		this.neighbours.put(direction, neighbour);
 	}
+
+	public boolean hasLinkedNeighbourForDirection(Direction direction) {
+		return neighbours.containsKey(direction);
+	}
 	
 }

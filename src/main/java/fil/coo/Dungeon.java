@@ -9,6 +9,7 @@ import java.util.Stack;
 
 public class Dungeon {
 
+	
 	private Room[][] dungeon;
 	private int taille;
 	private boolean[][] voisinsVisité;
@@ -26,7 +27,15 @@ public class Dungeon {
 		voisinsVisité = new boolean[taille][taille];
 
 	}
-
+	
+	/**
+	 * method to get the dungeon
+	 * @return Room[][]
+	 */
+	public Room[][] getDungeon() {
+		return dungeon;
+	}
+	
 	/**
 	 * Methods to initialize the dungeon with recursive backtracking method
 	 */
