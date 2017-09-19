@@ -70,6 +70,7 @@ public class DungeonFrame extends JFrame {
                     if (!dungeon[y][x].hasLinkedNeighbourForDirection(Direction.WEST)) {
                         g.drawLine(startX, startY, startX, startY + roomHeight);
                     }
+                   // System.out.println(dungeon[x][y].getNeighbours());
                 }
             }
         }
@@ -87,6 +88,7 @@ public class DungeonFrame extends JFrame {
     }
     public static void main(String[] args) {
     	Dungeon dungeon = new Dungeon(10);
+    	dungeon.initializeDungeon();
 		DungeonFrame frame = new DungeonFrame(dungeon);
 	}
 }

@@ -13,12 +13,14 @@ public class Room {
 	private boolean isExit;
 	
 	
-	public Room(List<Monster> listMonsters, List<Item> listItems, Map<Direction, Room> neighbours, boolean isExit) {
+	public Room(List<Monster> listMonsters, List<Item> listItems, Map<Direction, Room> neighbours, boolean isExit, int x, int y) {
 		super();
 		this.listMonsters = listMonsters;
 		this.listItems = listItems;
 		this.neighbours = neighbours;
 		this.isExit = isExit;
+		this.x = x;
+		this.y = y;
 	}
 
 	public boolean isExit() {
