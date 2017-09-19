@@ -5,10 +5,12 @@ import java.util.Map;
 
 public class Room {
 
-	List<Monster> listMonsters;
-	List<Item> listItems;
-	Map<Direction, Room> neighbours;
-	boolean isExit;
+	private int x;
+	private int y;
+	private List<Monster> listMonsters;
+	private List<Item> listItems;
+	private Map<Direction, Room> neighbours;
+	private boolean isExit;
 	
 	
 	public Room(List<Monster> listMonsters, List<Item> listItems, Map<Direction, Room> neighbours, boolean isExit) {
@@ -19,15 +21,25 @@ public class Room {
 		this.isExit = isExit;
 	}
 
-
-	public Room(Map<Direction, Room> neighbours, boolean isExit) {
-		super();
-		this.neighbours = neighbours;
-		this.isExit = isExit;
-	}
-
 	public boolean isExit() {
 		return isExit;
-	}		
+	}
+	
+	public int getX() {
+		return x;
+	}
+
+
+	public int getY() {
+		return y;
+	}
+
+	public Map<Direction, Room> getNeighbours() {
+		return neighbours;
+	}
+	
+	public void addDirection(Direction direction, Room neighbour){
+		this.neighbours.put(direction, neighbour);
+	}
 	
 }
