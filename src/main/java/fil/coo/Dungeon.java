@@ -94,26 +94,26 @@ public class Dungeon {
 		for (int i = 0; i < listDirectionPossible.size(); i++) {
 
 			if (listDirectionPossible.get(i) == Direction.NORTH) {
-				if (!voisinsVisité[currentRoom.getY() - 1][currentRoom.getX()]) {
-					listRooms.add(dungeon[currentRoom.getY() - 1][currentRoom.getX()]);
+				if (!voisinsVisité[currentRoom.getY()][currentRoom.getX() - 1]) {
+					listRooms.add(dungeon[currentRoom.getY()][currentRoom.getX() - 1]);
 				}
 			}
 
 			if (listDirectionPossible.get(i) == Direction.EAST) {
-				if (!voisinsVisité[currentRoom.getY()][currentRoom.getX() + 1]) {
-					listRooms.add(dungeon[currentRoom.getY()][currentRoom.getX() + 1]);
-				}
-			}
-
-			if (listDirectionPossible.get(i) == Direction.SOUTH) {
 				if (!voisinsVisité[currentRoom.getY() + 1][currentRoom.getX()]) {
 					listRooms.add(dungeon[currentRoom.getY() + 1][currentRoom.getX()]);
 				}
 			}
 
+			if (listDirectionPossible.get(i) == Direction.SOUTH) {
+				if (!voisinsVisité[currentRoom.getY()][currentRoom.getX() + 1]) {
+					listRooms.add(dungeon[currentRoom.getY()][currentRoom.getX() + 1]);
+				}
+			}
+
 			if (listDirectionPossible.get(i) == Direction.WEST) {
-				if (!voisinsVisité[currentRoom.getY()][currentRoom.getX() - 1]) {
-					listRooms.add(dungeon[currentRoom.getY()][currentRoom.getX() - 1]);
+				if (!voisinsVisité[currentRoom.getY()- 1][currentRoom.getX()]) {
+					listRooms.add(dungeon[currentRoom.getY() - 1][currentRoom.getX()]);
 				}
 			}
 		}
@@ -136,16 +136,16 @@ public class Dungeon {
 
 		// right
 		if (currentRoom.getY() == taille - 1)
-			listDirection.remove(Direction.SOUTH);
+			listDirection.remove(Direction.EAST);
 		// left
 		if (currentRoom.getY() == 0)
-			listDirection.remove(Direction.NORTH);
+			listDirection.remove(Direction.WEST);
 		// bottom
 		if (currentRoom.getX() == taille - 1)
-			listDirection.remove(Direction.EAST);
+			listDirection.remove(Direction.SOUTH);
 		// top
 		if (currentRoom.getX() == 0)
-			listDirection.remove(Direction.WEST);
+			listDirection.remove(Direction.NORTH);
 
 		return listDirection;
 	}
