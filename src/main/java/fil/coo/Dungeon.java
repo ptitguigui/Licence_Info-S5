@@ -67,16 +67,16 @@ public class Dungeon {
 		Room firstRoom = dungeon[yRandom][xRandom];
 		voisinsVisité[firstRoom.getY()][firstRoom.getX()] = true;
 
-		Stack<Room> stackRoom = new Stack();
+		Stack<Room> stackRoom = new Stack<Room>();
 		stackRoom.push(firstRoom);
 
-		/*frame = new DungeonFrame(this);
+		frame = new DungeonFrame(this);
 		try {
 			recursiveProceduration(stackRoom);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 
 	}
 
@@ -161,29 +161,33 @@ public class Dungeon {
 	public void linkNeighbourRoom(Room currentRoom, Room neighbourRoom) {
 
 		if (currentRoom.getY() + 1 == neighbourRoom.getY() && currentRoom.getX() == neighbourRoom.getX()) {
-			dungeon[currentRoom.getY()][currentRoom.getX()].addDirection(Direction.SOUTH, neighbourRoom);
-			dungeon[neighbourRoom.getY()][neighbourRoom.getX()].addDirection(Direction.NORTH, currentRoom);
+			dungeon[currentRoom.getY()][currentRoom.getX()].addDirection(Direction.EAST, neighbourRoom);
+			dungeon[neighbourRoom.getY()][neighbourRoom.getX()].addDirection(Direction.WEST, currentRoom);
+			System.out.println("lier est");
 		}
 
 		if (currentRoom.getY() - 1 == neighbourRoom.getY() && currentRoom.getX() == neighbourRoom.getX()) {
-			dungeon[currentRoom.getY()][currentRoom.getX()].addDirection(Direction.NORTH, neighbourRoom);
-			dungeon[neighbourRoom.getY()][neighbourRoom.getX()].addDirection(Direction.SOUTH, currentRoom);
+			dungeon[currentRoom.getY()][currentRoom.getX()].addDirection(Direction.WEST, neighbourRoom);
+			dungeon[neighbourRoom.getY()][neighbourRoom.getX()].addDirection(Direction.EAST, currentRoom);
+			System.out.println("lier ouest");
 		}
 
 		if (currentRoom.getY() == neighbourRoom.getY() && currentRoom.getX() + 1 == neighbourRoom.getX()) {
-			dungeon[currentRoom.getY()][currentRoom.getX()].addDirection(Direction.EAST, neighbourRoom);
-			dungeon[neighbourRoom.getY()][neighbourRoom.getX()].addDirection(Direction.WEST, currentRoom);
+			dungeon[currentRoom.getY()][currentRoom.getX()].addDirection(Direction.SOUTH, neighbourRoom);
+			dungeon[neighbourRoom.getY()][neighbourRoom.getX()].addDirection(Direction.NORTH, currentRoom);
+			System.out.println("lier sud");
 		}
 
 		if (currentRoom.getY() == neighbourRoom.getY() && currentRoom.getX() - 1 == neighbourRoom.getX()) {
-			dungeon[currentRoom.getY()][currentRoom.getX()].addDirection(Direction.WEST, neighbourRoom);
-			dungeon[neighbourRoom.getY()][neighbourRoom.getX()].addDirection(Direction.EAST, currentRoom);
+			dungeon[currentRoom.getY()][currentRoom.getX()].addDirection(Direction.NORTH, neighbourRoom);
+			dungeon[neighbourRoom.getY()][neighbourRoom.getX()].addDirection(Direction.SOUTH, currentRoom);
+			System.out.println("lier nord");
 		}
 
 		voisinsVisité[neighbourRoom.getY()][neighbourRoom.getX()] = true;
 
-		//System.out.println("curent room :" + currentRoom.getY() + " " + currentRoom.getX());
-		//System.out.println("neighbour room :" + neighbourRoom.getY() + " " + neighbourRoom.getX());
+		System.out.println("curent room :" + currentRoom.getY() + " " + currentRoom.getX());
+		System.out.println("neighbour room :" + neighbourRoom.getY() + " " + neighbourRoom.getX());
 
 	}
 
