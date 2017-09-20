@@ -1,7 +1,10 @@
 package fil.coo;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class Room {
 
@@ -13,11 +16,10 @@ public class Room {
 	private boolean isExit;
 	
 	
-	public Room(List<Monster> listMonsters, List<Item> listItems, Map<Direction, Room> neighbours, boolean isExit, int x, int y) {
-		super();
-		this.listMonsters = listMonsters;
-		this.listItems = listItems;
-		this.neighbours = neighbours;
+	public Room(boolean isExit, int x, int y) {
+		listItems = new ArrayList<Item>();
+		listMonsters = new ArrayList<Monster>();
+		neighbours = new HashMap<Direction, Room>();
 		this.isExit = isExit;
 		this.x = x;
 		this.y = y;
@@ -47,5 +49,6 @@ public class Room {
 	public boolean hasLinkedNeighbourForDirection(Direction direction) {
 		return neighbours.containsKey(direction);
 	}
+
 	
 }

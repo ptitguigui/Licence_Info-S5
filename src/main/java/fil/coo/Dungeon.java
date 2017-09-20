@@ -13,7 +13,6 @@ public class Dungeon {
 	private int taille;
 	private boolean[][] voisinsVisité;
 	private Random r = new Random();
-	DungeonFrame frame;
 
 	/**
 	 * Constructor of Dungeon to initialize Array and get a random Room from the
@@ -43,20 +42,17 @@ public class Dungeon {
 	 */
 	public void initializeDungeon() {
 
-		Map<Direction, Room> neighbours = new HashMap<Direction, Room>();
-		List<Item> listItems = new ArrayList<Item>();
-		List<Monster> listMonsters = new ArrayList<Monster>();
-
 		// initialize all the rooms
 		for (int y = 0; y < dungeon.length; y++) {
-			for (int x = 0; x < dungeon.length; x++) {
+			for (int x = 0; x < dungeon[0].length; x++) {
 				// can add monster and items in the list
 				// to do
 				if (x == taille - 1 && y == taille - 1)
-					dungeon[y][x] = new Room(listMonsters, listItems, neighbours, true, x, y);
+					dungeon[y][x] = new Room(true, x, y);
 				else
-					dungeon[y][x] = new Room(listMonsters, listItems, neighbours, false, x, y);
+					dungeon[y][x] = new Room(false, x, y);
 				// remove all monsters and items in the list
+				voisinsVisité[y][x] = false;
 
 			}
 		}
@@ -70,13 +66,7 @@ public class Dungeon {
 		Stack<Room> stackRoom = new Stack<Room>();
 		stackRoom.push(firstRoom);
 
-		frame = new DungeonFrame(this);
-		try {
-			recursiveProceduration(stackRoom);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		recursiveProceduration(stackRoom);
 
 	}
 
@@ -94,26 +84,26 @@ public class Dungeon {
 		for (int i = 0; i < listDirectionPossible.size(); i++) {
 
 			if (listDirectionPossible.get(i) == Direction.NORTH) {
-				if (!voisinsVisité[currentRoom.getY()][currentRoom.getX() - 1]) {
-					listRooms.add(dungeon[currentRoom.getY()][currentRoom.getX() - 1]);
+				if (!voisinsVisité[currentRoom.getY() - 1][currentRoom.getX()]) {
+					listRooms.add(dungeon[currentRoom.getY() - 1][currentRoom.getX()]);
 				}
 			}
 
 			if (listDirectionPossible.get(i) == Direction.EAST) {
-				if (!voisinsVisité[currentRoom.getY() + 1][currentRoom.getX()]) {
-					listRooms.add(dungeon[currentRoom.getY() + 1][currentRoom.getX()]);
-				}
-			}
-
-			if (listDirectionPossible.get(i) == Direction.SOUTH) {
 				if (!voisinsVisité[currentRoom.getY()][currentRoom.getX() + 1]) {
 					listRooms.add(dungeon[currentRoom.getY()][currentRoom.getX() + 1]);
 				}
 			}
 
+			if (listDirectionPossible.get(i) == Direction.SOUTH) {
+				if (!voisinsVisité[currentRoom.getY() + 1][currentRoom.getX()]) {
+					listRooms.add(dungeon[currentRoom.getY() + 1][currentRoom.getX()]);
+				}
+			}
+
 			if (listDirectionPossible.get(i) == Direction.WEST) {
-				if (!voisinsVisité[currentRoom.getY()- 1][currentRoom.getX()]) {
-					listRooms.add(dungeon[currentRoom.getY() - 1][currentRoom.getX()]);
+				if (!voisinsVisité[currentRoom.getY()][currentRoom.getX() - 1]) {
+					listRooms.add(dungeon[currentRoom.getY()][currentRoom.getX() - 1]);
 				}
 			}
 		}
@@ -134,18 +124,14 @@ public class Dungeon {
 		listDirection.add(Direction.SOUTH);
 		listDirection.add(Direction.WEST);
 
-		// right
 		if (currentRoom.getY() == taille - 1)
-			listDirection.remove(Direction.EAST);
-		// left
-		if (currentRoom.getY() == 0)
-			listDirection.remove(Direction.WEST);
-		// bottom
-		if (currentRoom.getX() == taille - 1)
 			listDirection.remove(Direction.SOUTH);
-		// top
-		if (currentRoom.getX() == 0)
+		if (currentRoom.getY() == 0)
 			listDirection.remove(Direction.NORTH);
+		if (currentRoom.getX() == taille - 1)
+			listDirection.remove(Direction.EAST);
+		if (currentRoom.getX() == 0)
+			listDirection.remove(Direction.WEST);
 
 		return listDirection;
 	}
@@ -161,34 +147,26 @@ public class Dungeon {
 	public void linkNeighbourRoom(Room currentRoom, Room neighbourRoom) {
 
 		if (currentRoom.getY() + 1 == neighbourRoom.getY() && currentRoom.getX() == neighbourRoom.getX()) {
-			dungeon[currentRoom.getY()][currentRoom.getX()].addDirection(Direction.EAST, neighbourRoom);
-			dungeon[neighbourRoom.getY()][neighbourRoom.getX()].addDirection(Direction.WEST, currentRoom);
-			System.out.println("lier est");
+			currentRoom.addDirection(Direction.SOUTH, neighbourRoom);
+			neighbourRoom.addDirection(Direction.NORTH, currentRoom);
 		}
 
 		if (currentRoom.getY() - 1 == neighbourRoom.getY() && currentRoom.getX() == neighbourRoom.getX()) {
-			dungeon[currentRoom.getY()][currentRoom.getX()].addDirection(Direction.WEST, neighbourRoom);
-			dungeon[neighbourRoom.getY()][neighbourRoom.getX()].addDirection(Direction.EAST, currentRoom);
-			System.out.println("lier ouest");
+			currentRoom.addDirection(Direction.NORTH, neighbourRoom);
+			neighbourRoom.addDirection(Direction.SOUTH, currentRoom);
 		}
 
 		if (currentRoom.getY() == neighbourRoom.getY() && currentRoom.getX() + 1 == neighbourRoom.getX()) {
-			dungeon[currentRoom.getY()][currentRoom.getX()].addDirection(Direction.SOUTH, neighbourRoom);
-			dungeon[neighbourRoom.getY()][neighbourRoom.getX()].addDirection(Direction.NORTH, currentRoom);
-			System.out.println("lier sud");
+			currentRoom.addDirection(Direction.EAST, neighbourRoom);
+			neighbourRoom.addDirection(Direction.WEST, currentRoom);
 		}
 
 		if (currentRoom.getY() == neighbourRoom.getY() && currentRoom.getX() - 1 == neighbourRoom.getX()) {
-			dungeon[currentRoom.getY()][currentRoom.getX()].addDirection(Direction.NORTH, neighbourRoom);
-			dungeon[neighbourRoom.getY()][neighbourRoom.getX()].addDirection(Direction.SOUTH, currentRoom);
-			System.out.println("lier nord");
+			currentRoom.addDirection(Direction.WEST, neighbourRoom);
+			neighbourRoom.addDirection(Direction.EAST, currentRoom);
 		}
 
 		voisinsVisité[neighbourRoom.getY()][neighbourRoom.getX()] = true;
-
-		System.out.println("curent room :" + currentRoom.getY() + " " + currentRoom.getX());
-		System.out.println("neighbour room :" + neighbourRoom.getY() + " " + neighbourRoom.getX());
-
 	}
 
 	/**
@@ -197,9 +175,7 @@ public class Dungeon {
 	 * @param stackRoom
 	 * @throws InterruptedException
 	 */
-	public void recursiveProceduration(Stack<Room> stackRoom) throws InterruptedException {
-		//Thread.sleep(4000);
-		//frame.repaint();
+	public void recursiveProceduration(Stack<Room> stackRoom){
 		if (!stackRoom.isEmpty()) {
 
 			Room currentRoom = stackRoom.peek();
@@ -207,23 +183,15 @@ public class Dungeon {
 
 			if (!listRoomAdjacent.isEmpty()) {
 
-				int roomRandom = r.nextInt(adjacentRoomsNotVisited(currentRoom).size());
-				Room neighbourRoom = adjacentRoomsNotVisited(currentRoom).get(roomRandom);
+				int roomRandom = r.nextInt(listRoomAdjacent.size());
+				Room neighbourRoom = listRoomAdjacent.get(roomRandom);
 				linkNeighbourRoom(currentRoom, neighbourRoom);
 
 				stackRoom.push(neighbourRoom);
-
-				recursiveProceduration(stackRoom);
 			} else {
 				stackRoom.pop();
-				recursiveProceduration(stackRoom);
 			}
+			recursiveProceduration(stackRoom);
 		}
 	}
-
-	public static void main(String[] args) {
-		Dungeon d = new Dungeon(10);
-		d.initializeDungeon();
-	}
-
 }
