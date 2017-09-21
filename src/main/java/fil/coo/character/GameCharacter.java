@@ -1,4 +1,6 @@
-package fil.coo;
+package fil.coo.character;
+
+import fil.coo.game.Room;
 
 public abstract class GameCharacter {
 

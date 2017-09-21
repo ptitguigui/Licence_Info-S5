@@ -1,4 +1,6 @@
-package fil.coo;
+package fil.coo.component;
+
+import fil.coo.character.GameCharacter;
 
 public class StrenghtPotion implements Item {
 
