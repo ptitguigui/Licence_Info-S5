@@ -1,0 +1,142 @@
+QUESTIONS:
+
+1. les mots composés de lettres (ASCII, donc non accentuées) majuscules ou minuscule, et commençant
+nécessairement par une majuscule
+
+--> [A-Z]([a-z]|[A-Z])*
+
+TesT	ok
+TEST	ok
+tEst	ko
+tesT	ko
+test	ko
+Test	ok
+
+2. les numéros de téléphone en France, au format international : 9 chiffres précédés de +33 Le
+premier des 9 chiffres est différent de 0.
+
+--> \+33[1-9]([0-9]{8})
+
++3312345678	  ko
++331234567895	ko
++33023456789	ko
++33123456789	ok
+
+3. les identifiants de département français. Un identifiant est soit numéro compris entre 01 et 95 à
+l’exception de 20, soit un numéro compris entre 971 et 976, soit 2A, soit 2B.
+
+--> 2[A-B]|97[1-6]|(0[1-9])|(1[0-9]|2[1-9]|[3-8][0-9]|9[0-5])
+
+977	ko
+976	ok
+971	ok
+2B	ok
+2A	ok
+2C  ko
+95	ok
+21	ok
+20	ko
+100	ko
+001	ko
+00	ko
+02	ok
+0	  ko
+
+4. les identificateurs commençant par une lettre, et pouvant comporter lettres, chiffres et underscore.
+Le signe ’underscore’ ne peut être utilisé que comme séparateur (donc ni en début, ni en
+fin, et on ne peut en mettre deux successifs).
+
+--> [a-zA-Z0-9](_?[a-zA-Z0-9])*[a-zA-Z0-9]*
+
+d	            ok
+dfhdfjd	      ok
+_sdsds_dsdsds	ko
+sdsds__dsdsds	ko
+sdsds_dsdsds_	ko
+sdsds_dsdsds	ok
+
+5. les nombres entiers en Java.
+Un entier peut commencer par un 0 non suivi d’un x : il est alors en octal et ne peut contenir ni 8
+ni 9. S’il commence par le préfixe 0x c’est qu’il est écrit en hexadécimal et peut donc comporter
+des chiffres ou des lettres entre a et f ou entre A et F. S’il commence par un autre chiffre que 0,
+il est en décimal. Dans tous les cas le «underscore» peut être utilisé comme séparateur, avec la
+même contrainte qu’à la question précédente.
+
+--> 0[1-7]*|0x([0-9]*|[a-f]*|[A-F]*)|[1-9][0-9]*(_?[0-9])*[0-9]*
+
+0x54545	      ok
+0xAF	        ok
+0x128	        ok
+0128	        ko
+012	          ok
+12	          ok
+_5454_545454	ko
+5454_545454_	ko
+5454__545454_	ko
+5454__545454	ko
+5454_545454	  ok
+12_54545_6546	ok
+
+
+6. les listes d’identificateurs séparés par une virgule. Les espaces sont autorisés avant comme après
+la virgule ainsi qu’en début ou fin de liste.
+
+--> (([a-zA-Z0-9](_?[a-zA-Z0-9])*[a-zA-Z0-9]*)\s*,\s*([a-zA-Z0-9](_?[a-zA-Z0-9])*[a-zA-Z0-9]*))*
+
+,sdsds_dsdsd, fdfd,fdfdfd, sdsds_dsdsds, sdsds_dsdsds	ko
+sdsds_dsdsd, fdfd,fdfdfd, sdsds_dsdsds, sdsds_dsdsds,	ko
+sdsds_dsdsd, fdfd,fdfdfd, sdsds_dsdsds, sdsds_dsdsds	ok
+sdsds_dsdsd, fdfd,fdfdfd , sdsds_dsdsds	              ok
+
+7. les littéraux chaînes de caractères (version 1) : ils commencent et terminent par ". Entre ces
+deux délimiteurs, on peut trouver tout caractère sauf le ". Par exemple, "a"b" n’est pas valide.
+
+--> "[a-zA-Z]*"
+
+""test	  ko
+""test"	  ko
+"te""st"  ko
+"te"st"	  ko
+"test"  	ok
+
+8. les littéraux chaînes de caractères (version 2) : ils commencent et terminent par ". Entre ces
+deux délimiteurs, le caractère " doit impérativement être doublé. Exemples de chaînes valides :
+"ab""c", """"
+Exemples de chaînes invalides : "a"b", """
+
+-->"([a-zA-Z]*("")*)*"
+
+""""	                  ok
+"""	                    ko
+""	                    ok
+"	                      ko
+"sdjhdjsh""fjhdjhdf"""	ok
+"sdjhdjsh""fjhdjhd"f"	  ko
+"sdjhdjsh""fjhdjhd""f"	ok
+
+9. les littéraux chaînes de caractères (version 3) : ils commencent et terminent par ". Entre ces
+deux délimiteurs, le caractère \ est une caractère spécial («d’échappement»). Il doit impérativement
+soit être doublé, soit suivi immédiatement du caractère " .
+Exemples de chaînes valides : "a\\b\"c", "\\\""
+Exemples de chaînes invalides : "a"b", "a\c", "a\", "\\\"
+
+--> "([a-zA-Z]*("")*(\\\\|\\")*)*"
+
+"\\\""	ok
+"\\\\"	ok
+"\\\"	  ko
+"\\"	  ok
+"\"	    ko
+"\""	  ok
+
+
+Noms XML. Un nom XML doit commencer par une lettre ou par «deux-points» ou par «underscore».
+Ensuite, il peut comporter ces mêmes caractères mais également des chiffres ou des points
+ou des tirets (signe «moins»).
+
+--> (\w|:)(\w|:|-|[0-9]|\.)*
+
+.lkjdkfd.-jdfhdjhfd	ko
+:lkjdkfd.-jdfhdjhfd	ok
+_lkjdkfd.-jdfhdjhfd	ok
+lkjdkfd.-jdfhdjhfd	ok
