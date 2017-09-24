@@ -70,8 +70,26 @@ public class Room {
 	}
 	
 	public void addMonster(Monster monster) {
-		listMonsters.add(monster);
+		this.listMonsters.add(monster);
 	}
-
+	
+	public boolean hasMonster() {
+		return this.listMonsters.size() > 0;
+	}
+	public List<Monster> getMonsters(){
+		return this.listMonsters;
+	}
+	
+	public void addItem(Item item) {
+		this.listItems.add(item);
+	}
+	
+	public boolean hasItem() {
+		return this.listItems.size() > 0;
+	}
+	
+	public List<Item> getItems(){
+		return this.listItems;
+	}
 	
 }

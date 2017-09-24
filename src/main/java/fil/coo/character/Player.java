@@ -1,5 +1,6 @@
 package fil.coo.character;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fil.coo.controller.Action;
@@ -11,6 +12,7 @@ public class Player extends GameCharacter {
 	
 	public Player(int hp, int strenght, int gold) {
 		super(hp, strenght, gold);
+		listActions = new ArrayList<Action>();
 	}
 
 }

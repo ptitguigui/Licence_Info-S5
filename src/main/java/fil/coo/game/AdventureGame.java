@@ -28,6 +28,7 @@ public class AdventureGame {
 			this.menu.stats(this.player);
 			
 			Direction d = this.menu.choice("What direction ?", currentRoom.getDirections());
+			playerMoveTo(d);
 		}
 	}
 
@@ -36,7 +37,7 @@ public class AdventureGame {
 	}
 
 	public void playerMoveTo(Direction d) {
-
+		currentRoom = currentRoom.getNeighbours().get(d);
 	}
 
 	public static void main(String[] args) {
