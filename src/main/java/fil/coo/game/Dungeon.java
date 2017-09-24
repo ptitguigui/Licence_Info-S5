@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
+import fil.coo.character.Monster;
 import fil.coo.controller.Direction;
 
 public class Dungeon {
@@ -45,13 +46,11 @@ public class Dungeon {
 		// initialize all the rooms
 		for (int y = 0; y < dungeon.length; y++) {
 			for (int x = 0; x < dungeon[0].length; x++) {
-				// can add monster and items in the list
-				// to do
 				if (x == taille - 1 && y == taille - 1)
 					dungeon[y][x] = new Room(true, x, y);
 				else
 					dungeon[y][x] = new Room(false, x, y);
-				// remove all monsters and items in the list
+				initializeMonster(dungeon[y][x]);
 				voisinsVisité[y][x] = false;
 
 			}
@@ -68,6 +67,45 @@ public class Dungeon {
 
 		recursiveProceduration(stackRoom);
 
+	}
+
+	/**
+	 * method to add monsters or not in the room
+	 * @param room Room
+	 */
+	public void initializeMonster(Room room) {
+		Monster monster;
+		int nbMonster = r.nextInt(3);
+		for(int i=0; i<nbMonster; i++) {
+			monster = new Monster(20,2,5); //after create a random monster
+			room.addMonster(monster);
+		}
+	}
+
+	/**
+	 * recursive method to create the proceduration of the Dungeon
+	 * 
+	 * @param stackRoom
+	 * @throws InterruptedException
+	 */
+	public void recursiveProceduration(Stack<Room> stackRoom){
+		if (!stackRoom.isEmpty()) {
+
+			Room currentRoom = stackRoom.peek();
+			List<Room> listRoomAdjacent = adjacentRoomsNotVisited(currentRoom);
+
+			if (!listRoomAdjacent.isEmpty()) {
+
+				int roomRandom = r.nextInt(listRoomAdjacent.size());
+				Room neighbourRoom = listRoomAdjacent.get(roomRandom);
+				linkNeighbourRoom(currentRoom, neighbourRoom);
+
+				stackRoom.push(neighbourRoom);
+			} else {
+				stackRoom.pop();
+			}
+			recursiveProceduration(stackRoom);
+		}
 	}
 
 	/**
@@ -169,29 +207,7 @@ public class Dungeon {
 		voisinsVisité[neighbourRoom.getY()][neighbourRoom.getX()] = true;
 	}
 
-	/**
-	 * recursive method to create the proceduration of the Dungeon
-	 * 
-	 * @param stackRoom
-	 * @throws InterruptedException
-	 */
-	public void recursiveProceduration(Stack<Room> stackRoom){
-		if (!stackRoom.isEmpty()) {
-
-			Room currentRoom = stackRoom.peek();
-			List<Room> listRoomAdjacent = adjacentRoomsNotVisited(currentRoom);
-
-			if (!listRoomAdjacent.isEmpty()) {
-
-				int roomRandom = r.nextInt(listRoomAdjacent.size());
-				Room neighbourRoom = listRoomAdjacent.get(roomRandom);
-				linkNeighbourRoom(currentRoom, neighbourRoom);
-
-				stackRoom.push(neighbourRoom);
-			} else {
-				stackRoom.pop();
-			}
-			recursiveProceduration(stackRoom);
-		}
+	public Room getBeginningRoom() {
+		return dungeon[0][0];
 	}
 }

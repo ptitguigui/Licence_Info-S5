@@ -53,6 +53,25 @@ public class Room {
 	public boolean hasLinkedNeighbourForDirection(Direction direction) {
 		return neighbours.containsKey(direction);
 	}
+	
+	public List<Direction> getDirections(){
+		List<Direction> listDirections = new ArrayList<Direction>();
+	
+		if(this.neighbours.containsKey(Direction.NORTH))
+			listDirections.add(Direction.NORTH);
+		if(this.neighbours.containsKey(Direction.SOUTH))
+			listDirections.add(Direction.SOUTH);
+		if(this.neighbours.containsKey(Direction.EAST))
+			listDirections.add(Direction.EAST);
+		if(this.neighbours.containsKey(Direction.WEST))
+			listDirections.add(Direction.WEST);
+		
+		return listDirections;
+	}
+	
+	public void addMonster(Monster monster) {
+		listMonsters.add(monster);
+	}
 
 	
 }

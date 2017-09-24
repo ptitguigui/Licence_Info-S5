@@ -7,14 +7,11 @@ public abstract class GameCharacter {
 	private int hp;
 	private int strenght;
 	private int gold;
-	private Room currentRoom;
 	
-	public GameCharacter(int hp, int strenght, int gold, Room currentRoom) {
-		super();
+	public GameCharacter(int hp, int strenght, int gold) {
 		this.hp = hp;
 		this.strenght = strenght;
 		this.gold = gold;
-		this.currentRoom = currentRoom;
 	}
 
 	public int getHp() {
@@ -39,14 +36,6 @@ public abstract class GameCharacter {
 
 	public void setGold(int gold) {
 		this.gold = gold;
-	}
-
-	public Room getCurrentRoom() {
-		return currentRoom;
-	}
-
-	public void setCurrentRoom(Room currentRoom) {
-		this.currentRoom = currentRoom;
 	}
 
 	public boolean isAlive() {

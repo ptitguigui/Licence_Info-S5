@@ -26,12 +26,4 @@ public class ScannerInt {
 		} 
 		return input;
 	}
-
-	
-	public static void main(String[] args) {
-		System.out.print("Enter an int from 0 to 5 : ");
-		int j = ScannerInt.readInt(6);
-		System.out.println("you typed : " + j);
-	}
-
 }
