@@ -57,6 +57,12 @@ public class Room {
 	public List<Direction> getDirections(){
 		List<Direction> listDirections = new ArrayList<Direction>();
 	
+		verifyDirections(listDirections);
+		
+		return listDirections;
+	}
+
+	private void verifyDirections(List<Direction> listDirections) {
 		if(this.neighbours.containsKey(Direction.NORTH))
 			listDirections.add(Direction.NORTH);
 		if(this.neighbours.containsKey(Direction.SOUTH))
@@ -65,8 +71,6 @@ public class Room {
 			listDirections.add(Direction.EAST);
 		if(this.neighbours.containsKey(Direction.WEST))
 			listDirections.add(Direction.WEST);
-		
-		return listDirections;
 	}
 	
 	public void addMonster(Monster monster) {

@@ -39,28 +39,24 @@ public class Dungeon {
 	}
 
 	/**
+	 * method to the room in coordinnate 0-0
+	 * 
+	 * @return Room[][]
+	 */
+	public Room getBeginningRoom() {
+		return dungeon[0][0];
+	}
+
+	/**
 	 * Methods to initialize the dungeon with recursive backtracking method
 	 */
 	public void initializeDungeon() {
 
 		// initialize all the rooms
-		for (int y = 0; y < dungeon.length; y++) {
-			for (int x = 0; x < dungeon[0].length; x++) {
-				if (x == taille - 1 && y == taille - 1)
-					dungeon[y][x] = new Room(true, x, y);
-				else
-					dungeon[y][x] = new Room(false, x, y);
-				initializeMonster(dungeon[y][x]);
-				voisinsVisité[y][x] = false;
-
-			}
-		}
+		initializeArray();
 
 		// choose a random room
-		int xRandom = r.nextInt(dungeon.length);
-		int yRandom = r.nextInt(dungeon.length);
-		Room firstRoom = dungeon[yRandom][xRandom];
-		voisinsVisité[firstRoom.getY()][firstRoom.getX()] = true;
+		Room firstRoom = beginInARandomRoom();
 
 		Stack<Room> stackRoom = new Stack<Room>();
 		stackRoom.push(firstRoom);
@@ -70,16 +66,73 @@ public class Dungeon {
 	}
 
 	/**
+	 * method to initialize the array dungeon and add some monsters and items
+	 */
+	public void initializeArray() {
+		for (int y = 0; y < dungeon.length; y++) {
+			for (int x = 0; x < dungeon[0].length; x++) {
+
+				if (isExit(y, x))
+					dungeon[y][x] = new Room(true, x, y);
+				else
+					dungeon[y][x] = new Room(false, x, y);
+
+				initializeMonster(dungeon[y][x]);
+				initializeItem(dungeon[y][x]);
+				voisinsVisité[y][x] = false;
+			}
+		}
+	}
+
+	/**
+	 * method to know if is the exit with the coordiante x and y
+	 * 
+	 * @param y
+	 *            int
+	 * @param x
+	 *            int
+	 * @return boolean
+	 */
+	public boolean isExit(int y, int x) {
+		return x == taille - 1 && y == taille - 1;
+	}
+
+	/**
+	 * method to add items or not in the room
+	 * 
+	 * @param room
+	 */
+	private void initializeItem(Room room) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/**
 	 * method to add monsters or not in the room
-	 * @param room Room
+	 * 
+	 * @param room
+	 *            Room
 	 */
 	public void initializeMonster(Room room) {
 		Monster monster;
 		int nbMonster = r.nextInt(3);
-		for(int i=0; i<nbMonster; i++) {
-			monster = new Monster(20,2,5); //after create a random monster
+		for (int i = 0; i < nbMonster; i++) {
+			monster = new Monster(20, 2, 5); // after create a random monster
 			room.addMonster(monster);
 		}
+	}
+
+	/**
+	 * method to get an Random room in the dungeon
+	 * 
+	 * @return Room
+	 */
+	public Room beginInARandomRoom() {
+		int xRandom = r.nextInt(dungeon.length);
+		int yRandom = r.nextInt(dungeon.length);
+		Room firstRoom = dungeon[yRandom][xRandom];
+		voisinsVisité[firstRoom.getY()][firstRoom.getX()] = true;
+		return firstRoom;
 	}
 
 	/**
@@ -88,7 +141,7 @@ public class Dungeon {
 	 * @param stackRoom
 	 * @throws InterruptedException
 	 */
-	public void recursiveProceduration(Stack<Room> stackRoom){
+	public void recursiveProceduration(Stack<Room> stackRoom) {
 		if (!stackRoom.isEmpty()) {
 
 			Room currentRoom = stackRoom.peek();
@@ -121,32 +174,96 @@ public class Dungeon {
 
 		for (int i = 0; i < listDirectionPossible.size(); i++) {
 
-			if (listDirectionPossible.get(i) == Direction.NORTH) {
-				if (!voisinsVisité[currentRoom.getY() - 1][currentRoom.getX()]) {
-					listRooms.add(dungeon[currentRoom.getY() - 1][currentRoom.getX()]);
-				}
-			}
+			verifyNorth(currentRoom, listRooms, listDirectionPossible, i);
 
-			if (listDirectionPossible.get(i) == Direction.EAST) {
-				if (!voisinsVisité[currentRoom.getY()][currentRoom.getX() + 1]) {
-					listRooms.add(dungeon[currentRoom.getY()][currentRoom.getX() + 1]);
-				}
-			}
+			verifyEast(currentRoom, listRooms, listDirectionPossible, i);
 
-			if (listDirectionPossible.get(i) == Direction.SOUTH) {
-				if (!voisinsVisité[currentRoom.getY() + 1][currentRoom.getX()]) {
-					listRooms.add(dungeon[currentRoom.getY() + 1][currentRoom.getX()]);
-				}
-			}
+			verifySouth(currentRoom, listRooms, listDirectionPossible, i);
 
-			if (listDirectionPossible.get(i) == Direction.WEST) {
-				if (!voisinsVisité[currentRoom.getY()][currentRoom.getX() - 1]) {
-					listRooms.add(dungeon[currentRoom.getY()][currentRoom.getX() - 1]);
-				}
-			}
+			verifyWest(currentRoom, listRooms, listDirectionPossible, i);
 		}
 
 		return listRooms;
+	}
+
+	/**
+	 * method to verify if we can link the room on the west
+	 * 
+	 * @param currentRoom
+	 *            Room
+	 * @param listRooms
+	 *            list<Room>
+	 * @param listDirectionPossible
+	 *            list<Direction>
+	 * @param i
+	 *            int
+	 */
+	public void verifyWest(Room currentRoom, List<Room> listRooms, List<Direction> listDirectionPossible, int i) {
+		if (listDirectionPossible.get(i) == Direction.WEST) {
+			if (!voisinsVisité[currentRoom.getY()][currentRoom.getX() - 1]) {
+				listRooms.add(dungeon[currentRoom.getY()][currentRoom.getX() - 1]);
+			}
+		}
+	}
+
+	/**
+	 * method to verify if we can link the room on the south
+	 * 
+	 * @param currentRoom
+	 *            Room
+	 * @param listRooms
+	 *            list<Room>
+	 * @param listDirectionPossible
+	 *            list<Direction>
+	 * @param i
+	 *            int
+	 */
+	public void verifySouth(Room currentRoom, List<Room> listRooms, List<Direction> listDirectionPossible, int i) {
+		if (listDirectionPossible.get(i) == Direction.SOUTH) {
+			if (!voisinsVisité[currentRoom.getY() + 1][currentRoom.getX()]) {
+				listRooms.add(dungeon[currentRoom.getY() + 1][currentRoom.getX()]);
+			}
+		}
+	}
+
+	/**
+	 * method to verify if we can link the room on the east
+	 * 
+	 * @param currentRoom
+	 *            Room
+	 * @param listRooms
+	 *            list<Room>
+	 * @param listDirectionPossible
+	 *            list<Direction>
+	 * @param i
+	 *            int
+	 */
+	public void verifyEast(Room currentRoom, List<Room> listRooms, List<Direction> listDirectionPossible, int i) {
+		if (listDirectionPossible.get(i) == Direction.EAST) {
+			if (!voisinsVisité[currentRoom.getY()][currentRoom.getX() + 1]) {
+				listRooms.add(dungeon[currentRoom.getY()][currentRoom.getX() + 1]);
+			}
+		}
+	}
+
+	/**
+	 * method to verify if we can link the room on the north
+	 * 
+	 * @param currentRoom
+	 *            Room
+	 * @param listRooms
+	 *            list<Room>
+	 * @param listDirectionPossible
+	 *            list<Direction>
+	 * @param i
+	 *            int
+	 */
+	public void verifyNorth(Room currentRoom, List<Room> listRooms, List<Direction> listDirectionPossible, int i) {
+		if (listDirectionPossible.get(i) == Direction.NORTH) {
+			if (!voisinsVisité[currentRoom.getY() - 1][currentRoom.getX()]) {
+				listRooms.add(dungeon[currentRoom.getY() - 1][currentRoom.getX()]);
+			}
+		}
 	}
 
 	/**
@@ -154,14 +271,36 @@ public class Dungeon {
 	 * 
 	 * @return list<Direction>
 	 */
-	private List<Direction> directionPossible(Room currentRoom) {
+	public List<Direction> directionPossible(Room currentRoom) {
 		List<Direction> listDirection = new ArrayList<Direction>();
 
+		addAlldirections(listDirection);
+
+		removeImpossibleDirection(currentRoom, listDirection);
+
+		return listDirection;
+	}
+
+	/**
+	 * method to add all the directions in a List
+	 * 
+	 * @param listDirection
+	 *            List<Direction>
+	 */
+	public void addAlldirections(List<Direction> listDirection) {
 		listDirection.add(Direction.NORTH);
 		listDirection.add(Direction.EAST);
 		listDirection.add(Direction.SOUTH);
 		listDirection.add(Direction.WEST);
+	}
 
+	/**
+	 * method to remove a direction from if we can't move here
+	 * 
+	 * @param currentRoom
+	 * @param listDirection
+	 */
+	public void removeImpossibleDirection(Room currentRoom, List<Direction> listDirection) {
 		if (currentRoom.getY() == taille - 1)
 			listDirection.remove(Direction.SOUTH);
 		if (currentRoom.getY() == 0)
@@ -170,8 +309,6 @@ public class Dungeon {
 			listDirection.remove(Direction.EAST);
 		if (currentRoom.getX() == 0)
 			listDirection.remove(Direction.WEST);
-
-		return listDirection;
 	}
 
 	/**
@@ -205,9 +342,5 @@ public class Dungeon {
 		}
 
 		voisinsVisité[neighbourRoom.getY()][neighbourRoom.getX()] = true;
-	}
-
-	public Room getBeginningRoom() {
-		return dungeon[0][0];
 	}
 }

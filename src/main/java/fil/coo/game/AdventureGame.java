@@ -24,7 +24,7 @@ public class AdventureGame {
 		while (!isFinished()) {
 
 			Scanner scanner = new Scanner(System.in);
-			this.menu.drawGame(this.currentRoom);
+			this.menu.drawGame(this.currentRoom, 17);
 			this.menu.stats(this.player);
 			
 			Direction d = this.menu.choice("What direction ?", currentRoom.getDirections());
