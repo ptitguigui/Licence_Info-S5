@@ -1,9 +1,14 @@
 package fil.coo.game;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 import fil.coo.character.Player;
+import fil.coo.controller.Action;
+import fil.coo.controller.Attack;
 import fil.coo.controller.Direction;
+import fil.coo.controller.Move;
 import fil.coo.util.Menu;
 
 public class AdventureGame {
@@ -19,7 +24,20 @@ public class AdventureGame {
 		this.dungeon = dungeon;
 		this.menu = menu;
 	}
+	
+	public Menu getMenu(){
+		return this.menu;
+	}
+	
+	public Dungeon getDungeon(){
+		
+		return this.dungeon;
+	}
 
+	public Room getCurrentRoom(){
+		return this.currentRoom;
+	}
+	
 	public void play() {
 		while (!isFinished()) {
 
@@ -27,8 +45,11 @@ public class AdventureGame {
 			this.menu.drawGame(this.currentRoom, 17);
 			this.menu.stats(this.player);
 			
-			Direction d = this.menu.choice("What direction ?", currentRoom.getDirections());
-			playerMoveTo(d);
+			//act move... need to change
+			/*Direction d = this.menu.choice("What direction ?", currentRoom.getDirections());
+			playerMoveTo(d);*/
+			this.player.act(this);
+			
 		}
 	}
 
@@ -43,7 +64,8 @@ public class AdventureGame {
 	public static void main(String[] args) {
 		Dungeon dungeon = new Dungeon(5);
 		dungeon.initializeDungeon();
-		Player player = new Player(200, 10, 0);
+		List<Action> listActions = Arrays.asList(new Attack(), new Move());
+		Player player = new Player("Guillaume", 200, 10, 0, listActions);
 		Menu menu = new Menu();
 		AdventureGame game = new AdventureGame(dungeon.getBeginningRoom(), player, dungeon, menu);
 		game.play();

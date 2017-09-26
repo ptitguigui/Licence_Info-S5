@@ -5,29 +5,28 @@ import java.util.List;
 
 import fil.coo.controller.Action;
 import fil.coo.game.AdventureGame;
-import fil.coo.game.Room;
 
 public class Player extends GameCharacter {
 
 	List<Action> listActions;
 	
-	public Player(int hp, int strenght, int gold) {
-		super(hp, strenght, gold);
-		listActions = new ArrayList<Action>();
+	public Player(String nom, int hp, int strenght, int gold, List<Action> listAction) {
+		super(nom, hp, strenght, gold);
+		this.listActions = listAction;
 	}
 	
 	public void act(AdventureGame g){
-		this.listActions = getActionPossible();
+		List<Action> availableActions = new ArrayList<Action>();
 		
-		for (Action action : listActions) {
-			
+		for (Action action : this.getActionPossible()) {
+			if(action.isPossible(g))
+				availableActions.add(action);				
 		}
+		Action actionChoose = g.getMenu().choice("\n"+this.nom+"... What do you want to do ?\n", availableActions);
+		actionChoose.execute(g, this);
 	}
 	
 	public List<Action> getActionPossible(){
-		List<Action> listActions = new ArrayList<Action>();
-		
-		return listActions;
+		return this.listActions;
 	}
-
 }

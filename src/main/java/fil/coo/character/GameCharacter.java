@@ -1,14 +1,14 @@
 package fil.coo.character;
 
-import fil.coo.game.Room;
-
 public abstract class GameCharacter {
 
+	protected String nom;
 	private int hp;
 	private int strenght;
 	private int gold;
 	
-	public GameCharacter(int hp, int strenght, int gold) {
+	public GameCharacter(String nom, int hp, int strenght, int gold) {
+		this.nom = nom;
 		this.hp = hp;
 		this.strenght = strenght;
 		this.gold = gold;

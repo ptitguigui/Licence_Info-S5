@@ -111,13 +111,12 @@ public class Dungeon {
 	 * method to add monsters or not in the room
 	 * 
 	 * @param room
-	 *            Room
 	 */
 	public void initializeMonster(Room room) {
 		Monster monster;
 		int nbMonster = r.nextInt(3);
 		for (int i = 0; i < nbMonster; i++) {
-			monster = new Monster(20, 2, 5); // after create a random monster
+			monster = new Monster("Romain", 20, 2, 5); // after create a random monster
 			room.addMonster(monster);
 		}
 	}
