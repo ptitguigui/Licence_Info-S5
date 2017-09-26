@@ -1,11 +1,16 @@
 package fil.coo.game;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
 import fil.coo.character.Monster;
+import fil.coo.component.GoldPotion;
+import fil.coo.component.Item;
+import fil.coo.component.LifePotion;
+import fil.coo.component.StrenghtPotion;
 import fil.coo.controller.Direction;
 
 public class Dungeon {
@@ -103,8 +108,18 @@ public class Dungeon {
 	 * @param room
 	 */
 	private void initializeItem(Room room) {
-		// TODO Auto-generated method stub
-
+		List<Item> itemsPossible = Arrays.asList(new LifePotion(), new StrenghtPotion(), new GoldPotion());
+		Item item;
+		
+		int chanceItems = r.nextInt(3);
+		if(chanceItems == 2) {
+			int nbItems = r.nextInt(2);
+			
+			for(int i=0; i<nbItems; i++) {
+				item = itemsPossible.get(r.nextInt(itemsPossible.size()));
+				room.addItem(item);
+			}
+		}
 	}
 
 	/**

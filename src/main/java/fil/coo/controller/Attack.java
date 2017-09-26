@@ -4,25 +4,40 @@ import fil.coo.character.Monster;
 import fil.coo.character.Player;
 import fil.coo.game.AdventureGame;
 
-public class Attack implements Action{
+public class Attack implements Action {
 
 	public void execute(AdventureGame g, Player player) {
-		Monster target = g.getMenu().choice("\nQuel monstre voulait vous attaquer ?\n", g.getCurrentRoom().getMonsters());
-		
-		//attack
+		Monster target = chooseAMonster(g);
+
+		if (target != null) {
+			attackTarget(g, player, target);
+		} else
+			player.act(g);
+	}
+
+	public void attackTarget(AdventureGame g, Player player, Monster target) {
 		target.changeHp(-player.getStrenght());
-		
-		if(target.isAlive())
+		System.out.println("\n\n"+target+" lost "+ player.getStrenght()+" hp");
+
+		if (target.isAlive()) {
 			player.changeHp(-target.getStrenght());
-		else
+			System.out.println("It counter attack !");
+			System.out.println(player + " lost "+ target.getStrenght()+" hp\n\n");
+		}else
 			g.getCurrentRoom().getMonsters().remove(target);
 	}
-	
+
+	public Monster chooseAMonster(AdventureGame g) {
+		Monster target = g.getMenu().choice("\nWho is the target ?\n",
+				g.getCurrentRoom().getMonsters());
+		return target;
+	}
+
 	public boolean isPossible(AdventureGame g) {
 		return g.getCurrentRoom().hasMonster();
 	}
-	
-	public String toString(){		
+
+	public String toString() {
 		return "Attack a monster";
 	}
 }

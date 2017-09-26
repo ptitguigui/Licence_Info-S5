@@ -8,6 +8,11 @@ public class StrenghtPotion implements Item {
 	
 	public void use(GameCharacter g) {
 		g.changeStrenght(bonusStrenght);
+		System.out.println("You gain "+ bonusStrenght +" strenght");
+	}
+	
+	public String toString() {
+		return "strenght potion";
 	}
 
 }

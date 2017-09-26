@@ -8,6 +8,11 @@ public class LifePotion implements Item {
 	
 	public void use(GameCharacter g) {
 		g.changeHp(bonusHp);
+		System.out.println("You heal "+ bonusHp +" hp");
+	}
+	
+	public String toString() {
+		return "life potion";
 	}
 
 }

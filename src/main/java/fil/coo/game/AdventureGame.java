@@ -8,7 +8,9 @@ import fil.coo.character.Player;
 import fil.coo.controller.Action;
 import fil.coo.controller.Attack;
 import fil.coo.controller.Direction;
+import fil.coo.controller.Look;
 import fil.coo.controller.Move;
+import fil.coo.controller.Use;
 import fil.coo.util.Menu;
 
 public class AdventureGame {
@@ -38,6 +40,10 @@ public class AdventureGame {
 		return this.currentRoom;
 	}
 	
+	public Player getPlayer() {
+		return this.player;
+	}
+	
 	public void play() {
 		while (!isFinished()) {
 
@@ -45,9 +51,6 @@ public class AdventureGame {
 			this.menu.drawGame(this.currentRoom, 17);
 			this.menu.stats(this.player);
 			
-			//act move... need to change
-			/*Direction d = this.menu.choice("What direction ?", currentRoom.getDirections());
-			playerMoveTo(d);*/
 			this.player.act(this);
 			
 		}
@@ -64,7 +67,7 @@ public class AdventureGame {
 	public static void main(String[] args) {
 		Dungeon dungeon = new Dungeon(5);
 		dungeon.initializeDungeon();
-		List<Action> listActions = Arrays.asList(new Attack(), new Move());
+		List<Action> listActions = Arrays.asList(new Attack(), new Move(), new Look(), new Use());
 		Player player = new Player("Guillaume", 200, 10, 0, listActions);
 		Menu menu = new Menu();
 		AdventureGame game = new AdventureGame(dungeon.getBeginningRoom(), player, dungeon, menu);
