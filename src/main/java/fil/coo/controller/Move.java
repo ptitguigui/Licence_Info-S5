@@ -11,6 +11,9 @@ public class Move implements Action {
 			g.playerMoveTo(d);
 		else
 			player.act(g);
+		
+		g.getMenu().drawGame(g.getCurrentRoom(), 17);
+		
 	}
 
 	public boolean isPossible(AdventureGame g) {

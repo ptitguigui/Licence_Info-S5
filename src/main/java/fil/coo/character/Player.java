@@ -22,7 +22,7 @@ public class Player extends GameCharacter {
 		return this.nom;
 	}
 	
-	public void act(AdventureGame g){
+	public Action act(AdventureGame g){
 		List<Action> availableActions = new ArrayList<Action>();
 		
 		addActionPossible(g, availableActions);
@@ -33,6 +33,8 @@ public class Player extends GameCharacter {
 			actionChoose.execute(g, this);
 		else
 			this.act(g);
+		
+		return actionChoose;
 	}
 
 	public void addActionPossible(AdventureGame g, List<Action> availableActions) {

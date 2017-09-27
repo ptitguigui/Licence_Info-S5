@@ -17,14 +17,18 @@ public class Attack implements Action {
 
 	public void attackTarget(AdventureGame g, Player player, Monster target) {
 		target.changeHp(-player.getStrenght());
-		System.out.println("\n\n"+target+" lost "+ player.getStrenght()+" hp");
+		System.out.println("\n\n"+target+" lost "+ player.getStrenght()+" hp..");
 
 		if (target.isAlive()) {
 			player.changeHp(-target.getStrenght());
 			System.out.println("It counter attack !");
 			System.out.println(player + " lost "+ target.getStrenght()+" hp\n\n");
-		}else
+		}else{
+			System.out.println("And You kill it !!");
+			System.out.println("You find "+target.getGold()+" gold !\n\n");
+			player.changeGold(target.getGold());
 			g.getCurrentRoom().getMonsters().remove(target);
+		}
 	}
 
 	public Monster chooseAMonster(AdventureGame g) {

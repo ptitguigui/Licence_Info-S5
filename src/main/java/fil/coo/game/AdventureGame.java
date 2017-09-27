@@ -45,15 +45,15 @@ public class AdventureGame {
 	}
 	
 	public void play() {
+		this.menu.drawGame(this.currentRoom, 17);
 		while (!isFinished()) {
 
-			Scanner scanner = new Scanner(System.in);
-			this.menu.drawGame(this.currentRoom, 17);
 			this.menu.stats(this.player);
-			
 			this.player.act(this);
 			
 		}
+		
+		System.out.println("Congratulation you win with "+this.player.getGold()+" gold !");
 	}
 
 	public boolean isFinished() {
@@ -63,15 +63,4 @@ public class AdventureGame {
 	public void playerMoveTo(Direction d) {
 		currentRoom = currentRoom.getNeighbours().get(d);
 	}
-
-	public static void main(String[] args) {
-		Dungeon dungeon = new Dungeon(5);
-		dungeon.initializeDungeon();
-		List<Action> listActions = Arrays.asList(new Attack(), new Move(), new Look(), new Use());
-		Player player = new Player("Guillaume", 200, 10, 0, listActions);
-		Menu menu = new Menu();
-		AdventureGame game = new AdventureGame(dungeon.getBeginningRoom(), player, dungeon, menu);
-		game.play();
-	}
-
 }
