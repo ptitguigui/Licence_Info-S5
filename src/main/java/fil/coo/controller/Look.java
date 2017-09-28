@@ -10,11 +10,8 @@ import fil.coo.game.AdventureGame;
 public class Look implements Action {
 
 	public void execute(AdventureGame g, Player player) {
-
-		System.out.println();
 		findMonsters(g);		
 		findItems(g, player);
-		System.out.println();
 	}
 
 
@@ -41,6 +38,7 @@ public class Look implements Action {
 			for (Item i : listItems) {
 				System.out.println("\t-"+i);
 				player.addItem(i);
+				g.getCurrentRoom().removeAllItems();;
 				
 			}
 		}

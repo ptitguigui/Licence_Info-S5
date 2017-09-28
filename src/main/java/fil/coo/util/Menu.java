@@ -30,12 +30,13 @@ public class Menu {
 	}
 
 	public void stats(Player player) {
+		System.out.println("+--------------------+");
 		System.out.println("Stats :");
 		System.out.println("  -Hp : \t" + player.getHp());
 		System.out.println("  -Strenght : \t" + player.getStrenght());
 		System.out.println("  -Gold : \t" + player.getGold());
-		System.err.println("\n\n");
-	}
+		System.out.println("+--------------------+\n");
+		}
 
 	public void drawGame(Room currentRoom, int taille) {
 		Map<Direction, Room> neighbour = currentRoom.getNeighbours();
@@ -84,14 +85,8 @@ public class Menu {
 	}
 	
 	public void clearScreen() throws IOException {
-		final String operatingSystem = System.getProperty("os.name");
-
-		if (operatingSystem .contains("Windows")) {
-		    Runtime.getRuntime().exec("cls");
-		}
-		else {
-		    Runtime.getRuntime().exec("clear");
-		}
+		System.out.print("\033[H\033[2J");
+		System.out.flush();		
 	}
 
 

@@ -1,16 +1,7 @@
 package fil.coo.game;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-
 import fil.coo.character.Player;
-import fil.coo.controller.Action;
-import fil.coo.controller.Attack;
 import fil.coo.controller.Direction;
-import fil.coo.controller.Look;
-import fil.coo.controller.Move;
-import fil.coo.controller.Use;
 import fil.coo.util.Menu;
 
 public class AdventureGame {
@@ -45,15 +36,11 @@ public class AdventureGame {
 	}
 	
 	public void play() {
-		this.menu.drawGame(this.currentRoom, 17);
 		while (!isFinished()) {
-
-			this.menu.stats(this.player);
-			this.player.act(this);
-			
+			this.player.act(this);		
 		}
 		
-		System.out.println("Congratulation you win with "+this.player.getGold()+" gold !");
+		win();
 	}
 
 	public boolean isFinished() {
@@ -62,5 +49,9 @@ public class AdventureGame {
 
 	public void playerMoveTo(Direction d) {
 		currentRoom = currentRoom.getNeighbours().get(d);
+	}
+	
+	public void win() {
+		System.out.println("\nCongratulation you win with "+this.player.getGold()+" gold !!!! \n");
 	}
 }

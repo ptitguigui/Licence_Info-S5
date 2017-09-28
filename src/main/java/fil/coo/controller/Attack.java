@@ -24,7 +24,7 @@ public class Attack implements Action {
 			System.out.println("It counter attack !");
 			System.out.println(player + " lost "+ target.getStrenght()+" hp\n\n");
 		}else{
-			System.out.println("And You kill it !!");
+			System.out.println("And You kill it !");
 			System.out.println("You find "+target.getGold()+" gold !\n\n");
 			player.changeGold(target.getGold());
 			g.getCurrentRoom().getMonsters().remove(target);

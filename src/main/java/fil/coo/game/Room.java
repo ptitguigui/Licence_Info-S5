@@ -96,4 +96,8 @@ public class Room {
 		return this.listItems;
 	}
 	
+	public void removeAllItems() {
+		this.listItems = new ArrayList<Item>();
+	}
+	
 }

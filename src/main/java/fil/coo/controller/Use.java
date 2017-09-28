@@ -13,7 +13,7 @@ public class Use implements Action{
 		
 		if(i != null) {
 			i.use(player);
-			g.getPlayer().getItems().remove(i);
+			player.getItems().remove(i);
 		}else
 			player.act(g);
 	}
