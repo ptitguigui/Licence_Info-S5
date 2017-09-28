@@ -1,4 +1,4 @@
-#Bienvenue sur mon TP Donjon
+Bienvenue sur mon TP Donjon
 ===================
 
 Dans ce tp vous pouvez jouer à une partie de donjon...
