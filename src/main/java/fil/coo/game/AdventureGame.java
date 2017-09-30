@@ -65,12 +65,15 @@ public class AdventureGame {
 			this.player.act(this);		
 		}
 		
-		win();
+		if(this.player.isAlive())
+			win();
+		else
+			lost();
 	}
 
 	/**
 	 * Method to know if the game is finished
-	 * @return
+	 * @return boolean
 	 */
 	public boolean isFinished() {
 		return (player.isAlive() && currentRoom.isExit()) || !(player.isAlive());
@@ -89,5 +92,12 @@ public class AdventureGame {
 	 */
 	public void win() {
 		System.out.println("\nCongratulation you win with "+this.player.getGold()+" gold !!!! \n");
+	}
+	
+	/**
+	 * Method to say you lost the game
+	 */
+	public void lost() {
+		System.out.println("\n Sorry you loose.. You had "+this.player.getGold()+" gold ... \n");
 	}
 }

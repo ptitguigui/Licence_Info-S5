@@ -16,7 +16,8 @@ import fil.coo.game.Room;
 
 public class DungeonFrame extends JFrame {
 
-	private static final int roomHeight = 50;
+	private static final long serialVersionUID = 1L;
+	static final int roomHeight = 50;
 	private static final int roomWidth = 50;
 
 	private static final int borderHeight = 50;
@@ -53,6 +54,11 @@ public class DungeonFrame extends JFrame {
 	
 	private class DrawPane extends JPanel {
 		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		/**
 		 * Method to paint the component in the Jframe
 		 */
