@@ -9,12 +9,22 @@ import fil.coo.game.AdventureGame;
 
 public class Look implements Action {
 
+
+	/**
+	 * Method to execute the look action
+	 * @param g AdventureGame
+	 * @param player Player
+	 */
 	public void execute(AdventureGame g, Player player) {
 		findMonsters(g);		
 		findItems(g, player);
 	}
 
 
+	/**
+	 * Method to show if some monsters are in the room
+	 * @param g AdventureGame
+	 */
 	public void findMonsters(AdventureGame g) {
 		List<Monster> listMonster = g.getCurrentRoom().getMonsters();
 		
@@ -28,6 +38,11 @@ public class Look implements Action {
 		}
 	}
 	
+	/**
+	 * Method to show if some item are in the room, the player get the items
+	 * @param g
+	 * @param player
+	 */
 	public void findItems(AdventureGame g, Player player) {
 		List<Item> listItems = g.getCurrentRoom().getItems();
 		
@@ -44,6 +59,11 @@ public class Look implements Action {
 		}
 	}
 
+	/**
+	 * Method to know if the player can Look the room
+	 * @param g AdventureGame
+	 * @return boolean
+	 */
 	public boolean isPossible(AdventureGame g) {
 		return true;
 	}

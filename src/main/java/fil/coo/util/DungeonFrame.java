@@ -1,4 +1,4 @@
-package fil.coo.game;
+package fil.coo.util;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -10,7 +10,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import fil.coo.controller.Direction;
+import fil.coo.game.Direction;
+import fil.coo.game.Dungeon;
+import fil.coo.game.Room;
 
 public class DungeonFrame extends JFrame {
 
@@ -24,6 +26,10 @@ public class DungeonFrame extends JFrame {
 
 	private Room[][] dungeon;
 
+	/**
+	 * Method to display the dungeon in a Jframe
+	 * @param dungeon Dungeon
+	 */
 	public DungeonFrame(Dungeon dungeon) {
 		this.dungeon = dungeon.getDungeon();
 
@@ -44,9 +50,12 @@ public class DungeonFrame extends JFrame {
 		pack();
 		setVisible(true);
 	}
-
+	
 	private class DrawPane extends JPanel {
-		@Override
+		
+		/**
+		 * Method to paint the component in the Jframe
+		 */
 		public void paintComponent(Graphics gg) {
 			super.paintComponents(gg);
 
@@ -83,21 +92,23 @@ public class DungeonFrame extends JFrame {
 			}
 		}
 
+		/**
+		 * Method to paint the border inside
+		 * @param g AdventureGame
+		 */
 		private void paintInside(Graphics2D g) {
 			g.setColor(Color.LIGHT_GRAY);
 			g.fillRect(borderWidth, borderHeight, roomWidth * dungeon[0].length, roomHeight * dungeon.length);
 		}
 
+		/**
+		 * Method to paint the border outside
+		 * @param g AdventureGame
+		 */
 		private void paintEdges(Graphics2D g) {
 			g.setColor(Color.BLACK);
 			g.setStroke(new BasicStroke(2));
 			g.drawRect(0, 0, panelDim.width, panelDim.height);
 		}
 	}
-
-	/*public static void main(String[] args) {
-		Dungeon dungeon = new Dungeon(10);
-		dungeon.initializeDungeon();
-		DungeonFrame frame = new DungeonFrame(dungeon);
-	}*/
 }

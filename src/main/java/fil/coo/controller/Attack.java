@@ -6,6 +6,11 @@ import fil.coo.game.AdventureGame;
 
 public class Attack implements Action {
 
+	/**
+	 * Method to execute the attack action
+	 * @param g AdventureGame
+	 * @param player Player
+	 */
 	public void execute(AdventureGame g, Player player) {
 		Monster target = chooseAMonster(g);
 
@@ -14,7 +19,13 @@ public class Attack implements Action {
 		} else
 			player.act(g);
 	}
-
+	
+	/**
+	 * Method to attack the monster
+	 * @param g AdventureGame
+	 * @param player Player
+	 * @param target Monster
+	 */
 	public void attackTarget(AdventureGame g, Player player, Monster target) {
 		target.changeHp(-player.getStrenght());
 		System.out.println("\n\n"+target+" lost "+ player.getStrenght()+" hp..");
@@ -30,13 +41,23 @@ public class Attack implements Action {
 			g.getCurrentRoom().getMonsters().remove(target);
 		}
 	}
-
+	
+	/**
+	 * Method to choose a monster from a list
+	 * @param g AdventureGame
+	 * @return Monster
+	 */
 	public Monster chooseAMonster(AdventureGame g) {
 		Monster target = g.getMenu().choice("\nWho is the target ?\n",
 				g.getCurrentRoom().getMonsters());
 		return target;
 	}
 
+	/**
+	 * Method to know if the player can Attack
+	 * @param g AdventureGame
+	 * @return boolean
+	 */
 	public boolean isPossible(AdventureGame g) {
 		return g.getCurrentRoom().hasMonster();
 	}

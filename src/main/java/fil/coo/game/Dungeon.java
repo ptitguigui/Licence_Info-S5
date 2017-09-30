@@ -11,26 +11,24 @@ import fil.coo.component.GoldPotion;
 import fil.coo.component.Item;
 import fil.coo.component.LifePotion;
 import fil.coo.component.StrenghtPotion;
-import fil.coo.controller.Direction;
 
 public class Dungeon {
 
 	private Room[][] dungeon;
-	private int taille;
-	private boolean[][] voisinsVisité;
+	private int size;
+	private boolean[][] neighboursVisited;
 	private Random r = new Random();
 
 	/**
 	 * Constructor of Dungeon to initialize Array and get a random Room from the
 	 * Dungeon
 	 * 
-	 * @param taille
-	 *            int
+	 * @param size int
 	 */
-	public Dungeon(int taille) {
-		this.taille = taille;
-		dungeon = new Room[taille][taille];
-		voisinsVisité = new boolean[taille][taille];
+	public Dungeon(int size) {
+		this.size = size;
+		dungeon = new Room[size][size];
+		neighboursVisited = new boolean[size][size];
 
 	}
 
@@ -84,7 +82,7 @@ public class Dungeon {
 
 				initializeMonster(dungeon[y][x]);
 				initializeItem(dungeon[y][x]);
-				voisinsVisité[y][x] = false;
+				neighboursVisited[y][x] = false;
 			}
 		}
 	}
@@ -99,7 +97,7 @@ public class Dungeon {
 	 * @return boolean
 	 */
 	public boolean isExit(int y, int x) {
-		return x == taille - 1 && y == taille - 1;
+		return x == size - 1 && y == size - 1;
 	}
 
 	/**
@@ -145,7 +143,7 @@ public class Dungeon {
 		int xRandom = r.nextInt(dungeon.length);
 		int yRandom = r.nextInt(dungeon.length);
 		Room firstRoom = dungeon[yRandom][xRandom];
-		voisinsVisité[firstRoom.getY()][firstRoom.getX()] = true;
+		neighboursVisited[firstRoom.getY()][firstRoom.getX()] = true;
 		return firstRoom;
 	}
 
@@ -214,7 +212,7 @@ public class Dungeon {
 	 */
 	public void verifyWest(Room currentRoom, List<Room> listRooms, List<Direction> listDirectionPossible, int i) {
 		if (listDirectionPossible.get(i) == Direction.WEST) {
-			if (!voisinsVisité[currentRoom.getY()][currentRoom.getX() - 1]) {
+			if (!neighboursVisited[currentRoom.getY()][currentRoom.getX() - 1]) {
 				listRooms.add(dungeon[currentRoom.getY()][currentRoom.getX() - 1]);
 			}
 		}
@@ -234,7 +232,7 @@ public class Dungeon {
 	 */
 	public void verifySouth(Room currentRoom, List<Room> listRooms, List<Direction> listDirectionPossible, int i) {
 		if (listDirectionPossible.get(i) == Direction.SOUTH) {
-			if (!voisinsVisité[currentRoom.getY() + 1][currentRoom.getX()]) {
+			if (!neighboursVisited[currentRoom.getY() + 1][currentRoom.getX()]) {
 				listRooms.add(dungeon[currentRoom.getY() + 1][currentRoom.getX()]);
 			}
 		}
@@ -254,7 +252,7 @@ public class Dungeon {
 	 */
 	public void verifyEast(Room currentRoom, List<Room> listRooms, List<Direction> listDirectionPossible, int i) {
 		if (listDirectionPossible.get(i) == Direction.EAST) {
-			if (!voisinsVisité[currentRoom.getY()][currentRoom.getX() + 1]) {
+			if (!neighboursVisited[currentRoom.getY()][currentRoom.getX() + 1]) {
 				listRooms.add(dungeon[currentRoom.getY()][currentRoom.getX() + 1]);
 			}
 		}
@@ -274,7 +272,7 @@ public class Dungeon {
 	 */
 	public void verifyNorth(Room currentRoom, List<Room> listRooms, List<Direction> listDirectionPossible, int i) {
 		if (listDirectionPossible.get(i) == Direction.NORTH) {
-			if (!voisinsVisité[currentRoom.getY() - 1][currentRoom.getX()]) {
+			if (!neighboursVisited[currentRoom.getY() - 1][currentRoom.getX()]) {
 				listRooms.add(dungeon[currentRoom.getY() - 1][currentRoom.getX()]);
 			}
 		}
@@ -315,11 +313,11 @@ public class Dungeon {
 	 * @param listDirection
 	 */
 	public void removeImpossibleDirection(Room currentRoom, List<Direction> listDirection) {
-		if (currentRoom.getY() == taille - 1)
+		if (currentRoom.getY() == size - 1)
 			listDirection.remove(Direction.SOUTH);
 		if (currentRoom.getY() == 0)
 			listDirection.remove(Direction.NORTH);
-		if (currentRoom.getX() == taille - 1)
+		if (currentRoom.getX() == size - 1)
 			listDirection.remove(Direction.EAST);
 		if (currentRoom.getX() == 0)
 			listDirection.remove(Direction.WEST);
@@ -355,6 +353,6 @@ public class Dungeon {
 			neighbourRoom.addDirection(Direction.EAST, currentRoom);
 		}
 
-		voisinsVisité[neighbourRoom.getY()][neighbourRoom.getX()] = true;
+		neighboursVisited[neighbourRoom.getY()][neighbourRoom.getX()] = true;
 	}
 }

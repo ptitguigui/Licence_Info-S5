@@ -1,4 +1,4 @@
-package fil.coo.controller;
+package fil.coo.game;
 
 public enum Direction {
 

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import fil.coo.character.Player;
-import fil.coo.controller.Direction;
+import fil.coo.game.Direction;
 import fil.coo.game.Room;
 
 public class Menu {
@@ -13,6 +13,12 @@ public class Menu {
 	private static boolean write = false;
 
 	
+	/**
+	 * Method to choose a element from a list 
+	 * @param message String
+	 * @param list List<T>
+	 * @return T
+	 */
 	public <T> T choice(String message, List<T> list) {
 		int i = 1;
 		System.out.println(message);
@@ -28,7 +34,11 @@ public class Menu {
 		else
 			return list.get(choix - 1);
 	}
-
+	
+	/**
+	 * Method to display the stats of the player
+	 * @param player Player
+	 */
 	public void stats(Player player) {
 		System.out.println("+--------------------+");
 		System.out.println("Stats :");
@@ -38,6 +48,11 @@ public class Menu {
 		System.out.println("+--------------------+\n");
 		}
 
+	/**
+	 * method to display the current room
+	 * @param currentRoom ROom
+	 * @param taille int
+	 */
 	public void drawGame(Room currentRoom, int taille) {
 		Map<Direction, Room> neighbour = currentRoom.getNeighbours();
 		String gameScreen = "";
@@ -84,47 +99,86 @@ public class Menu {
 		System.out.println(gameScreen);
 	}
 	
+	/**
+	 * Method to clear the console
+	 * @throws IOException
+	 */
 	public void clearScreen() throws IOException {
 		System.out.print("\033[H\033[2J");
 		System.out.flush();		
 	}
 
-
+	/**
+	 * Method to print horizontal wall of the room
+	 * @param gameScreen String	
+	 * @return String
+	 */
 	public String printHorizontal(String gameScreen) {
 		gameScreen+= "==";
 		write = true;
 		return gameScreen;
 	}
 
+	/**
+	 * Method to print vertical wall of the room
+	 * @param gameScreen String
+	 * @return String
+	 */
 	public String printVertical(String gameScreen) {
 		gameScreen+= "|";
 		write = true;
 		return gameScreen;
 	}
 
+	/**
+	 * Method to know if the room is a corner
+	 * @param taille int
+	 * @param i int
+	 * @param j int 
+	 * @return boolean
+	 */
 	public boolean isACorner(int taille, int i, int j) {
 		return i == 0 && j == 0 || i == 0 && j == taille - 1 || i == taille - 1 && j == 0
 				|| i == taille - 1 && j == taille - 1;
 	}
 
+	/**
+	 * Method to print a corner
+	 * @param gameScreen String
+	 * @return String
+	 */
 	public String printCorner(String gameScreen) {
 		gameScreen += "+";
 		write = true;
 		return gameScreen;
 	}
 
+	/**
+	 * Method to print a door when it's horizontal
+	 * @param gameScreen String
+	 * @return String
+	 */
 	private String printDoorHorizontal(String gameScreen) {
-		gameScreen += "dd";
+		gameScreen += "d=";
 		write = true;
 		return gameScreen;
 	}
-	
+
+	/**
+	 * Method to print a door when it's vertical
+	 * @param gameScreen String
+	 * @return String
+	 */
 	public String printDoorVertical(String gameScreen) {
 		gameScreen += "d";
 		write = true;
 		return gameScreen;
 	}
 
+	/**
+	 * Method to know if is already write or not
+	 * @return boolean
+	 */
 	public  boolean isNotWrite() {
 		return !(write);
 	}

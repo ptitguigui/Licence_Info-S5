@@ -8,6 +8,11 @@ import fil.coo.game.AdventureGame;
 
 public class Use implements Action{
 
+	/**
+	 * Method to execute the use action
+	 * @param g AdventureGame
+	 * @param player Player
+	 */
 	public void execute(AdventureGame g, Player player) {
 		Item i = chooseAnItem(g, player);
 		
@@ -18,6 +23,12 @@ public class Use implements Action{
 			player.act(g);
 	}
 
+	/**
+	 * Method to choose an item from a list
+	 * @param g AdventureGame
+	 * @param player Player
+	 * @return Item
+	 */
 	private Item chooseAnItem(AdventureGame g, Player player) {
 		List<Item> listItems = player.getItems();
 		
@@ -25,6 +36,11 @@ public class Use implements Action{
 		return i;
 	}
 
+	/**
+	 * Method to know if the player can use something in another room
+	 * @param g AdventureGame
+	 * @return boolean
+	 */
 	public boolean isPossible(AdventureGame g) {
 		return g.getPlayer().gotItem();
 	}
