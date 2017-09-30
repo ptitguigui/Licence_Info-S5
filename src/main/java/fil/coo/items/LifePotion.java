@@ -4,7 +4,11 @@ import fil.coo.character.GameCharacter;
 
 public class LifePotion implements Item {
 
-	int bonusHp = 10;
+	int bonusHp;
+	
+	public LifePotion(int bonusHp) {
+		this.bonusHp= bonusHp;
+	}
 
 	/**
 	 * Method to use the life potion

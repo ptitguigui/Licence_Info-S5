@@ -1,4 +1,4 @@
-package fil.coo.actionsTests;
+package fil.coo.itemsTest;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,7 +6,6 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,23 +21,23 @@ import fil.coo.game.Dungeon;
 import fil.coo.items.LifePotion;
 import fil.coo.util.Menu;
 
-public class UseTest {
-
+public class LifePotionTest {
 	
-	Use u;
+	LifePotion potion;
+	Use use;
 	Player player;
 	AdventureGame g;
 
 	@Before
 	public void setUp() {
-		u = new Use();
+		use = new Use();
 
 		Dungeon dungeon = new Dungeon(10);
 		dungeon.getBeginningRoom().removeAllItems();
 		dungeon.getBeginningRoom().removeAllMonsters();
 
 		List<Action> listActions = Arrays.asList(new Attack(), new Move(), new Look(), new Use());
-		player = new Player("player", 10, 10, 0, listActions);
+		player = new Player("player", 100, 10, 0, listActions);
 
 		Menu menu = new Menu();
 
@@ -46,39 +45,19 @@ public class UseTest {
 	}
 	
 	@Test
-	public void testIsNotPossible() {
-		assertEquals(false, u.isPossible(g));
-	}
-	
-	@Test
-	public void testIsPossible() {
-		LifePotion item = new LifePotion(10);
-		player.addItem(item);
+	public void testUseBonus() {
+
+		potion = new LifePotion(10);
+		player.addItem(potion);
 		
-		assertEquals(true, u.isPossible(g));
-	}
-	
-	@Test(expected=NoSuchElementException.class)
-	public void testChooseAnItemFail() {
+		assertEquals(100, player.getHp());
 		
-		String input = "0";
+		String input = "1";
 	    InputStream in = new ByteArrayInputStream(input.getBytes());
 	    System.setIn(in);
 	    
-		u.chooseAnItem(g, player);
-	}
-
-	@Test
-	public void testChooseAnItem() {
-		LifePotion item = new LifePotion(10);
-		player.addItem(item);
-		String input;
+		use.execute(g, player);
 		
-		input = "1";
-	    InputStream in = new ByteArrayInputStream(input.getBytes());
-	    System.setIn(in);
-	    
-	    assertEquals(item, u.chooseAnItem(g, player));
+		assertEquals(110, player.getHp());		
 	}
-
 }

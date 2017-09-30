@@ -90,7 +90,7 @@ public class LookTest {
 	
 	@Test
 	public void testFindItemWithOneItem() {
-		LifePotion i = new LifePotion();
+		LifePotion i = new LifePotion(10);
 		g.getDungeon().getBeginningRoom().addItem(i);
 		List<Item> listItems = l.findItems(g, player);
 
@@ -101,9 +101,9 @@ public class LookTest {
 	
 	@Test
 	public void testFindItemWithSeveralItems() {
-		LifePotion i1 = new LifePotion();
-		LifePotion i2 = new LifePotion();
-		LifePotion i3 = new LifePotion();
+		LifePotion i1 = new LifePotion(10);
+		LifePotion i2 = new LifePotion(10);
+		LifePotion i3 = new LifePotion(10);
 		
 		g.getCurrentRoom().addItem(i1);
 		g.getCurrentRoom().addItem(i2);

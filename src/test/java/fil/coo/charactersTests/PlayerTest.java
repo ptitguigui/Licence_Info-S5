@@ -33,7 +33,7 @@ public class PlayerTest extends GameCharacterTest {
 	public void testAddItem() {
 		MockPlayer p = new MockPlayer();
 
-		LifePotion i = new LifePotion();
+		LifePotion i = new LifePotion(10);
 		p.addItem(i);
 		assertEquals(i, p.getItems().get(0));
 	}
@@ -42,9 +42,9 @@ public class PlayerTest extends GameCharacterTest {
 	public void testAddSeveralItems() {
 		MockPlayer p = new MockPlayer();
 
-		LifePotion i1 = new LifePotion();
-		StrenghtPotion i2 = new StrenghtPotion();
-		GoldPotion i3 = new GoldPotion();
+		LifePotion i1 = new LifePotion(10);
+		StrenghtPotion i2 = new StrenghtPotion(5);
+		GoldPotion i3 = new GoldPotion(20);
 		List<Item> items = Arrays.asList(i1,i2, i3);
 		
 		p.addItem(i1);
@@ -61,7 +61,7 @@ public class PlayerTest extends GameCharacterTest {
 	public void testGotItem() {
 		MockPlayer p = new MockPlayer();
 
-		LifePotion i = new LifePotion();
+		LifePotion i = new LifePotion(10);
 		p.addItem(i);
 		assertEquals(true, p.gotItem());
 	}

@@ -115,7 +115,7 @@ public class Dungeon {
 	 * @param room
 	 */
 	public void initializeItem(Room room) {
-		List<Item> itemsPossible = Arrays.asList(new LifePotion(), new StrenghtPotion(), new GoldPotion());
+		List<Item> itemsPossible = Arrays.asList(new LifePotion(10), new StrenghtPotion(5), new GoldPotion(20));
 		Item item;
 		
 		int chanceItems = r.nextInt(3);

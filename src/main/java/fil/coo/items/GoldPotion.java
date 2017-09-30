@@ -4,7 +4,11 @@ import fil.coo.character.GameCharacter;
 
 public class GoldPotion implements Item {
 
-	int bonusGold=20;
+	int bonusGold;
+	
+	public GoldPotion(int bonusGold) {
+		this.bonusGold = bonusGold;
+	}
 	
 	/**
 	 * Method to use the gold potion

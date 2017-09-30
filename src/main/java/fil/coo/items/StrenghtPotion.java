@@ -4,8 +4,11 @@ import fil.coo.character.GameCharacter;
 
 public class StrenghtPotion implements Item {
 
-	int bonusStrenght = 5;
+	int bonusStrenght;
 	
+	public StrenghtPotion(int bonusStrenght) {
+		this.bonusStrenght= bonusStrenght;
+	}
 
 	/**
 	 * Method to use the strenght potion
