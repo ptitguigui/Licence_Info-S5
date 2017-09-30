@@ -1,10 +1,10 @@
-package fil.coo.controller;
+package fil.coo.actions;
 
 import java.util.List;
 
 import fil.coo.character.Player;
-import fil.coo.component.Item;
 import fil.coo.game.AdventureGame;
+import fil.coo.items.Item;
 
 public class Use implements Action{
 
@@ -29,7 +29,7 @@ public class Use implements Action{
 	 * @param player Player
 	 * @return Item
 	 */
-	private Item chooseAnItem(AdventureGame g, Player player) {
+	public Item chooseAnItem(AdventureGame g, Player player) {
 		List<Item> listItems = player.getItems();
 		
 		Item i = g.getMenu().choice("\n What item do you want use ?\n", listItems);

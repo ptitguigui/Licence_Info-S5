@@ -1,11 +1,11 @@
-package fil.coo.controller;
+package fil.coo.actions;
 
 import java.util.List;
 
 import fil.coo.character.Monster;
 import fil.coo.character.Player;
-import fil.coo.component.Item;
 import fil.coo.game.AdventureGame;
+import fil.coo.items.Item;
 
 public class Look implements Action {
 
@@ -25,7 +25,7 @@ public class Look implements Action {
 	 * Method to show if some monsters are in the room
 	 * @param g AdventureGame
 	 */
-	public void findMonsters(AdventureGame g) {
+	public List<Monster> findMonsters(AdventureGame g) {
 		List<Monster> listMonster = g.getCurrentRoom().getMonsters();
 		
 		if(listMonster.isEmpty()) {
@@ -36,6 +36,7 @@ public class Look implements Action {
 				System.out.println("\t-"+monster);
 			}
 		}
+		return listMonster;
 	}
 	
 	/**
@@ -43,7 +44,7 @@ public class Look implements Action {
 	 * @param g
 	 * @param player
 	 */
-	public void findItems(AdventureGame g, Player player) {
+	public List<Item> findItems(AdventureGame g, Player player) {
 		List<Item> listItems = g.getCurrentRoom().getItems();
 		
 		if( listItems.isEmpty()) {
@@ -52,11 +53,11 @@ public class Look implements Action {
 			System.out.println("You find some items:");
 			for (Item i : listItems) {
 				System.out.println("\t-"+i);
-				player.addItem(i);
-				g.getCurrentRoom().removeAllItems();;
-				
+				player.addItem(i);				
 			}
+			g.getCurrentRoom().removeAllItems();
 		}
+		return listItems;
 	}
 
 	/**

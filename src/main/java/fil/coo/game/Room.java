@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import fil.coo.character.Monster;
-import fil.coo.component.Item;
+import fil.coo.items.Item;
 
 public class Room {
 
@@ -131,6 +131,13 @@ public class Room {
 	 */
 	public List<Monster> getMonsters(){
 		return this.listMonsters;
+	}
+	
+	/**
+	 * Method to remove all monster from the room
+	 */
+	public void removeAllMonsters() {
+		this.listMonsters = new ArrayList<Monster>();
 	}
 	
 	/**

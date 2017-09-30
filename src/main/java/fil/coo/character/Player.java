@@ -3,10 +3,10 @@ package fil.coo.character;
 import java.util.ArrayList;
 import java.util.List;
 
-import fil.coo.component.Item;
-import fil.coo.controller.Action;
-import fil.coo.controller.Move;
+import fil.coo.actions.Action;
+import fil.coo.actions.Move;
 import fil.coo.game.AdventureGame;
+import fil.coo.items.Item;
 
 public class Player extends GameCharacter {
 

@@ -3,12 +3,12 @@ package fil.coo.main;
 import java.util.Arrays;
 import java.util.List;
 
+import fil.coo.actions.Action;
+import fil.coo.actions.Attack;
+import fil.coo.actions.Look;
+import fil.coo.actions.Move;
+import fil.coo.actions.Use;
 import fil.coo.character.Player;
-import fil.coo.controller.Action;
-import fil.coo.controller.Attack;
-import fil.coo.controller.Look;
-import fil.coo.controller.Move;
-import fil.coo.controller.Use;
 import fil.coo.game.AdventureGame;
 import fil.coo.game.Dungeon;
 import fil.coo.util.DungeonFrame;
@@ -79,7 +79,6 @@ public class App {
 		}
 		
 		Dungeon dungeon = new Dungeon(taille);
-		dungeon.initializeDungeon();
 		return dungeon;
 	}
 

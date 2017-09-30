@@ -1,4 +1,4 @@
-package fil.coo.component;
+package fil.coo.items;
 
 import fil.coo.character.GameCharacter;
 

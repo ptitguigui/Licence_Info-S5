@@ -7,10 +7,10 @@ import java.util.Random;
 import java.util.Stack;
 
 import fil.coo.character.Monster;
-import fil.coo.component.GoldPotion;
-import fil.coo.component.Item;
-import fil.coo.component.LifePotion;
-import fil.coo.component.StrenghtPotion;
+import fil.coo.items.GoldPotion;
+import fil.coo.items.Item;
+import fil.coo.items.LifePotion;
+import fil.coo.items.StrenghtPotion;
 
 public class Dungeon {
 
@@ -29,7 +29,7 @@ public class Dungeon {
 		this.size = size;
 		dungeon = new Room[size][size];
 		neighboursVisited = new boolean[size][size];
-
+		this.initializeDungeon();
 	}
 
 	/**
@@ -42,12 +42,21 @@ public class Dungeon {
 	}
 
 	/**
-	 * method to the room in coordinnate 0-0
+	 * method to get the room in coordinnate 0-0
 	 * 
-	 * @return Room[][]
+	 * @return Room
 	 */
 	public Room getBeginningRoom() {
 		return dungeon[0][0];
+	}
+	
+	/**
+	 * method to the room in coordinnate y-x
+	 * 
+	 * @return Room
+	 */
+	public Room getRoom(int x, int y) {
+		return dungeon[y][x];
 	}
 
 	/**
@@ -105,7 +114,7 @@ public class Dungeon {
 	 * 
 	 * @param room
 	 */
-	private void initializeItem(Room room) {
+	public void initializeItem(Room room) {
 		List<Item> itemsPossible = Arrays.asList(new LifePotion(), new StrenghtPotion(), new GoldPotion());
 		Item item;
 		
@@ -129,9 +138,18 @@ public class Dungeon {
 		Monster monster;
 		int nbMonster = r.nextInt(3);
 		for (int i = 0; i < nbMonster; i++) {
-			monster = new Monster("Romain", 20, 2, 5); // after create a random monster
+			monster = new Monster(getRandomName(), 20, 2, 5); // after create a random monster
 			room.addMonster(monster);
 		}
+	}
+
+	/**
+	 * Method to get a random name into 3 name : Romain, Quentin or Jean Christophe
+	 * @return String
+	 */
+	public String getRandomName() {
+		String[] names = new String[] {"Romain", "Jean Christopĥe", "Quentin"};
+		return names[r.nextInt(names.length)];
 	}
 
 	/**

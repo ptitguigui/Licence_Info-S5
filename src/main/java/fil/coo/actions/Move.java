@@ -1,4 +1,4 @@
-package fil.coo.controller;
+package fil.coo.actions;
 
 import fil.coo.character.Player;
 import fil.coo.game.AdventureGame;
@@ -12,11 +12,21 @@ public class Move implements Action {
 	 * @param player Player
 	 */
 	public void execute(AdventureGame g, Player player) {
-		Direction d = g.getMenu().choice("What direction ?", g.getCurrentRoom().getDirections());
+		Direction d = chooseDirection(g);
 		if (d != null)
 			g.playerMoveTo(d);
 		else
 			player.act(g);		
+	}
+
+	/**
+	 * Method to choose a direction in the current room
+	 * @param g AdventureGame
+	 * @return Direction
+	 */
+	public Direction chooseDirection(AdventureGame g) {
+		Direction d = g.getMenu().choice("What direction ?", g.getCurrentRoom().getDirections());
+		return d;
 	}
 
 	/**

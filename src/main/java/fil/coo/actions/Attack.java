@@ -1,4 +1,4 @@
-package fil.coo.controller;
+package fil.coo.actions;
 
 import fil.coo.character.Monster;
 import fil.coo.character.Player;
