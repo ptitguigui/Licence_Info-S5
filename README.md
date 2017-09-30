@@ -1,5 +1,5 @@
 Bienvenue sur mon TP Donjon
-===================
+=================
 
 Dans ce tp vous pouvez jouer à une partie de donjon...
 
@@ -50,5 +50,3 @@ Dans ce tp vous pouvez jouer à une partie de donjon...
 	- Pour cela il faut choisir la method `Use an item`
 	- Les objets sont des potions `rare`
 	- Elles permettent d'améliorer un attribut du joueur
-	
-
