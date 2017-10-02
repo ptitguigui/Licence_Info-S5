@@ -18,12 +18,16 @@ public class App {
 
 	public static void main(String[] args) {
 
+		//initialize the dungeon
 		Dungeon dungeon = initDungeon(args);
 		
+		//Display the map in graphical during 6 seconds
 		showDungeon(dungeon, 6000);
 
+		//initialize the player
 		Player player = initPlayer();
 
+		//let's start the game
 		playTheGame(dungeon, player);
 	}
 
@@ -96,7 +100,7 @@ public class App {
 			size = 5;
 		}
 		
-		if(size >= 5)
+		if(size >= 5 && size <=20)
 			return size;
 		else 
 			return 5;
