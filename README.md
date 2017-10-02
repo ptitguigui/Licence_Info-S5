@@ -16,8 +16,9 @@ Dans ce tp vous pouvez jouer à une partie de donjon...
 
 # Comment lancer le jeu :
 
-- Si premiere fois que vous lancer le jeu, compiler avec `mvn package`
-- Lancer la commande executable `COO-Donjon-1.0-SNAPSHOT.jar` dans le dossier target
+- Télécharger l'archive à l'aide de la commande `git clone`
+- Si c'est la premiere fois que vous lancer le jeu, compiler avec `mvn package`
+- Lancer la commande executable `COO-Donjon-1.0-SNAPSHOT.jar` dans le dossier `target`
 - Celui-ci vous montrera le donjon que vous devez parcourir
 - De base, le donjon fait une taille de 5
 - Vous pouvez choisir la taille du donjon en rajoutant la taille que vous voulez en option
