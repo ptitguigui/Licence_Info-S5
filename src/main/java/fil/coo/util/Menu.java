@@ -17,7 +17,7 @@ public class Menu {
 	 * Method to choose a element from a list 
 	 * @param message String
 	 * @param list List<T>
-	 * @return T
+	 * @return T type
 	 */
 	public <T> T choice(String message, List<T> list) {
 		int i = 1;

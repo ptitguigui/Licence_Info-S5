@@ -52,7 +52,8 @@ public class Dungeon {
 	
 	/**
 	 * method to the room in coordinnate y-x
-	 * 
+	 * @param x int
+	 * @param y int
 	 * @return Room
 	 */
 	public Room getRoom(int x, int y) {
@@ -112,7 +113,7 @@ public class Dungeon {
 	/**
 	 * method to add items or not in the room
 	 * 
-	 * @param room
+	 * @param room Room
 	 */
 	public void initializeItem(Room room) {
 		List<Item> itemsPossible = Arrays.asList(new LifePotion(10), new StrenghtPotion(5), new GoldPotion(20));
@@ -132,7 +133,7 @@ public class Dungeon {
 	/**
 	 * method to add monsters or not in the room
 	 * 
-	 * @param room
+	 * @param room Room
 	 */
 	public void initializeMonster(Room room) {
 		Monster monster;
@@ -168,8 +169,7 @@ public class Dungeon {
 	/**
 	 * recursive method to create the proceduration of the Dungeon
 	 * 
-	 * @param stackRoom
-	 * @throws InterruptedException
+	 * @param stackRoom Stack<Room>
 	 */
 	public void recursiveProceduration(Stack<Room> stackRoom) {
 		if (!stackRoom.isEmpty()) {
@@ -194,8 +194,8 @@ public class Dungeon {
 	/**
 	 * Method to get the adjacent rooms of a room
 	 * 
-	 * @param currentRoom
-	 * @return Map<Direction, Room>
+	 * @param currentRoom Room
+	 * @return Map< Direction, Room >
 	 */
 	public List<Room> adjacentRoomsNotVisited(Room currentRoom) {
 
@@ -299,6 +299,7 @@ public class Dungeon {
 	/**
 	 * method to get the direction possible of the current room
 	 * 
+	 * @param currentRoom Room
 	 * @return list<Direction>
 	 */
 	public List<Direction> directionPossible(Room currentRoom) {
@@ -327,8 +328,8 @@ public class Dungeon {
 	/**
 	 * method to remove a direction from if we can't move here
 	 * 
-	 * @param currentRoom
-	 * @param listDirection
+	 * @param currentRoom Room
+	 * @param listDirection List<Direction>
 	 */
 	public void removeImpossibleDirection(Room currentRoom, List<Direction> listDirection) {
 		if (currentRoom.getY() == size - 1)

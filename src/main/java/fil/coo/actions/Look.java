@@ -33,7 +33,7 @@ public class Look implements Action {
 		}else {
 			System.out.println("The different monsters present in the room:");
 			for (Monster monster : listMonster) {
-				System.out.println("\t-"+monster);
+				System.out.println("\t-"+monster +": "+ monster.getHp()+" hp");
 			}
 		}
 		return listMonster;

@@ -52,7 +52,7 @@ public class Player extends GameCharacter {
 		
 		if(!(actionChoose instanceof Move))
 		try {
-			Thread.sleep(1500);
+			Thread.sleep(2500);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
