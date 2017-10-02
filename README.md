@@ -1,6 +1,7 @@
 Bienvenue sur mon TP Donjon
 =================
 
+Mini projet réalisé dans le cadre de la Conception Orienté Objet par Guillaume Leprêtre. Ce projet sera évalué par Quentin Baert.
 Dans ce tp vous pouvez jouer à une partie de donjon...
 
 ----------
@@ -23,7 +24,7 @@ Dans ce tp vous pouvez jouer à une partie de donjon...
 - De base, le donjon fait une taille de 5
 - Vous pouvez choisir la taille du donjon en rajoutant la taille que vous voulez en option
 - Par exemple si vous voulez une taille de 10 lancez `COO-Donjon-1.0-SNAPSHOT.jar 10`
-- Attention, la taille doit etre `supérieur ou égale à 5`
+- Attention, la taille doit etre `supérieur à 5 et inférieur à 20 !`
 
 # Déroulement d'une partie :
 
