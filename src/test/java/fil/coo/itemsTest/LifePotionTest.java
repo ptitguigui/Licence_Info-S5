@@ -56,7 +56,10 @@ public class LifePotionTest {
 	    InputStream in = new ByteArrayInputStream(input.getBytes());
 	    System.setIn(in);
 	    
-		/*use.execute(g, player);
+		/*
+		Methode qui fonctionne lors de l'execution de la classe uniquement...
+		
+		use.execute(g, player);
 		
 		assertEquals(110, player.getHp());		*/
 	}

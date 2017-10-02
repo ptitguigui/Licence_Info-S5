@@ -56,7 +56,11 @@ public class GoldPotionTest {
 	    InputStream in = new ByteArrayInputStream(input.getBytes());
 	    System.setIn(in);
 	    
-		/*use.execute(g, player);
+		/*
+
+		Methode qui fonctionne lors de l'execution de la classe uniquement...
+	
+		use.execute(g, player);
 		
 		assertEquals(20, player.getGold());	*/	
 	}

@@ -93,7 +93,10 @@ public class AttackTest {
 	    InputStream in = new ByteArrayInputStream(input.getBytes());
 	    System.setIn(in);
 		
-		/*Monster sameMonster = a.chooseAMonster(g);
+		/*
+		Methode qui fonctionne lors de l'execution de la classe uniquement...
+		
+		Monster sameMonster = a.chooseAMonster(g);
 	    
 	    assertEquals(monster, sameMonster);*/
 	}
