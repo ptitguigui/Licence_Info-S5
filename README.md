@@ -72,7 +72,7 @@ Dans ce tp vous pouvez jouer à une partie de donjon...
 
 ## Génération d'un donjon
 
-J'ai décidé de générer mon donjon de façon aléatoire.Ainsi pour réaliser cette génération, j'utilise une methode récursive `recursiveProceduration` qui fonctionne de cette façon:
+J'ai décidé de générer mon donjon de façon complète et aléatoire. Tout se passe dans la methode `initializeDungeon`. Dans cette methode, j'initialise les salle où je crée des montres et des objets de façon aléatoire, puis je génère mon labyrinthe en liant les différentes salles. Pour cela, j'utilise une methode récursive `recursiveProceduration` qui fonctionne de cette façon:
 
 - Utilisation d'une pile par la `classe Stack`
 - Choisis une salle et `l'insèrer` dans la pile
@@ -83,3 +83,12 @@ J'ai décidé de générer mon donjon de façon aléatoire.Ainsi pour réaliser 
 - Inserer le voisin dans la pile
 - Sinon retirer l'élement au dessus de la pile
 - Rapeler la methode jusqu'a que la condition n'est plus remplis
+
+
+## Affichage du jeu
+
+Pour l'affichage du jeu j'ai décidé de créer une classe `Menu` qui affiche la plupart des informations du jeu...
+Tout d'abord, cette classe me permet de lister les différents élements que le joueur peux choisir comme les actions ou un objet qui veux utiliser...
+Pour cela j'utilise une methode générique `choice` qui prends une liste<T> en paramètre...
+Ensuite la classe `Menu`, me permet aussi d'afficher la salle où se situe le joueur avec les portes représentés par un `"d"` grâce à la methode `drawGame` ainsi que d'afficher les statistiques du joueur grâce à la méthode `stats`
+Enfin, je peux clear la console avec `clearConsole` afin de bien afficher le jeu et éviter que le joueur se perd avec toutes les informations du jeu
