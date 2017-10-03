@@ -1,10 +1,13 @@
 package fil.coo;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
-public interface ResourcePool {
+public abstract class ResourcePool<T extends Resource> {
 
-    Resource provideResource() throws NoSuchElementException;
+    List<? extends Resource> resourceList;
 
-    void recoverResource(Resource resource) throws IllegalArgumentException;
+    abstract T provideResource() throws NoSuchElementException;
+
+    abstract void recoverResource(T resource) throws IllegalArgumentException;
 }
