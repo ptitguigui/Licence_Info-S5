@@ -1,23 +1,25 @@
 package fil.coo;
 
+import fil.coo.exception.TooManyResourcesException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 public abstract class ResourcePool<T extends Resource> {
 
-    protected int nbResources;
+    protected int nbMaxResources;
 
     protected List<T> resourceList;
 
     /**
-     * @param nbResources the initial amount of resources that this pool will hold.
+     * @param nbMaxResources the initial and max amount of resources that this pool will hold.
      */
-    public ResourcePool(int nbResources) {
-        if (nbResources <= 0) {
+    public ResourcePool(int nbMaxResources) {
+        if (nbMaxResources <= 0) {
             throw new IllegalArgumentException("Cannot create pool of 0 resources");
         }
-        this.nbResources = nbResources;
+        this.nbMaxResources = nbMaxResources;
         initResources();
     }
 
@@ -26,7 +28,7 @@ public abstract class ResourcePool<T extends Resource> {
      */
     private void initResources() {
         resourceList = new ArrayList<T>();
-        for (int i = 0; i < nbResources; i++) {
+        for (int i = 0; i < nbMaxResources; i++) {
             T resource = createOneResource();
         }
     }
@@ -47,6 +49,7 @@ public abstract class ResourcePool<T extends Resource> {
      *
      * @param resource the resource that will be recovered
      * @throws IllegalArgumentException  if the resource parameter is incorrect
+     * @throws TooManyResourcesException  if the pool already contains {@link #nbMaxResources} resources
      */
-    abstract void recoverResource(T resource) throws IllegalArgumentException;
+    abstract void recoverResource(T resource) throws IllegalArgumentException, TooManyResourcesException;
 }
