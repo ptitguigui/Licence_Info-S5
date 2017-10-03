@@ -29,7 +29,7 @@ public abstract class ResourcePool<T extends Resource> {
     private void initResources() {
         resourceList = new ArrayList<T>();
         for (int i = 0; i < nbMaxResources; i++) {
-            T resource = createOneResource();
+            resourceList.add(createOneResource());
         }
     }
 
@@ -49,7 +49,7 @@ public abstract class ResourcePool<T extends Resource> {
      *
      * @param resource the resource that will be recovered
      * @throws IllegalArgumentException  if the resource parameter is incorrect
-     * @throws TooManyResourcesException  if the pool already contains {@link #nbMaxResources} resources
+     * @throws TooManyResourcesException if the pool already contains {@link #nbMaxResources} resources
      */
     abstract void recoverResource(T resource) throws IllegalArgumentException, TooManyResourcesException;
 }
