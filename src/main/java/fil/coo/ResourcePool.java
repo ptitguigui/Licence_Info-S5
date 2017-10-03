@@ -1,7 +1,5 @@
 package fil.coo;
 
-import fil.coo.exception.TooManyResourcesException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
