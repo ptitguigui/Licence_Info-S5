@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 
 public abstract class ResourcePool<T extends Resource> {
 
-    List<? extends Resource> resourceList;
+    List<T> resourceList;
 
     abstract T provideResource() throws NoSuchElementException;
 
