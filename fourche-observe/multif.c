@@ -3,6 +3,8 @@
 #include <string.h>
 #include <unistd.h>
 #include <assert.h>
+#include <sys/types.h>
+#include <wait.h>
 
 typedef int (*func_t) (char *);
 
@@ -53,17 +55,43 @@ n the length of f[]
 */
 int multif (func_t f[], char *args[], int n)
 {
-  f = f;
-  args = args;
-  n = n;
-  return 0;
+  int *status;
+  int pid;
+  int i;
+  int return_value;
+
+  status = (int*) malloc(n * sizeof(int));
+
+  for (i=0;i<n;i++)
+  {
+    pid = fork();
+    switch (pid) {
+      case 0:
+        f[i](args[i]);
+      case -1:
+      default:
+        waitpid(-1, &status[i], 0);
+        /*
+        printf("waited for pid %d, index %d with status %d\n", pid, i, WEXITSTATUS(status[i]));
+        */
+        return_value = return_value || WEXITSTATUS(status[i]);
+    }
+  }
+
+  /*
+  printf("return value: %d\n", return_value);
+  */
+  return return_value;
 }
 
 int main(int argc, char **argv)
 {
+  int real_nb_funcs;
   func_t *funcs;
 
+  real_nb_funcs = argc - 1;
+
   verify_args(argc, argv);
-  funcs = create_funcs(argc-1);
-  return multif(funcs, argv, argc);
+  funcs = create_funcs(real_nb_funcs);
+  return multif(funcs, argv+1, real_nb_funcs);
 }
