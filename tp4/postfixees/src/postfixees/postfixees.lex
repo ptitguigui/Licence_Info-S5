@@ -32,5 +32,3 @@ MULT=[*]|plus
 /* ajouter le cas des espaces et fins de ligne */
 [\s]
   {}
-
-/* ajouter les autres tokens */
