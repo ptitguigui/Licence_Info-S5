@@ -7,7 +7,7 @@ package postfixees;
 %column
 %{
   private int compteurCommentaire = 0 ;
-%} 
+%}
 
 %unicode
 
@@ -16,7 +16,7 @@ package postfixees;
 ENTIER_SIMPLE=[0-9]+
 PLUS=[+]|plus
 
-%% 
+%%
 
 <YYINITIAL> {ENTIER_SIMPLE}
       {
@@ -32,7 +32,7 @@ PLUS=[+]|plus
       {
             yybegin(COMMENTAIRE) ;
             compteurCommentaire++;
-      } 
+      }
 
 <COMMENTAIRE> [^*]+|[*][^/]
       {
@@ -47,5 +47,7 @@ PLUS=[+]|plus
 
 
 /* ajouter le cas des espaces et fins de ligne */
+[\s]
+  {}
 
 /* ajouter les autres tokens */
