@@ -7,6 +7,8 @@ TP AEL n4
 
 - Une archive `exemple1`
 - Une arche `postfixees`
+- Un jar `jflex-1.6.1.jar` 
+- Un `Readme.md`
 
 Dans les deux archives vous trouverez :
 
