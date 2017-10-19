@@ -82,6 +82,8 @@ public class TestND {
 		a.addTransition("q2", 'b', "q3");
 		a.addTransition("q3", 'a', "q2");
 
+		AutomataUtils.addSingleton("hello", a);
+		
 		/*
 		 * Dessin de l'automate (fabrication d'un fichier Graphviz)
 		 */
