@@ -1,6 +1,8 @@
 package automata;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
@@ -92,16 +94,27 @@ public class AutomataUtils {
 	 *            : prefix to use for state names.
 	 */
 	public static void addFlatExp(String exp, AutomatonBuilder a, String namePrefix) {
+		char[] transtion = new char[exp.length()];
+		int index=0;
+		
 		a.addNewState(namePrefix + "_epsilon");
 		for (int i = 0; i < exp.length()-1; i++) {
-			if(exp.charAt(i)!= '*' && exp.charAt(i+1)!= '*')
-				a.addNewState(namePrefix + "_" + exp.substring(0, i + 1));
-			System.out.println("new state "+ namePrefix + "_" + exp.substring(0, i + 1) );
+			if(exp.charAt(i)!= '*' && exp.charAt(i+1)!= '*'){
+				a.addNewState(namePrefix + "_" + exp.substring(0, i+1));
+				System.out.println("new state "+ namePrefix + "_" + exp.substring(0, i+1) );
+			}else{
+				transtion[index] = exp.charAt(i+1);
+				index++;
+			}
 		}
+		a.addNewState(namePrefix+"_"+exp);
 		
 		a.setInitial(namePrefix + "_epsilon");
 		a.addTransition(namePrefix + "_epsilon", exp.charAt(0), namePrefix + "_" + exp.substring(0, 1));
 		
+		/*
+		 * faux
+		 */
 		for (int i = 0; i < exp.length() - 2; i++) {
 			if(exp.charAt(i+1)!= '*' && exp.charAt(i+2)!= '*'){
 			a.addTransition(namePrefix + "_" + exp.substring(0, i + 1), exp.charAt(i),
