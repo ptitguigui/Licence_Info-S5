@@ -11,6 +11,7 @@ digraph Automaton {
   2 -> 3 [label = "b" ]
   3 -> 2 [label = "a" ]
   4 -> 5 [label = "1" ]
-  5 -> 5 [label = "1" ]
+  5 -> 5 [label = "0" ]
+  5 -> 6 [label = "1" ]
 }
 

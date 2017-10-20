@@ -15,8 +15,8 @@ import java.util.Stack;
 public class AutomataUtils {
 
 	/**
-	 * Extends automaton a, so that it accepts also this word. Created states
-	 * are prefixed by 'q_'
+	 * Extends automaton a, so that it accepts also this word. Created states are
+	 * prefixed by 'q_'
 	 * 
 	 * @param word
 	 *            : word to be accepted
@@ -62,16 +62,16 @@ public class AutomataUtils {
 	 *            : target automaton
 	 */
 	public static void addFiniteSet(Iterable<String> finiteLanguage, AutomatonBuilder a) {
-		int i=0;
+		int i = 0;
 		for (String word : finiteLanguage) {
-			addSingleton(word, a, "q"+i);
+			addSingleton(word, a, "q" + i);
 			i++;
 		}
 	}
 
 	/**
-	 * Extends automaton a so that it accepts also language denoted by exp
-	 * created states are prefixed by namePrefix followed by '_'
+	 * Extends automaton a so that it accepts also language denoted by exp created
+	 * states are prefixed by namePrefix followed by '_'
 	 * 
 	 * @param exp
 	 *            : flat regular expression (only letters and *)
@@ -83,8 +83,8 @@ public class AutomataUtils {
 	}
 
 	/**
-	 * Extends automaton a so that it accepts also language denoted by exp
-	 * created states are prefixed by namePrefix followed by '_'
+	 * Extends automaton a so that it accepts also language denoted by exp created
+	 * states are prefixed by namePrefix followed by '_'
 	 * 
 	 * @param exp
 	 *            : flat regular expression (only letters and *)
@@ -94,35 +94,38 @@ public class AutomataUtils {
 	 *            : prefix to use for state names.
 	 */
 	public static void addFlatExp(String exp, AutomatonBuilder a, String namePrefix) {
-		char[] transtion = new char[exp.length()];
-		int index=0;
-		
+
 		a.addNewState(namePrefix + "_epsilon");
-		for (int i = 0; i < exp.length()-1; i++) {
-			if(exp.charAt(i)!= '*' && exp.charAt(i+1)!= '*'){
-				a.addNewState(namePrefix + "_" + exp.substring(0, i+1));
-				System.out.println("new state "+ namePrefix + "_" + exp.substring(0, i+1) );
-			}else{
-				transtion[index] = exp.charAt(i+1);
-				index++;
+		for (int i = 0; i < exp.length() - 1; i++) {
+			if (exp.charAt(i) != '*' && exp.charAt(i + 1) != '*') {
+				a.addNewState(namePrefix + "_" + exp.substring(0, i + 1));
+				System.out.println("new state " + namePrefix + "_" + exp.substring(0, i + 1));
 			}
 		}
-		a.addNewState(namePrefix+"_"+exp);
-		
-		a.setInitial(namePrefix + "_epsilon");
-		a.addTransition(namePrefix + "_epsilon", exp.charAt(0), namePrefix + "_" + exp.substring(0, 1));
-		
-		/*
-		 * faux
-		 */
-		for (int i = 0; i < exp.length() - 2; i++) {
-			if(exp.charAt(i+1)!= '*' && exp.charAt(i+2)!= '*'){
-			a.addTransition(namePrefix + "_" + exp.substring(0, i + 1), exp.charAt(i),
-					namePrefix + "_" + exp.substring(0, i + 2));
-			}else if(exp.charAt(i+2) == '*'){
-				a.addTransition(namePrefix + "_" + exp.substring(0, i + 1), exp.charAt(i),
-						namePrefix + "_" + exp.substring(0, i + 1));
+		a.addNewState(namePrefix + "_" + exp);
+
+		for (int i = 0; i < exp.length() - 1; i++) {
+			if (i == 0) {
+				a.setInitial(namePrefix + "_epsilon");
+				a.addTransition(namePrefix + "_epsilon", exp.charAt(i), namePrefix + "_" + exp.substring(i, i + 1));
 			}
+			if (exp.charAt(i + 1) == '*') {
+				a.addTransition(namePrefix + "_" + exp.substring(0, i), exp.charAt(i),
+						namePrefix + "_" + exp.substring(0, i));
+				System.out.println("transition sur lui meme " + namePrefix + "_" + exp.substring(0, i));
+			} else if (i < exp.length() - 2 && exp.charAt(i + 2) != '*') {
+				System.out.println("transition : " + namePrefix + "_" + exp.substring(0, i + 1));
+				System.out.println("vers " + namePrefix + "_" + exp.substring(0, i + 2));
+				a.addTransition(namePrefix + "_" + exp.substring(0, i + 1), exp.charAt(i),
+						namePrefix + "_" + exp.substring(0, i + 2));
+			}
+		}
+		if (exp.charAt(exp.length() - 1) == '*') {
+			a.addTransition(namePrefix + "_" + exp.substring(0, exp.length() - 1), exp.charAt(exp.length() - 1),
+					namePrefix + "_" + exp);
+		} else {
+			a.addTransition(namePrefix + "_" + exp.substring(0, exp.length() - 3), exp.charAt(exp.length() - 4),
+					namePrefix + "_" + exp);
 		}
 		a.setAccepting(namePrefix + "_" + exp);
 	}
@@ -140,8 +143,7 @@ public class AutomataUtils {
 	}
 
 	/**
-	 * Determinization of nfa automaton. Note : dfa is cleared before the
-	 * operation.
+	 * Determinization of nfa automaton. Note : dfa is cleared before the operation.
 	 * 
 	 * @param nfa
 	 *            : non deterministic automaton (to be determinize)
@@ -174,16 +176,16 @@ public class AutomataUtils {
 		while (!todo.isEmpty()) {
 			Set<State> fromSet = todo.pop(); // pick a state from todo list
 			/*
-			 * TODO : for each letter of alphabet : compute transitionSet from
-			 * fromSet if computed set is a new one : create corresponding state
-			 * in dfa record relationship in map add it to the todo list end if
-			 * create corresponding transition in dfa
+			 * TODO : for each letter of alphabet : compute transitionSet from fromSet if
+			 * computed set is a new one : create corresponding state in dfa record
+			 * relationship in map add it to the todo list end if create corresponding
+			 * transition in dfa
 			 */
 		}
 		for (Set<State> qSet : map.keySet()) { // foreach computed state set
 			/*
-			 * TODO : if qset contains accepting state (from nfa) in dfa, set
-			 * corresponding state as accepting state
+			 * TODO : if qset contains accepting state (from nfa) in dfa, set corresponding
+			 * state as accepting state
 			 */
 		}
 	}
