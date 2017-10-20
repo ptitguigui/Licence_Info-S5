@@ -39,11 +39,13 @@ public class AutomataUtils {
 	public static void addSingleton(String word, AutomatonBuilder a, String namePrefix) {
 		a.addNewState(namePrefix + "_epsilon");
 		for (int i = 0; i < word.length(); i++) {
-			a.addNewState(namePrefix + "_" + word.substring(0, i+1));
+			a.addNewState(namePrefix + "_" + word.substring(0, i + 1));
 		}
 		a.setInitial(namePrefix + "_epsilon");
+		a.addTransition(namePrefix + "_epsilon", word.charAt(0), namePrefix + "_" + word.substring(0, 1));
 		for (int i = 0; i < word.length() - 1; i++) {
-			a.addTransition(namePrefix + "_" + word.substring(0, i+1), word.charAt(i),namePrefix + "_" + word.substring(0, i+2));
+			a.addTransition(namePrefix + "_" + word.substring(0, i + 1), word.charAt(i),
+					namePrefix + "_" + word.substring(0, i + 2));
 		}
 		a.setAccepting(namePrefix + "_" + word);
 	}
@@ -58,8 +60,10 @@ public class AutomataUtils {
 	 *            : target automaton
 	 */
 	public static void addFiniteSet(Iterable<String> finiteLanguage, AutomatonBuilder a) {
+		int i=0;
 		for (String word : finiteLanguage) {
-			addSingleton(word, a, "q");
+			addSingleton(word, a, "q"+i);
+			i++;
 		}
 	}
 
@@ -89,23 +93,24 @@ public class AutomataUtils {
 	 */
 	public static void addFlatExp(String exp, AutomatonBuilder a, String namePrefix) {
 		a.addNewState(namePrefix + "_epsilon");
+		for (int i = 0; i < exp.length()-1; i++) {
+			if(exp.charAt(i)!= '*' && exp.charAt(i+1)!= '*')
+				a.addNewState(namePrefix + "_" + exp.substring(0, i + 1));
+			System.out.println("new state "+ namePrefix + "_" + exp.substring(0, i + 1) );
+		}
+		
 		a.setInitial(namePrefix + "_epsilon");
-
-		for (int i = 0; i < exp.length() - 1; i++) {
-
-			if (exp.charAt(i) != '*') {
-				if (exp.charAt(i + 1) == '*') {
-					a.addTransition(namePrefix + "_" + exp.substring(0, i-1), exp.charAt(i),
-							namePrefix + "_" + exp.substring(0, i-1));
-				}
-					a.addNewState(namePrefix + "_" + exp.substring(0, i));
-
-					if (i < exp.length() - 1) {
-						a.addTransition(namePrefix + "_" + exp.substring(0, i), exp.charAt(i),
-								namePrefix + "_" + exp.substring(0, i + 1));
-					}
-				}
+		a.addTransition(namePrefix + "_epsilon", exp.charAt(0), namePrefix + "_" + exp.substring(0, 1));
+		
+		for (int i = 0; i < exp.length() - 2; i++) {
+			if(exp.charAt(i+1)!= '*' && exp.charAt(i+2)!= '*'){
+			a.addTransition(namePrefix + "_" + exp.substring(0, i + 1), exp.charAt(i),
+					namePrefix + "_" + exp.substring(0, i + 2));
+			}else if(exp.charAt(i+2) == '*'){
+				a.addTransition(namePrefix + "_" + exp.substring(0, i + 1), exp.charAt(i),
+						namePrefix + "_" + exp.substring(0, i + 1));
 			}
+		}
 		a.setAccepting(namePrefix + "_" + exp);
 	}
 
