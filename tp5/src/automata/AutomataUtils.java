@@ -104,28 +104,24 @@ public class AutomataUtils {
 		}
 		a.addNewState(namePrefix + "_" + exp);
 
-		for (int i = 0; i < exp.length() - 1; i++) {
+		for (int i = 0; i < exp.length(); i++) {
 			if (i == 0) {
 				a.setInitial(namePrefix + "_epsilon");
 				a.addTransition(namePrefix + "_epsilon", exp.charAt(i), namePrefix + "_" + exp.substring(i, i + 1));
+			} else {
+				if (exp.charAt(i) != '*') {
+					if (i<exp.length()-1 && exp.charAt(i + 1) == '*') {
+						a.addTransition(namePrefix + "_" + exp.substring(0, i), exp.charAt(i),
+								namePrefix + "_" + exp.substring(0, i));
+					} else if (exp.charAt(i - 1) != '*') {
+						a.addTransition(namePrefix + "_" + exp.substring(0, i), exp.charAt(i),
+								namePrefix + "_" + exp.substring(0, i + 1));
+					} else {
+						a.addTransition(namePrefix + "_" + exp.substring(0, i - 2), exp.charAt(i),
+								namePrefix + "_" + exp.substring(0, i + 1));
+					}
+				}
 			}
-			if (exp.charAt(i + 1) == '*') {
-				a.addTransition(namePrefix + "_" + exp.substring(0, i), exp.charAt(i),
-						namePrefix + "_" + exp.substring(0, i));
-				System.out.println("transition sur lui meme " + namePrefix + "_" + exp.substring(0, i));
-			} else if (i < exp.length() - 2 && exp.charAt(i + 2) != '*') {
-				System.out.println("transition : " + namePrefix + "_" + exp.substring(0, i + 1));
-				System.out.println("vers " + namePrefix + "_" + exp.substring(0, i + 2));
-				a.addTransition(namePrefix + "_" + exp.substring(0, i + 1), exp.charAt(i),
-						namePrefix + "_" + exp.substring(0, i + 2));
-			}
-		}
-		if (exp.charAt(exp.length() - 1) == '*') {
-			a.addTransition(namePrefix + "_" + exp.substring(0, exp.length() - 1), exp.charAt(exp.length() - 1),
-					namePrefix + "_" + exp);
-		} else {
-			a.addTransition(namePrefix + "_" + exp.substring(0, exp.length() - 3), exp.charAt(exp.length() - 4),
-					namePrefix + "_" + exp);
 		}
 		a.setAccepting(namePrefix + "_" + exp);
 	}
