@@ -9,7 +9,6 @@
 /* Couleurs */
 typedef enum {ROUGE=0, BLEU=1, VERT=2} tCouleur;
 typedef tCouleur tTabCouleurs[MAX_SOMMETS];
-typedef
 
 /*
 graphe: le graphe a parcourir
@@ -17,13 +16,10 @@ tabCouleurs: le tableau ou stocker les Couleurs
 couleur: la couleur à stocker
 num_exclu: le numero du sommet a exclure
 */
-void colorieSauf(tGraphe graphe, tTabCouleurs tabCouleurs, tCouleur couleur, int num_exclu)
+void colorieSauf(tGraphe graphe, tTabCouleurs tabCouleurs, tCouleur couleur, int nom_exclu)
 {
   int i;
   int nbSommets;
-  tNumeroSommet sommetActuel;
-  int nbVoisins;
-  tNumeroSommet numeroVoisin;
 
   nbSommets = grapheNbSommets(graphe);
   for (i=0;i<nbSommets;i++)
@@ -45,7 +41,12 @@ void parcours_largeur(tGraphe graphe, char *nom_depart)
   */
   tTabCouleurs tabCouleurs;
   tNumeroSommet numeroSommet;
-  tFileSomemts file;
+  tFileSommets file;
+  tNumeroSommet sommetActuel;
+  int nbVoisins;
+  tNumeroSommet numeroVoisin;
+  tNomSommet nomActuel;
+  int i;
 
   numeroSommet = grapheChercheSommetParNom(graphe, nom_depart);
   colorieSauf(graphe, tabCouleurs, BLEU, numeroSommet);
@@ -54,7 +55,7 @@ void parcours_largeur(tGraphe graphe, char *nom_depart)
   tabCouleurs[numeroSommet] = VERT;
   fileSommetsEnfile(file, numeroSommet);
 
-  while (fileSommetsEstPleine(file))
+  while (!fileSommetsEstVide(file))
   {
     sommetActuel = fileSommetsDefile(file);
     nbVoisins = grapheNbVoisinsSommet(graphe, sommetActuel);
@@ -63,13 +64,14 @@ void parcours_largeur(tGraphe graphe, char *nom_depart)
       numeroVoisin = grapheVoisinSommetNumero(graphe, sommetActuel, i);
       if (tabCouleurs[numeroVoisin] == BLEU)
       {
+        grapheRecupNomSommet(graphe, numeroVoisin, nomActuel);
+        printf("%s\n", nomActuel);
         tabCouleurs[numeroVoisin] = VERT;
         fileSommetsEnfile(file, numeroVoisin);
       }
       tabCouleurs[sommetActuel] = ROUGE;
     }
   }
-
 
 }
 
