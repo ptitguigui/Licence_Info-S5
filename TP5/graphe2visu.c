@@ -40,20 +40,24 @@ void parcours_largeur(tGraphe graphe, char *nom_depart)
   tabCouleurs[i] correspond à la couleur du sommet i
   */
   tTabCouleurs tabCouleurs;
-  tNumeroSommet numeroSommet;
   tFileSommets file;
+
+  tNumeroSommet numeroDepart;
+
   tNumeroSommet sommetActuel;
-  int nbVoisins;
   tNumeroSommet numeroVoisin;
   tNomSommet nomActuel;
-  int i;
 
-  numeroSommet = grapheChercheSommetParNom(graphe, nom_depart);
-  colorieSauf(graphe, tabCouleurs, BLEU, numeroSommet);
+  int i;
+  int nbVoisins;
+
+  numeroDepart = grapheChercheSommetParNom(graphe, nom_depart);
+  colorieSauf(graphe, tabCouleurs, BLEU, numeroDepart);
 
   file = fileSommetsAlloue();
-  tabCouleurs[numeroSommet] = VERT;
-  fileSommetsEnfile(file, numeroSommet);
+
+  tabCouleurs[numeroDepart] = VERT;
+  fileSommetsEnfile(file, numeroDepart);
 
   while (!fileSommetsEstVide(file))
   {
@@ -72,6 +76,7 @@ void parcours_largeur(tGraphe graphe, char *nom_depart)
       tabCouleurs[sommetActuel] = ROUGE;
     }
   }
+  fileSommetsLibere(file);
 
 }
 
@@ -81,7 +86,7 @@ int main(int argc, char **argv)
   tGraphe graphe;
 
   if (argc != 3) {
-    halt("Usage : %s FichierGraphe\n nom_sommet_depart", argv[0]);
+    halt("Usage : %s FichierGraphe nom_sommet_depart\n", argv[0]);
   }
 
   graphe = grapheAlloue();
