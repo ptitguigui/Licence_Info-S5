@@ -16,8 +16,23 @@
  * wrapper for the sigaction function
  */
 int sigaction_wrapper(int signum, handler_t * handler) {
-    printf("sigaction_wrapper : To be implemented\n");
-    return 1;
+  struct sigaction action;
+
+  action.sa_handler = handler;
+
+  sigemptyset(&action.sa_mask);
+  sigaddset(&action.sa_mask, SIGSTOP);
+  sigaddset(&action.sa_mask, SIGKILL);
+  sigaddset(&action.sa_mask, SIGCONT);
+  sigaddset(&action.sa_mask, SIGINT);
+
+  action.sa_flags = SA_RESTART;
+  if (sigaction(signum, action, NULL) < 0)
+  {
+    unix_error("sigaction_wrapper error");
+  }
+
+  return 0;
 }
 
 /*
