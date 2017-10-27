@@ -223,5 +223,34 @@ public class AutomataUtils {
 			}
 		}		
 	}
-
+	
+	private static void createNewState(AutomatonBuilder dest, State father, char c){
+		State q = dest.addNewState("state");
+		dest.addTransition(father, c, q);
+		
+		if(father.equals(dest.getInitialStates().iterator().next())){
+			
+		}
+	}
+	
+	private static void creerRepli(AutomatonBuilder dest, State father, State q){
+		State s = father;
+		char c = findLetter(dest, father, q);
+		State e;
+		do{
+			
+		}while(e != null || s.equals(dest.getInitialStates().iterator().next()));
+	}
+	
+	private static char findLetter(AutomatonBuilder dest, State in, State to){
+		Set<Character> characters = dest.usedAlphabet();
+		for (char c : characters) {
+			Set<State> states = dest.getTransitionSet(in, c);
+			if(to.equals(states.iterator().next())){
+				return c;
+			}
+		}
+		return 0;
+	}
+	
 }
