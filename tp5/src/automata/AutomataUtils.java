@@ -2,6 +2,7 @@ package automata;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -135,7 +136,12 @@ public class AutomataUtils {
 	 *            : receive the transposed automaton
 	 */
 	public static void transpose(Automaton original, AutomatonBuilder mirror) {
-		// TODO
+		Set<State> allStates = original.getStates();
+		Stack<State> pile = new Stack<>();
+		
+		for (State state : allStates) {
+			pile.push(state);
+		}
 	}
 
 	/**
@@ -184,6 +190,38 @@ public class AutomataUtils {
 			 * state as accepting state
 			 */
 		}
+	}
+	
+	public static void createAhoCorasick(String[] words, AutomatonBuilder dest){
+		State racine = dest.addNewState("root");
+		int lgMax = 0;
+		State[] finBranche = new State[words.length];
+		State q;
+		
+		for(int i=0; i<words.length; i++){
+			finBranche[i] = racine;
+			if(lgMax < words[i].length())
+				lgMax = words[i].length();
+		}
+		
+		for(int l=0; l<lgMax; l++){
+			for(int  i=0; i<words.length; i++){
+				if(l<words[i].length()){
+					if(dest.getTransitionSet(finBranche[i], words[i].charAt(l)).size() == 0){
+						q = dest.addNewState(""+words[i].charAt(l));
+						dest.addTransition(finBranche[i], words[i].charAt(l), q);
+					}else{
+						Set<State> states;
+						states = dest.getTransitionSet(finBranche[i], words[i].charAt(l));
+						q = states.iterator().next();
+					}	
+					finBranche[i] = q;
+					if(l+1 == words[i].length()){
+						dest.setAccepting(finBranche[i]);
+					}
+				}
+			}
+		}		
 	}
 
 }
