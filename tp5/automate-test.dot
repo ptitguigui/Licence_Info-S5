@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 digraph Automaton { 
   rankdir = LR
   0 [label="q0",peripheries=2];  1 [label="q1"];  2 [label="q2",peripheries=2];  3 [label="q3"];  4 [label="q_epsilon"];  5 [label="q_h"];  6 [label="q_he"];  7 [label="q_hel"];  8 [label="q_hell"];  9 [label="q_hello",peripheries=2];  start2 [style=invis]
@@ -16,3 +17,22 @@ digraph Automaton {
   8 -> 9 [label = "l" ]
 }
 
+=======
+digraph Automaton { 
+  rankdir = LR
+  0 [label="q0",peripheries=2];  1 [label="q1"];  2 [label="q2",peripheries=2];  3 [label="q3"];  4 [label="q_epsilon"];  5 [label="q_1"];  6 [label="q_10*1",peripheries=2];  start2 [style=invis]
+  start2 -> 2[color="black:white:black"]
+  start4 [style=invis]
+  start4 -> 4[color="black:white:black"]
+  start0 [style=invis]
+  start0 -> 0[color="black:white:black"]
+  0 -> 1 [label = "a" ]
+  1 -> 0 [label = "b" ]
+  2 -> 3 [label = "b" ]
+  3 -> 2 [label = "a" ]
+  4 -> 5 [label = "1" ]
+  5 -> 5 [label = "0" ]
+  5 -> 6 [label = "1" ]
+}
+
+>>>>>>> 62bec9457285eb2c25a4459f32e599ba23280afb
