@@ -25,15 +25,27 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AutomataUtils.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AutomataUtils.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/automata/AutomataUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="256" column="12" lean-forward="true" selection-start-line="256" selection-start-column="12" selection-end-line="256" selection-end-column="12" />
+            <state relative-caret-position="-459">
+              <caret line="0" column="4" lean-forward="false" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#6949#6968#0" expanded="true" />
-                <element signature="e#7113#7125#0" expanded="true" />
+                <element signature="e#6953#6972#0" expanded="true" />
+                <element signature="e#7117#7129#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestND.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/automata/TestND.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="17" column="46" lean-forward="true" selection-start-line="17" selection-start-column="46" selection-end-line="17" selection-end-column="46" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -50,6 +62,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/automata/AutomataUtils.java" />
+        <option value="$PROJECT_DIR$/src/automata/TestND.java" />
       </list>
     </option>
   </component>
@@ -542,12 +555,12 @@
       <workItem from="1508600305175" duration="68000" />
       <workItem from="1508787000504" duration="595000" />
       <workItem from="1509804898941" duration="53000" />
-      <workItem from="1509886867827" duration="313000" />
+      <workItem from="1509886867827" duration="648000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3978000" />
+    <option name="totallyTimeSpent" value="4313000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -613,8 +626,8 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6949#6968#0" expanded="true" />
-            <element signature="e#7113#7125#0" expanded="true" />
+            <element signature="e#6953#6972#0" expanded="true" />
+            <element signature="e#7117#7129#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -625,8 +638,8 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6949#6968#0" expanded="true" />
-            <element signature="e#7113#7125#0" expanded="true" />
+            <element signature="e#6953#6972#0" expanded="true" />
+            <element signature="e#7117#7129#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -637,8 +650,8 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6949#6968#0" expanded="true" />
-            <element signature="e#7113#7125#0" expanded="true" />
+            <element signature="e#6953#6972#0" expanded="true" />
+            <element signature="e#7117#7129#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -649,8 +662,8 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6949#6968#0" expanded="true" />
-            <element signature="e#7113#7125#0" expanded="true" />
+            <element signature="e#6953#6972#0" expanded="true" />
+            <element signature="e#7117#7129#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -661,8 +674,8 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6949#6968#0" expanded="true" />
-            <element signature="e#7113#7125#0" expanded="true" />
+            <element signature="e#6953#6972#0" expanded="true" />
+            <element signature="e#7117#7129#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -716,20 +729,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/automata/package-info.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="11" lean-forward="false" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
+        <state relative-caret-position="323">
+          <caret line="19" column="19" lean-forward="true" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/automata/AutomataUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="256" column="12" lean-forward="true" selection-start-line="256" selection-start-column="12" selection-end-line="256" selection-end-column="12" />
+        <state relative-caret-position="-459">
+          <caret line="0" column="4" lean-forward="false" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#6949#6968#0" expanded="true" />
-            <element signature="e#7113#7125#0" expanded="true" />
+            <element signature="e#6953#6972#0" expanded="true" />
+            <element signature="e#7117#7129#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/automata/TestND.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="46" lean-forward="true" selection-start-line="17" selection-start-column="46" selection-end-line="17" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

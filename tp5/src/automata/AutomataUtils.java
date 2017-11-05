@@ -1,4 +1,4 @@
-package automata;
+    package automata;
 
 import java.util.HashMap;
 import java.util.Map;
