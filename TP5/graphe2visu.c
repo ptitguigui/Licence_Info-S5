@@ -86,7 +86,7 @@ int main(int argc, char **argv)
   tGraphe graphe;
 
   if (argc != 3) {
-    halt("Usage : %s fichier_graphe nom_sommet_depart\n", argv[0]);
+    halt("Usage : %s <fichier_graphe> <nom_sommet_depart>\n", argv[0]);
   }
 
   graphe = grapheAlloue();
