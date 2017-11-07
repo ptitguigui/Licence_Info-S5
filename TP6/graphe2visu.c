@@ -49,13 +49,12 @@ void plusCourteChaine(tGraphe graphe, char *nom_depart)
   int nbVoisins;
   tNumeroSommet y;
   tNomSommet nomSommet;
-  tNomSommet nomDepart;
 
 
   s = grapheChercheSommetParNom(graphe, nom_depart);
   nbSommets = grapheNbSommets(graphe);
-  grapheRecupNomSommet(graphe, s, nomDepart);
   colorieSauf(graphe, tabCouleurs, BLEU, s);
+
 
   file = fileSommetsAlloue();
   for (i=0;i<nbSommets;i++) {
@@ -73,6 +72,9 @@ void plusCourteChaine(tGraphe graphe, char *nom_depart)
       nbVoisins = grapheNbVoisinsSommet(graphe, x);
       for (i=0;i<nbVoisins;i++)
       {
+        /*
+        printf("%d neighbour of %d\n", i, x);
+        */
         y = grapheVoisinSommetNumero(graphe, x, i);
         if (tabCouleurs[y] == BLEU)
         {
@@ -87,7 +89,7 @@ void plusCourteChaine(tGraphe graphe, char *nom_depart)
 
   for (i=0;i<nbSommets;i++) {
     grapheRecupNomSommet(graphe, i, nomSommet);
-    printf("\nDistance from %s to %s\n", nomDepart, nomSommet);
+    printf("\nDistance from %s to %s\n", nom_depart, nomSommet);
     printf("distance[%s]=%d\n", nomSommet, d[i]);
     printf("distance prev[%s]=%d\n", nomSommet, pred[i]);
   }
