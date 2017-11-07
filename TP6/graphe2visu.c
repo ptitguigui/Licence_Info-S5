@@ -111,7 +111,7 @@ int main(int argc, char **argv)
   if (strncmp("alea", argv[1], 4) == 0)
   {
     printf("using random graphe\n");
-    grapheAleatoire(graphe, 15, 1, 1);
+    grapheAleatoire(graphe, 100, 1, 0.1);
   } else
   {
     grapheChargeFichier(graphe, argv[1]);
