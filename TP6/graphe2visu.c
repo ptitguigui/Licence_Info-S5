@@ -49,10 +49,12 @@ void plusCourteChaine(tGraphe graphe, char *nom_depart)
   int nbVoisins;
   tNumeroSommet y;
   tNomSommet nomSommet;
+  tNomSommet nomDepart;
 
 
   s = grapheChercheSommetParNom(graphe, nom_depart);
   nbSommets = grapheNbSommets(graphe);
+  grapheRecupNomSommet(graphe, s, nomDepart);
   colorieSauf(graphe, tabCouleurs, BLEU, s);
 
   file = fileSommetsAlloue();
@@ -85,8 +87,9 @@ void plusCourteChaine(tGraphe graphe, char *nom_depart)
 
   for (i=0;i<nbSommets;i++) {
     grapheRecupNomSommet(graphe, i, nomSommet);
-    printf("d[%s]=%d\n", nomSommet, d[i]);
-    printf("pred[%s]=%d\n", nomSommet, pred[i]);
+    printf("\nDistance from %s to %s\n", nomDepart, nomSommet);
+    printf("distance[%s]=%d\n", nomSommet, d[i]);
+    printf("distance prev[%s]=%d\n", nomSommet, pred[i]);
   }
 
 
@@ -99,13 +102,13 @@ int main(int argc, char **argv)
   tGraphe graphe;
 
   if (argc != 3) {
-    halt("Usage : %s <fichier_graphe> <nom_sommet_depart>\n", argv[0]);
+    halt("Usage : %s <fichier_graphe/\"alea\"> <nom_sommet_depart>\n", argv[0]);
   }
 
   graphe = grapheAlloue();
   if (strncmp("alea", argv[1], 4) == 0)
   {
-    printf("aleatoire\n");
+    printf("using random graphe\n");
     grapheAleatoire(graphe, 15, 1, 1);
   } else
   {
