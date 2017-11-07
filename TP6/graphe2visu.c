@@ -38,22 +38,22 @@ void plusCourteChaine(tGraphe graphe, char *nom_depart)
   */
   tTabCouleurs tabCouleurs;
   tFileSommets file;
-  tNumeroSommet numeroDepart;
+  tNumeroSommet s;
   int nbSommets;
 
   int d[MAX_SOMMETS];
   tNumeroSommet pred[MAX_SOMMETS];
 
-  tNumeroSommet sommetActuel;
+  tNumeroSommet x;
   int i;
   int nbVoisins;
-  tNumeroSommet numeroVoisin;
+  tNumeroSommet y;
   tNomSommet nomSommet;
 
 
-  numeroDepart = grapheChercheSommetParNom(graphe, nom_depart);
+  s = grapheChercheSommetParNom(graphe, nom_depart);
   nbSommets = grapheNbSommets(graphe);
-  colorieSauf(graphe, tabCouleurs, BLEU, numeroDepart);
+  colorieSauf(graphe, tabCouleurs, BLEU, s);
 
   file = fileSommetsAlloue();
   for (i=0;i<nbSommets;i++) {
@@ -61,26 +61,26 @@ void plusCourteChaine(tGraphe graphe, char *nom_depart)
     pred[i] = 0;
   }
 
-  tabCouleurs[numeroDepart] = VERT;
+  tabCouleurs[s] = VERT;
 
-  fileSommetsEnfile(file, numeroDepart);
+  fileSommetsEnfile(file, s);
 
   while (!fileSommetsEstVide(file))
   {
-      sommetActuel = fileSommetsDefile(file);
-      nbVoisins = grapheNbVoisinsSommet(graphe, sommetActuel);
+      x = fileSommetsDefile(file);
+      nbVoisins = grapheNbVoisinsSommet(graphe, x);
       for (i=0;i<nbVoisins;i++)
       {
-        numeroVoisin = grapheVoisinSommetNumero(graphe, sommetActuel, i);
-        if (tabCouleurs[numeroVoisin] == BLEU)
+        y = grapheVoisinSommetNumero(graphe, x, i);
+        if (tabCouleurs[y] == BLEU)
         {
-          tabCouleurs[numeroVoisin] = VERT;
-          fileSommetsEnfile(file, numeroVoisin);
-          d[numeroVoisin] = d[sommetActuel] + 1;
-          pred[numeroVoisin] = sommetActuel;
+          tabCouleurs[y] = VERT;
+          fileSommetsEnfile(file, y);
+          d[y] = d[x] + 1;
+          pred[y] = x;
         }
       }
-      tabCouleurs[sommetActuel] = ROUGE;
+      tabCouleurs[x] = ROUGE;
   }
 
   for (i=0;i<nbSommets;i++) {
