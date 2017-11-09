@@ -200,12 +200,34 @@ public class AutomataUtils {
 			 * in dfa record relationship in map add it to the todo list end if
 			 * create corresponding transition in dfa
 			 */
+            
+            Set<Character> alphabet = nfa.usedAlphabet();
+            for (Character character : alphabet) {
+				Set<State> transitionSet = nfa.getTransitionSet(fromSet, character);
+				if(map.get(transitionSet) == null){
+					State state = dfa.addNewState(transitionSet.toString()); 
+					map.put(transitionSet, state);
+					todo.push(transitionSet);
+				}
+				dfa.addTransition(fromSet.toString(), character, transitionSet.toString());
+			}
+            		
         }
         for (Set<State> qSet : map.keySet()) { // foreach computed state set
 			/*
 			 * TODO : if qset contains accepting state (from nfa) in dfa, set
 			 * corresponding state as accepting state
 			 */
+        	boolean containsAccepting = false;
+        	for (State state : qSet) {
+				if(nfa.isAccepting(state)){
+					containsAccepting = true;
+				}
+			}
+        	if(containsAccepting){
+        		dfa.setAccepting(qSet.toString());
+        	}
+        			
         }
     }
 
