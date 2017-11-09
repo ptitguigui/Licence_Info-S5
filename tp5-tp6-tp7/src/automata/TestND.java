@@ -52,6 +52,7 @@ public class TestND {
 
         AutomatonBuilder a = new NDAutomaton();
         AutomatonBuilder b = new NDAutomaton();
+        AutomatonBuilder c = new NDAutomaton();
 
 		/*
          * Définition des états Notez que les états sont numérotés 0, 1, 2, ... dans
@@ -63,26 +64,29 @@ public class TestND {
         a.addNewState("q1");
         a.addNewState("q2");
         a.addNewState("q3");
-        a.addNewState("q4");
-        a.addNewState("q5");
+        a.addNewState("q0");
         
 		/*
          * Définition des états initiaux et des états acceptants Le paramètre est
 		 * indifféremment le numéro ou le nom d'un état
 		 */
-        a.setAccepting("q3");
-        a.setAccepting("q4");
-        a.setInitial("q1");
+        a.setAccepting("q0");
+        a.setAccepting("q1");
+        a.setInitial("q0");
 
 		/*
 		 * Définition des transitions
 		 */
+        a.addTransition("q0", 'a', "q1");
+        a.addTransition("q1", 'b', "q0");
+        a.addTransition("q0", 'b', "q0");
+        a.addTransition("q0", 'a', "q3");
+        a.addTransition("q0", 'a', "q2");
+        a.addTransition("q1", 'b', "q1");
         a.addTransition("q1", 'a', "q2");
-        a.addTransition("q2", 'b', "q3");
-        a.addTransition("q3", 'a', "q3");
-        a.addTransition("q2", 'b', "q4");
-        a.addTransition("q4", 'a', "q5");
-        a.addTransition("q5", 'b', "q4");
+        a.addTransition("q2", 'b', "q2");
+        a.addTransition("q3", 'a', "q2");
+        a.addTransition("q2", 'b', "q0");
         
         //AutomataUtils.addSingleton("hello", a);
 
@@ -91,9 +95,12 @@ public class TestND {
 		 */
         
         AutomataUtils.determinize(a, b);
+        AutomataUtils.minimalise(a, c);
+        
         
         dotToFile(a, "automate-test-original.dot");
         dotToFile(b, "automate-test-determinize.dot");
+        dotToFile(c, "automate-test-minimal.dot");
 
 		/*
 		 * Affichage de l'automate, en mode texte

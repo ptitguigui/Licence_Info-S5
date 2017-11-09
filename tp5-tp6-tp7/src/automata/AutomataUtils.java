@@ -318,7 +318,7 @@ public class AutomataUtils {
 
 	/************** TP7 *********************/
 
-	public void minimalise(Automaton a, AutomatonBuilder dest) {
+	public static void minimalise(Automaton a, AutomatonBuilder dest) {
 
 		AutomatonBuilder result = new NDAutomaton();
 
