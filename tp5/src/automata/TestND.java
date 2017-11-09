@@ -51,6 +51,7 @@ public class TestND {
 		/* Fabrication de l'automate */
 
         AutomatonBuilder a = new NDAutomaton();
+        AutomatonBuilder b = new NDAutomaton();
 
 		/*
          * Définition des états Notez que les états sont numérotés 0, 1, 2, ... dans
@@ -59,35 +60,40 @@ public class TestND {
 		 * paramètre de la méthode addNewState
 		 */
 
-        a.addNewState();
-        a.addNewState();
-        a.addNewState();
-        a.addNewState();
-        // a.addNewState("NomQuiMePlait");
-
+        a.addNewState("q1");
+        a.addNewState("q2");
+        a.addNewState("q3");
+        a.addNewState("q4");
+        a.addNewState("q5");
+        
 		/*
          * Définition des états initiaux et des états acceptants Le paramètre est
 		 * indifféremment le numéro ou le nom d'un état
 		 */
-        a.setAccepting("q0");
-        a.setInitial("q0");
-        a.setAccepting("q2");
-        a.setInitial("q2");
+        a.setAccepting("q3");
+        a.setAccepting("q4");
+        a.setInitial("q1");
 
 		/*
 		 * Définition des transitions
 		 */
-        a.addTransition("q0", 'a', "q1");
-        a.addTransition("q1", 'b', "q0");
+        a.addTransition("q1", 'a', "q2");
         a.addTransition("q2", 'b', "q3");
-        a.addTransition("q3", 'a', "q2");
-
-        AutomataUtils.addSingleton("hello", a);
+        a.addTransition("q3", 'a', "q3");
+        a.addTransition("q2", 'b', "q4");
+        a.addTransition("q4", 'a', "q5");
+        a.addTransition("q5", 'b', "q4");
+        
+        //AutomataUtils.addSingleton("hello", a);
 
 		/*
 		 * Dessin de l'automate (fabrication d'un fichier Graphviz)
 		 */
-        dotToFile(a, "automate-test.dot");
+        
+        AutomataUtils.determinize(a, b);
+        
+        dotToFile(a, "automate-test-original.dot");
+        dotToFile(b, "automate-test-determinize.dot");
 
 		/*
 		 * Affichage de l'automate, en mode texte
@@ -99,7 +105,7 @@ public class TestND {
 		 * avec une vraie méthode accept()
 		 */
 
-        testAccept(a);
+        //estAccept(a);
 
         System.out.println("That's all folks");
 

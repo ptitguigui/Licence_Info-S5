@@ -188,7 +188,7 @@ public class AutomataUtils {
         State start = dfa.addNewState(startSet.toString()); // state creation
         map.put(startSet, start); // record relationship in map
 
-        dfa.setAccepting(start); // start is the unique initial state of dfa
+        dfa.setInitial(start); // start is the unique initial state of dfa
 
         todo.push(startSet); // put it in todo list.
 
@@ -230,7 +230,13 @@ public class AutomataUtils {
         			
         }
     }
-
+    
+    
+    /**
+     * method non complete
+     * @param words
+     * @param dest
+     */
     public static void createAhoCorasick(String[] words, AutomatonBuilder dest) {
         State racine = dest.addNewState("root");
         int lgMax = 0;
