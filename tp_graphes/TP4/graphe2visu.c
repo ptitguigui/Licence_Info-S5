@@ -44,6 +44,7 @@ void parcours_profondeur(tGraphe graphe, char *nom_depart)
   int nbVoisins;
   tNumeroSommet y;
   int possedeVoisinBleu;
+  tNomSommet nomSommet;
 
   s = grapheChercheSommetParNom(graphe, nom_depart);
   pile = pileSommetsAlloue();
@@ -67,6 +68,8 @@ void parcours_profondeur(tGraphe graphe, char *nom_depart)
         possedeVoisinBleu = 1;
         tabCouleurs[y] = VERT;
         pileSommetsEmpile(pile, y);
+        grapheRecupNomSommet(graphe, y, nomSommet);
+        printf("%s\n", nomSommet);
       }
     }
 
