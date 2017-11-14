@@ -2,11 +2,15 @@
 type = non-oriente;
 
 # la liste des sommets
-sommets = A B C D E;
+sommets = A B C D E F G H I;
 
 # la liste des arcs
-arcs = 
+arcs =
      A  B 10
-     B  C 20 
+     B  C 20
      A  E 15
+     C  G 10
+     E  F 10
+     E  H 10
+     H  I 10
 ;
