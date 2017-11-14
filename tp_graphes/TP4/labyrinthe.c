@@ -30,7 +30,7 @@ void colorieSauf(tGraphe graphe, tTabCouleurs tabCouleurs, tCouleur couleur, int
 }
 
 
-void labyrinthe(tGraphe graphe)
+void labyrinthe(tGraphe graphe, char *nom_entree, char *nom_sortie)
 {
   tNumeroSommet s;
   tPileSommets pile;
@@ -47,9 +47,6 @@ void labyrinthe(tGraphe graphe)
   tNomSommet nomSommet;
 
   tNumeroSommet numero_sortie;
-
-  char *nom_entree = "entree";
-  char *nom_sortie = "sortie";
 
   s = grapheChercheSommetParNom(graphe, nom_entree);
   pile = pileSommetsAlloue();
@@ -107,14 +104,14 @@ int main(int argc, char **argv)
 {
   tGraphe graphe;
 
-  if (argc != 2) {
-    halt("Usage : %s <fichier_graphe>\n", argv[0]);
+  if (argc != 4) {
+    halt("Usage : %s <fichier_graphe> <nom_depart> <nom_arrivee>\n", argv[0]);
   }
 
   graphe = grapheAlloue();
   grapheChargeFichier(graphe, argv[1]);
 
-  labyrinthe(graphe);
+  labyrinthe(graphe, argv[2], argv[3]);
 
   grapheLibere(graphe);
   return 0;
