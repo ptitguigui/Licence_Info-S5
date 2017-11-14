@@ -30,7 +30,7 @@ void colorieSauf(tGraphe graphe, tTabCouleurs tabCouleurs, tCouleur couleur, int
 }
 
 
-void labyrinthe(tGraphe graphe, char *nom_entree, char *nom_sortie)
+void labyrinthe(tGraphe graphe)
 {
   tNumeroSommet s;
   tPileSommets pile;
@@ -46,8 +46,15 @@ void labyrinthe(tGraphe graphe, char *nom_entree, char *nom_sortie)
   int possedeVoisinBleu;
   tNomSommet nomSommet;
 
+  tNumeroSommet numero_sortie;
+
+  char *nom_entree = "entree";
+  char *nom_sortie = "sortie";
+
   s = grapheChercheSommetParNom(graphe, nom_entree);
   pile = pileSommetsAlloue();
+
+  numero_sortie = grapheChercheSommetParNom(graphe, nom_sortie);
 
   colorieSauf(graphe, tabCouleurs, BLEU, s);
 
@@ -69,7 +76,14 @@ void labyrinthe(tGraphe graphe, char *nom_entree, char *nom_sortie)
         tabCouleurs[y] = VERT;
         pileSommetsEmpile(pile, y);
         grapheRecupNomSommet(graphe, y, nomSommet);
-        printf("%s\n", nomSommet);
+
+        printf("nom sommet voisin: %s\n", nomSommet);
+        if (y == numero_sortie)
+        {
+          printf("trouvé sortie: numero %d\n", y);
+          pileSommetsLibere(pile);
+          return;
+        }
       }
     }
 
@@ -84,21 +98,23 @@ void labyrinthe(tGraphe graphe, char *nom_entree, char *nom_sortie)
   }
 
   pileSommetsLibere(pile);
+  printf("n'a pas trouve sortie\n");
 
+  return;
 }
 
 int main(int argc, char **argv)
 {
   tGraphe graphe;
 
-  if (argc != 3) {
-    halt("Usage : %s <fichier_graphe> <nom_sommet_depart>\n", argv[0]);
+  if (argc != 2) {
+    halt("Usage : %s <fichier_graphe>\n", argv[0]);
   }
 
   graphe = grapheAlloue();
   grapheChargeFichier(graphe, argv[1]);
 
-  labyrinthe(graphe, argv[2], argv[3]);
+  labyrinthe(graphe);
 
   grapheLibere(graphe);
   return 0;
