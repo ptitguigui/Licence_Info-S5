@@ -130,50 +130,54 @@ public class AutomataUtils {
 	 * @param mirror
 	 *            : receive the transposed automaton
 	 */
+
 	public static void transpose(Automaton original, AutomatonBuilder mirror) {
-		Set<State> newEndStates = original.getInitialStates();
-		int automateIndex = 0;
+		/*
+		 * All accepting become initial All initial become accepting
+		 */
+		mirror.clear();
+		final String transposePrefix = "transpose_";
+		Set<State> originalStates = original.getStates();
+		Set<Character> alphabet = original.usedAlphabet();
 
-		for (State endState : newEndStates) {
-			String oldName = endState.getName();
-			String newName = "transpose_" + oldName;
+		addTransposeStates(original, mirror, transposePrefix, originalStates);
+		addReversedTransitions(original, mirror, transposePrefix, originalStates, alphabet);
 
-			mirror.addNewState(newName);
-			mirror.setAccepting(newName);
-			addNext(original, mirror, oldName, newName);
-
-			automateIndex++;
-		}
 	}
 
-	private static void addNext(Automaton original, AutomatonBuilder mirror, String originalName, String mirrorName) {
-		boolean foundTransitionForOneState = false;
-
-		for (char charInAlphabet : original.usedAlphabet()) {
-			Set<State> transitionSet = original.getTransitionSet(originalName, charInAlphabet);
-
-			if (!transitionSet.isEmpty()) {
-				foundTransitionForOneState = true;
-				// the transition state for the orignal Automaton gives us the
-				// PREVIOUS state in the mirror
-				for (State previousState : transitionSet) {
-					boolean created = false;
-					String oldName = previousState.getName();
-					String newName = "transpose_" + oldName;
-
-					created = mirror.addNewState(newName) != null;
-					mirror.addTransition(newName, charInAlphabet, mirrorName);
-					if (created) {
-						addNext(original, mirror, oldName, newName);
-					}
+	private static void addReversedTransitions(Automaton original, AutomatonBuilder mirror, String transposePrefix,
+			Set<State> originalStates, Set<Character> alphabet) {
+		for (State previousState : originalStates) {
+			for (Character usedChar : alphabet) {
+				Set<State> transitionSet = original.getTransitionSet(previousState, usedChar);
+				for (State nextState : transitionSet) {
+					String prevNameInTr = getTransposeName(transposePrefix, previousState);
+					String nextNameInTr = getTransposeName(transposePrefix, nextState);
+					mirror.addTransition(nextNameInTr, usedChar, prevNameInTr);
 				}
 			}
 		}
-		if (!foundTransitionForOneState) {
-			System.out.println("For \"" + originalName + "\" + did not find any transitions, therefore \"" + mirrorName
-					+ "\" is accepting");
-			mirror.setInitial(mirrorName);
+	}
+
+	private static void addTransposeStates(Automaton original, AutomatonBuilder mirror, String transposePrefix,
+			Set<State> originalStates) {
+		for (State state : originalStates) {
+			String newName = getTransposeName(transposePrefix, state);
+
+			mirror.addNewState(newName);
+			if (original.isAccepting(state) && original.isInitial(state)) {
+				mirror.setInitial(newName);
+				mirror.setAccepting(newName);
+			} else if (original.isAccepting(state)) {
+				mirror.setInitial(newName);
+			} else if (original.isInitial(state)) {
+				mirror.setAccepting(newName);
+			}
 		}
+	}
+
+	private static String getTransposeName(String transposePrefix, State state) {
+		return transposePrefix + state.getName();
 	}
 
 	/**
@@ -250,11 +254,12 @@ public class AutomataUtils {
 	/************** TP6 *********************/
 
 	/**
-	 * method non complete
+	 * method non completed
 	 * 
 	 * @param words
 	 * @param dest
 	 */
+
 	public static void createAhoCorasick(String[] words, AutomatonBuilder dest) {
 		State racine = dest.addNewState("root");
 		int lgMax = 0;
@@ -318,6 +323,14 @@ public class AutomataUtils {
 
 	/************** TP7 *********************/
 
+	/**
+	 * minimalise an automaton into a AutomatonBuilder
+	 * 
+	 * @param a
+	 *            the automaton to minimalise
+	 * @param dest
+	 *            the minimalise automaton from a
+	 */
 	public static void minimalise(Automaton a, AutomatonBuilder dest) {
 
 		AutomatonBuilder result = new NDAutomaton();
@@ -325,7 +338,9 @@ public class AutomataUtils {
 		transpose(a, result);
 		determinize(result, dest);
 
+
 		transpose(dest, result);
+		TestND.dotToFile(result, "automate-test-minimal.dot");
 		determinize(result, dest);
 	}
 
