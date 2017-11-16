@@ -100,7 +100,7 @@ public class TestND {
 
 		dotToFile(a, "automate-test-original.dot");
 		dotToFile(b, "automate-test-determinize.dot");
-		//dotToFile(c, "automate-test-minimal.dot");
+		dotToFile(c, "automate-test-minimal.dot");
 
 		/*
 		 * Affichage de l'automate, en mode texte

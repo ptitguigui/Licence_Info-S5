@@ -253,13 +253,6 @@ public class AutomataUtils {
 
 	/************** TP6 *********************/
 
-	/**
-	 * method non completed
-	 * 
-	 * @param words
-	 * @param dest
-	 */
-
 	public static void createAhoCorasick(String[] words, AutomatonBuilder dest) {
 		State racine = dest.addNewState("root");
 		int lgMax = 0;
@@ -337,7 +330,6 @@ public class AutomataUtils {
 
 		transpose(a, result);
 		determinize(result, dest);
-
 
 		transpose(dest, result);
 		TestND.dotToFile(result, "automate-test-minimal.dot");
