@@ -332,7 +332,6 @@ public class AutomataUtils {
 		determinize(result, dest);
 
 		transpose(dest, result);
-		TestND.dotToFile(result, "automate-test-minimal.dot");
 		determinize(result, dest);
 	}
 
