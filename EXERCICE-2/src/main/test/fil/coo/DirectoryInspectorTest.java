@@ -1,12 +1,14 @@
 package fil.coo;
 
 import org.apache.log4j.Logger;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -25,6 +27,7 @@ public class DirectoryInspectorTest {
 
 
     private DirectoryInspector directoryInspector;
+    private Path tempRootDir;
 
 
     /**
@@ -33,16 +36,15 @@ public class DirectoryInspectorTest {
     @Before
     public void setupTestDir() {
 
-        Path tempPath;
         try {
-            tempPath = Files.createTempDirectory("temp");
-            createFiles(tempPath);
+            tempRootDir = Files.createTempDirectory("temp");
+            createFiles(tempRootDir);
         } catch (IOException e) {
             logger.debug(e);
             return;
         }
 
-        directoryInspector = new DirectoryInspector(tempPath.toString());
+        directoryInspector = new DirectoryInspector(tempRootDir.toString());
     }
 
     /**
@@ -52,8 +54,17 @@ public class DirectoryInspectorTest {
      * @throws IOException if an error occurs while creating the temp files
      */
     private void createFiles(Path tempPath) throws IOException {
-        Files.createTempFile(tempPath, "C", "test", null);
-        Files.createTempFile(tempPath, "test", ".class", null);
+        Files.createFile(Paths.get(startsWithCName));
+        Files.createFile(Paths.get(endsWithClassName));
+    }
+
+    @After
+    public void deleteTempFiles() {
+        try {
+            Files.delete(tempRootDir);
+        } catch (IOException e) {
+            logger.debug(e);
+        }
     }
 
     @Test

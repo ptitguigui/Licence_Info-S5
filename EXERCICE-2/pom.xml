@@ -11,6 +11,8 @@
         </dependency>
     </dependencies>
 
+    <packaging>jar</packaging>
+
     <parent>
         <groupId>fil.coo</groupId>
         <artifactId>COO-PLUGINS</artifactId>
