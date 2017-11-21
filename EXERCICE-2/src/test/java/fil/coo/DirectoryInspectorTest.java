@@ -54,8 +54,10 @@ public class DirectoryInspectorTest {
      * @throws IOException if an error occurs while creating the temp files
      */
     private void createFiles(Path tempPath) throws IOException {
-        Files.createFile(Paths.get(tempPath.toString() + startsWithCName));
-        Files.createFile(Paths.get(tempPath.toString() + endsWithClassName));
+        Path file = Files.createFile(Paths.get(tempPath.toString() + startsWithCName));
+        logger.debug("created temp StartsWithC at " + file.toAbsolutePath().toString());
+        Path file1 = Files.createFile(Paths.get(tempPath.toString() + endsWithClassName));;
+        logger.debug("created temp endWithClass at " + file1.toAbsolutePath().toString());
     }
 
     @After
