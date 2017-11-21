@@ -10,9 +10,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>EXERICE-1</module>
-        <module>EXERICE-2</module>
-        <module>EXERICE-3</module>
+        <module>EXERCICE-1</module>
+        <module>EXERCICE-2</module>
+        <module>EXERCICE-3</module>
     </modules>
 
 
