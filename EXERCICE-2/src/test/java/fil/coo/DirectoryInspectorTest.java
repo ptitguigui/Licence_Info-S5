@@ -5,6 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,13 +22,23 @@ public class DirectoryInspectorTest {
     private static final String TEST = "test";
     private static final String C = "C";
     private static final String CLASS = ".class";
+    private static final String TEST_DIR_NAME = "test-folder";
 
     private static final String startsWithCName = C + "." + TEST;
     private static final String endsWithClassName = TEST + CLASS;
 
 
     private DirectoryInspector directoryInspector;
-    private Path tempRootDir;
+
+    /**
+     * The path of the newly created testing folder
+     */
+    private Path tempRootDirPath;
+
+    /**
+     * The {@link File} of the testing directory. Instanciated in {@link #setupTestDir()} Used to delete all contents at end of test
+     */
+    private File tempRootDirFile;
 
 
     /**
@@ -36,15 +47,36 @@ public class DirectoryInspectorTest {
     @Before
     public void setupTestDir() {
 
+        verifyExistingFolder();
+
         try {
-            tempRootDir = Files.createTempDirectory("temp");
-            createFiles(tempRootDir);
+            createTestingFolder();
+            createTempFiles(tempRootDirPath);
         } catch (IOException e) {
             logger.debug(e);
             return;
         }
 
-        directoryInspector = new DirectoryInspector(tempRootDir.toString());
+        directoryInspector = new DirectoryInspector(tempRootDirPath.toString());
+    }
+
+    private void verifyExistingFolder() {
+        File testDir = new File(TEST_DIR_NAME);
+        if (testDir.exists()) {
+            logger.debug("test folder exists, will delete");
+            deleteAll(testDir);
+        }
+    }
+
+    /**
+     * Creates the testing folder
+     *
+     * @throws IOException if an error occurs while creating this folder
+     */
+    private void createTestingFolder() throws IOException {
+        tempRootDirPath = Files.createDirectory(Paths.get(TEST_DIR_NAME));
+        tempRootDirFile = new File(tempRootDirPath.toString());
+        logger.debug("created temp dir at \"" + tempRootDirPath.toAbsolutePath().toString() + "\"");
     }
 
     /**
@@ -53,20 +85,30 @@ public class DirectoryInspectorTest {
      * @param tempPath the path to our custom temporary directory
      * @throws IOException if an error occurs while creating the temp files
      */
-    private void createFiles(Path tempPath) throws IOException {
-        Path file = Files.createFile(Paths.get(tempPath.toString() + startsWithCName));
-        logger.debug("created temp StartsWithC at " + file.toAbsolutePath().toString());
-        Path file1 = Files.createFile(Paths.get(tempPath.toString() + endsWithClassName));;
-        logger.debug("created temp endWithClass at " + file1.toAbsolutePath().toString());
+    private void createTempFiles(Path tempPath) throws IOException {
+        String prefix = tempPath.toString() + "/";
+
+        Path startsWithCPath = Files.createFile(Paths.get(prefix + startsWithCName));
+        logger.debug("created test file StartsWithC at \"" + startsWithCPath.toAbsolutePath().toString() + "\"");
+
+        Path endsWithClassPath = Files.createFile(Paths.get(prefix + endsWithClassName));
+        logger.debug("created test file endWithClass at \"" + endsWithClassPath.toAbsolutePath().toString() + "\"");
     }
 
     @After
-    public void deleteTempFiles() {
-        try {
-            Files.delete(tempRootDir);
-        } catch (IOException e) {
-            logger.debug(e);
+    public void deleteTempFilesAndFolder() {
+        deleteAll(tempRootDirFile);
+    }
+
+    private void deleteAll(File rootDir) {
+        String[] entries = rootDir.list();
+        for (String s : entries) {
+            File currentFile = new File(rootDir.getPath(), s);
+            boolean delete = currentFile.delete();
+            logger.debug("deleted file \"" + currentFile.toString() + "\" : " + delete);
         }
+        boolean delete = rootDir.delete();
+        logger.debug("deleted dir \"" + rootDir.toString() + "\" : " + delete);
     }
 
     @Test

@@ -2,6 +2,7 @@
 .idea/sonarlint/
 *.uml
 logs/
+test-folder/
 
 # Created by https://www.gitignore.io/api/maven,eclipse,intellij+all
 
