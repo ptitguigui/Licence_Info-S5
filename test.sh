@@ -60,4 +60,4 @@ for genome_size in `awk 'BEGIN { for( i=100; i<=1000000000; i*=10 ) print i }'`;
     done
 done
 
-rm -rf $TIME_FILE
+gnuplot run-scs.gnu &
