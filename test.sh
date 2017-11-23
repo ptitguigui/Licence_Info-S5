@@ -1,5 +1,14 @@
 #! /bin/sh -uf
 
+DEBUG=false
+
+if [ "$#" -eq 1 ]
+then
+  test "-d" != $1 && echo "param not recognized" &&  echo  "usage: $0 \[-d\]" && exit 1
+  echo "debug mode"
+  DEBUG=true
+fi
+
 # le dossier de tests
 TEST_DIR="testing"
 
@@ -21,6 +30,8 @@ TIME_OPT="-f %e"
 # Le fichier de temps à générer
 TIME_FILE=$TEST_DIR/COMPT-TM.dat
 
+mkdir -p $TEST_DIR
+
 # initialisation du fichier de résultats
 rm -f $TIME_FILE && echo -ne "# genome_count\tthread_count\tcount_time" > $TIME_FILE
 
@@ -28,12 +39,24 @@ rm -f $TIME_FILE && echo -ne "# genome_count\tthread_count\tcount_time" > $TIME_
 for genome_size in `awk 'BEGIN { for( i=100; i<=1000000000; i*=10 ) print i }'`; do
     # initialisation du genome
     rm -rf $ALEA_OUTPUT
-    $ALEA $genome_size > $ALEA_OUTPUT
+    if [ $DEBUG = "true" ]
+    then
+      echo "creating genome with size $genome_size"
+    else
+      echo "nothing"
+      #$ALEA $genome_size > $ALEA_OUTPUT
+    fi
 
     # pour n_threads de 2⁰ à 2⁵
     for thread_count in `awk 'BEGIN { for( i=1; i<=32; i*=2 ) print i }'`; do
         echo -ne "\t$genome_size\t$thread_count" >> $TIME_FILE
-        $TIME_CMD "$TIME_OPT" $COMPT $COMPT_INPUT $thread_count> /dev/null 2>> $TIME_FILE
+        if [ $DEBUG = "true" ]
+        then
+          echo "executing for genome size $genome_size and thread_count $thread_count"
+        else
+          echo "nothing"
+          #$TIME_CMD "$TIME_OPT" $COMPT $COMPT_INPUT $thread_count> /dev/null 2>> $TIME_FILE
+        fi
     done
 done
 
