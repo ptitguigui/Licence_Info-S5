@@ -2,4 +2,4 @@ set title "Vitesse d'éxécution en fonction de la taille du genome et nombre de
 set logscale x
 set dgrid3d 30,30
 set pm3d
-splot ’res.dat’ using 1:2:3 with lines
+splot 'COMPT-TM.dat' using 1:2:3 with lines
