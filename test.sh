@@ -36,15 +36,15 @@ mkdir -p $TEST_DIR
 rm -f $TIME_FILE && echo -e "# genome_count\tthread_count\tcount_time" > $TIME_FILE
 
 # pour taille genome de 10² a 10⁹
-for genome_size in `awk 'BEGIN { for( i=100; i<=1000000; i*=10 ) print i }'`; do
+for genome_size in `awk 'BEGIN { for( i=100; i<=1000000000; i*=10 ) print i }'`; do
     # initialisation du genome
-    rm -rf $ALEA_OUTPUT
+    rm -rf $ALEA_OUTPUT$genome_size
     echo "creating genome with size $genome_size"
     if [ $DEBUG = "true" ]
     then
       echo "nothing"
     else
-      $ALEA $genome_size > $ALEA_OUTPUT
+      $ALEA $genome_size > $ALEA_OUTPUT$genome_size
     fi
 
     # pour n_threads de 2⁰ à 2⁵
@@ -55,7 +55,7 @@ for genome_size in `awk 'BEGIN { for( i=100; i<=1000000; i*=10 ) print i }'`; do
         then
           echo "nothing"
         else
-          $TIME_CMD "$TIME_OPT" $COMPT $COMPT_INPUT $thread_count> /dev/null 2>> $TIME_FILE
+          $TIME_CMD "$TIME_OPT" $COMPT $COMPT_INPUT$genome_size $thread_count> /dev/null 2>> $TIME_FILE
         fi
     done
 done
