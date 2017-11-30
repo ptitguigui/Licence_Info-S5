@@ -14,7 +14,7 @@ public class TestARD {
             ArdExo1 parser = new ArdExo1(new StringReader(word));
             try {
                 parser.parse();
-                System.out.println("OK");
+                System.out.println("OK : "+parser.getExpandedExpression());
             } catch (SyntaxException e) {
                 System.out.println("Erreur : " + e.getMessage());
                 //throw e;
