@@ -12,7 +12,7 @@ Dans ce TP, nous faisons des manipulations sur les automates...
 
 # Utilisation du TP :
 
-Pour voir comment fonctionne la minimalisation vous pouvez :
+Pour l'exercice 1 du tp:
 
 - Lancer `TestARD`
 - Regarder pour chaque expression si le résultat est correcte ou non
