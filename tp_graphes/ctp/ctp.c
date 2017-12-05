@@ -99,8 +99,8 @@ void parcourt_Chaine2Sommets(tGraphe graphe, char *depart, char *arrivee){
   tNomSommet nomSommet;
   int possedeVoisinBleu;
   int sortie_trouvee;
-  int nbVoisins;
-  int voisin;
+  int nbSuccesseurs;
+  int successeur;
   int i;
   int s;
   int s2;
@@ -124,16 +124,16 @@ void parcourt_Chaine2Sommets(tGraphe graphe, char *depart, char *arrivee){
     if(x == s2){
       sortie_trouvee = 1;
     }
-    nbVoisins = grapheNbVoisinsSommet(graphe, x);
+    nbSuccesseurs = grapheNbSuccesseursSommet(graphe, x);
     possedeVoisinBleu = 0;
     i =0;
-    while (!possedeVoisinBleu && i<nbVoisins) {
-      voisin = grapheVoisinSommetNumero(graphe, x, i);
-      if(tab[voisin] == BLEU){
-        grapheRecupNomSommet(graphe, voisin, nomSommet);
+    while (!possedeVoisinBleu && i<nbSuccesseurs) {
+      successeur = grapheSuccesseurSommetNumero(graphe, x, i);
+      if(tab[successeur] == BLEU){
+        grapheRecupNomSommet(graphe, successeur, nomSommet);
         printf("visited %s\n", nomSommet);
-        tab[voisin] = VERT;
-        pileSommetsEmpile(pile, voisin);
+        tab[successeur] = VERT;
+        pileSommetsEmpile(pile, successeur);
         possedeVoisinBleu = 1;
       }
       i++;
