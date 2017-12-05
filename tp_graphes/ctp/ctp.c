@@ -124,19 +124,38 @@ void parcourt_Chaine2Sommets(tGraphe graphe, char *depart, char *arrivee){
     if(x == s2){
       sortie_trouvee = 1;
     }
-    nbSuccesseurs = grapheNbSuccesseursSommet(graphe, x);
-    possedeVoisinBleu = 0;
-    i =0;
-    while (!possedeVoisinBleu && i<nbSuccesseurs) {
-      successeur = grapheSuccesseurSommetNumero(graphe, x, i);
-      if(tab[successeur] == BLEU){
-        grapheRecupNomSommet(graphe, successeur, nomSommet);
-        printf("visited %s\n", nomSommet);
-        tab[successeur] = VERT;
-        pileSommetsEmpile(pile, successeur);
-        possedeVoisinBleu = 1;
+
+    if (grapheEstOriente(graphe))
+    {
+      nbSuccesseurs = grapheNbSuccesseursSommet(graphe, x);
+      possedeVoisinBleu = 0;
+      i =0;
+      while (!possedeVoisinBleu && i<nbSuccesseurs) {
+        successeur = grapheSuccesseurSommetNumero(graphe, x, i);
+        if(tab[successeur] == BLEU){
+          grapheRecupNomSommet(graphe, successeur, nomSommet);
+          printf("visited %s\n", nomSommet);
+          tab[successeur] = VERT;
+          pileSommetsEmpile(pile, successeur);
+          possedeVoisinBleu = 1;
+        }
+        i++;
       }
-      i++;
+    } else {
+        nbSuccesseurs = grapheNbVoisinsSommet(graphe, x);
+        possedeVoisinBleu = 0;
+        i =0;
+        while (!possedeVoisinBleu && i<nbSuccesseurs) {
+          successeur = grapheVoisinSommetNumero(graphe, x, i);
+          if(tab[successeur] == BLEU){
+            grapheRecupNomSommet(graphe, successeur, nomSommet);
+            printf("visited %s\n", nomSommet);
+            tab[successeur] = VERT;
+            pileSommetsEmpile(pile, successeur);
+            possedeVoisinBleu = 1;
+          }
+          i++;
+        }
     }
     if(possedeVoisinBleu == 0)
     {
