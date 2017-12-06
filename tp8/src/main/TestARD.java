@@ -1,4 +1,7 @@
-package ard;
+package main;
+
+import ard.ParserException;
+import ard.SyntaxException;
 
 import java.io.StringReader;
 import java.util.Scanner;
