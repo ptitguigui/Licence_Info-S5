@@ -3,9 +3,13 @@ package reduction;
 public class BooleanConstant extends BooleanExpression{
 
 	public BooleanConstant(boolean value) {
-		// TODO Auto-generated constructor stub
-		super(null); // à enlever
+        super();
+        if(value){
+		    this.image = "true";
+        }else {
+		    this.image = "false";
+        }
 	}
 	// à compléter
-	
+
 }

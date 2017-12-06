@@ -9,6 +9,7 @@ import lexical.LexicalException;
 import lexical.TokenType;
 import reduction.BooleanConstant;
 import reduction.BooleanExpression;
+import reduction.Expression;
 
 public class BooleanExpReductor extends AbstractParser<String> {
 
@@ -51,13 +52,35 @@ public class BooleanExpReductor extends AbstractParser<String> {
 	}
 
 	private BooleanExpression T() throws SyntaxException, ParserException, IOException, LexicalException {
-		// à compléter
-		return null; // à enlever
-	}
+        switch (current.getType()) {
+            case CONSTANT:
+            case IDENT:
+            case OPEN_BRACKET:
+            case NOT:
+                BooleanExpression e1 = F();
+                BooleanExpression e2 = Tp();
+                return e1.rightOr(e2);
+            default:
+                throw new SyntaxException(ErrorType.NO_RULE, current);
+        }
+
+    }
 
 	private BooleanExpression Tp() throws ParserException, IOException, LexicalException, SyntaxException {
-		// à compléter
-		return null; // à enlever
+        switch (current.getType()) {
+            case AND:
+                next();
+                BooleanExpression e1 = F();
+                BooleanExpression e2 = Tp();
+                return e1.rightAnd(e2);
+            case OR:
+            case CLOSE_BRACKET:
+            case EOD:
+                Constant c = (Constant) current;
+                return new BooleanConstant(c.getValue());
+            default:
+                throw new SyntaxException(ErrorType.NO_RULE, current);
+        }
 	}
 
 	private BooleanExpression F() throws SyntaxException, ParserException, IOException, LexicalException {
@@ -70,22 +93,21 @@ public class BooleanExpReductor extends AbstractParser<String> {
 		case IDENT: {
 			Ident i = (Ident) current;
 			next();
-			return new BooleanExpression(String.valueOf(i));
+			return new Expression(String.valueOf(i));
 		}
 		case OPEN_BRACKET: {
 			next();
 			BooleanExpression e1 = E();
 			next();
-			//return " (+" + e1 + ") ";
+			e1.wrap();
 		}
-		case NOT: {
-			// à compléter
+		case NOT: {next();
+            BooleanExpression e = F();
+            return e.not();
 		}
 		default:
-			// à compléter
+            throw new SyntaxException(ErrorType.NO_RULE, current);
 		}
-		return null; // à enlever
-
 	}
 
 }

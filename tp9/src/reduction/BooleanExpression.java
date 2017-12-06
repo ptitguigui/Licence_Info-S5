@@ -3,6 +3,9 @@ package reduction;
 public class BooleanExpression {
     protected String image;
 
+    public BooleanExpression() {
+    }
+
     public String getImage() {
         return image;
     }
@@ -20,9 +23,9 @@ public class BooleanExpression {
      */
     public BooleanExpression rightAnd(BooleanExpression other) {
 		if(this.image.equals("true")){
-            return new BooleanExpression("true");
         }
-        return null;
+
+        return null; // a compléter
     }
 
     /**
