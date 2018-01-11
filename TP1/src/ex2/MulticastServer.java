@@ -9,7 +9,6 @@ public class MulticastServer {
     private final MulticastSocket multicastSocket;
     private final int port;
 
-    private DatagramSocket socket;
     private DatagramPacket packet;
 
     public MulticastServer(InetAddress group, int port) throws IOException {
@@ -25,8 +24,7 @@ public class MulticastServer {
         packet = new DatagramPacket(byteData, byteData.length, group, port);
 
         try {
-            socket = new DatagramSocket();
-            socket.send(packet);
+            multicastSocket.send(packet);
             System.out.println("sent message: " + message + " to " + group.getHostName());
         } catch (IOException e) {
             e.printStackTrace();
@@ -34,12 +32,12 @@ public class MulticastServer {
         }
 
 
-        socket.close();
+        multicastSocket.close();
     }
 
     public static void main(String[] args) throws IOException {
         MulticastServer server = new MulticastServer(InetAddress.getByName("224.0.0.1"), 7654);
-        server.send("hello");
+        server.send("J'arrive pas a envoyer et recevoir en meme temps :(");
 
     }
 
