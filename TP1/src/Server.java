@@ -29,7 +29,9 @@ public class Server {
 
     public static void main(String[] args) throws UnknownHostException {
         Server server = new Server();
-        server.send("hello", InetAddress.getByName("a15p12"), 9090);
+        server.send("first message", InetAddress.getByName("a15p12"), 9090);
+        server.send("second message", InetAddress.getByName("a15p12"), 9090);
+
     }
 
 }

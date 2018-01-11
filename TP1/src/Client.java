@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.SocketException;
 
 public class Client {
 
@@ -10,14 +11,16 @@ public class Client {
     private DatagramSocket socket;
     private DatagramPacket packet;
 
-    public void listen(int port) {
+    public void init(int port) throws SocketException {
+        socket = new DatagramSocket(port);
+    }
+
+    public void listen() {
         try {
             byte[] buffer = new byte[PACKET_LENGTH];
             packet = new DatagramPacket(buffer, buffer.length);
 
-            socket = new DatagramSocket(port);
-
-            System.out.println("listening on " + port);
+            System.out.println("client is listening");
 
             socket.receive(packet);
 
@@ -30,12 +33,20 @@ public class Client {
             System.out.println("could not receive");
         }
 
-        socket.close();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SocketException {
         Client client = new Client();
-        client.listen(9090);
+        client.init(9090);
+
+        while (true) {
+            client.listen();
+        }
+//        client.closeSocket();
+    }
+
+    private void closeSocket() {
+        socket.close();
     }
 
 }
