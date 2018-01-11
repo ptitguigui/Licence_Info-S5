@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
+import java.util.Scanner;
 
 public class SingleMulticastClientServer {
 
@@ -77,15 +78,14 @@ public class SingleMulticastClientServer {
                 }
         ).start();
 
+
         new Thread(
                 () -> {
-                    for (int i = 0; i < 10; i++) {
-                        single.send("hello " + i);
-                        try {
-                            Thread.sleep(2000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                    Scanner scanner = new Scanner(System.in);
+
+                    while (true) {
+                        String msg = scanner.nextLine();
+                        single.send(msg);
                     }
                 }
         ).start();
