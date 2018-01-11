@@ -1,32 +1,35 @@
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 public class Server {
 
 
-    private static final int PACKET_LENGTH = 1024;
-
     private DatagramSocket socket;
     private DatagramPacket packet;
 
-    public void listen(int port) {
+    public void send(String message, InetAddress dest, int port) {
+        byte[] byteData = message.getBytes();
+        packet = new DatagramPacket(byteData, byteData.length, dest, port);
+
         try {
-            socket = new DatagramSocket(port);
-            packet = new DatagramPacket(new byte[PACKET_LENGTH], PACKET_LENGTH);
-
-
-            System.out.println("listening on " + port);
-
-            socket.receive(packet);
-
-            String result = new String(packet.getData(), 0, packet.getLength());
-            System.out.println("received: " + result);
-
+            socket = new DatagramSocket();
+            socket.send(packet);
+            System.out.println("sent message: " + message + " to " + dest.getHostName());
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("failed to send message");
         }
+
+
         socket.close();
+    }
+
+    public static void main(String[] args) throws UnknownHostException {
+        Server server = new Server();
+        server.send("hello", InetAddress.getByName("a15p12"), 9090);
     }
 
 }
