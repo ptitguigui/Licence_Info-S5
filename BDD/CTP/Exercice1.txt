@@ -1,0 +1,11 @@
+Q1 :
+project[onom,ofournisseur](select[acc='oui'])(Offre));
+
+Q2 :
+project[gnom](select[cat='fiction'](Groupe join Replay));
+
+Q3 :
+project[rnom](select[cat='fiction'](Replay)) intersect project[rnom](select[prix<=20](Offre join Replay)) ;
+
+Q4 :
+project[onom](select[prix>=30](Offre));

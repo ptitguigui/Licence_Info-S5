@@ -1,0 +1,3 @@
+select onom, ofournisseur
+from offre
+where acc='oui';

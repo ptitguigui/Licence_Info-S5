@@ -1,0 +1,42 @@
+% Declarations de types
+%:- type(Offre(oid : int, onom : string, ofournisseur : string, oprix : float)).
+%:- type(Groupe(gid : int, oid : int, gnom : string, acc : string)).
+%:- type(Replay(rid : int, gid : int, rnom : string, rtype :string, cat : string)).
+
+
+offre(1,'power','sfr',29.99).
+offre(2,'starter','sfr',19.99).
+offre(3,'revolution','free',39.99).
+offre(4,'Mini','free',29.99).
+
+%-------------
+groupe(1,1,'6paly','oui').
+groupe(1,2,'6paly','oui').
+groupe(1,3,'6paly','oui').
+groupe(1,4,'6paly','oui').
+groupe(2,1,'MYTF1','oui').
+groupe(2,2,'MYTF1','oui').
+groupe(2,3,'MYTF1','oui').
+groupe(2,4,'MYTF1','oui').
+groupe(4,1,'CANAL','oui').
+groupe(4,2,'CANAL','non').
+groupe(4,3,'CANAL','oui').
+groupe(4,4,'CANAL','non').
+groupe(6,1,'OCS','non').
+groupe(6,2,'OCS','non').
+groupe(6,3,'OCS','oui').
+groupe(6,4,'OCS','non').
+
+
+%-----------
+replay(1,1,'NCIS','Series','Action').
+replay(2,1,'Empire','Series','Musique').
+replay(3,1,'capital','Documentaire','INFO').
+replay(4,1,'E=M6','Documentaire','INFO').
+replay(5,1,'Nouvelle STAR','Emissions','Musique').
+replay(6,2,'Gotham','Series','Fiction').
+replay(7,2,'Pas de ça entre nous !','Emissions','Divertissement').
+replay(8,2,'JT WE','JT','INFO').
+replay(9,4,'Ligue1','Sport','Divertissement').
+replay(10,6,'Game of throne','Series','Fiction').
+replay(11,6,'Power','Series','Fiction').
