@@ -4,9 +4,7 @@ import ex3.SingleMulticastClientServer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.io.IOException;
 import java.net.InetAddress;
 
@@ -62,6 +60,12 @@ public class ChatFrame extends JFrame implements MessageClient {
 
         chatArea = new JTextArea();
         JScrollPane scrollChat = new JScrollPane(chatArea);
+        scrollChat.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                e.getAdjustable().setValue(e.getAdjustable().getValue());
+            }
+        });
+
         scrollChat.setPreferredSize(new Dimension(775, 700));
 
         chatPanel.add(scrollChat);
@@ -121,10 +125,15 @@ public class ChatFrame extends JFrame implements MessageClient {
         if (localHost.equals(host) || extendedLocalhost.equals(host)) {
             host = "you";
         }
+        host += ":";
+
+        String append = String.format("%-30s %s", host, text);
+
         if (firstMessage) {
-            chatArea.setText(host + ": " + text);
+            chatArea.setText(append);
+            firstMessage = false;
         } else {
-            chatArea.append("\n" + host + ": " + text);
+            chatArea.append("\n" + append);
         }
     }
 }
