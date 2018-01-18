@@ -1,9 +1,13 @@
 package ex3;
 
+import gui.MessageClient;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class SingleMulticastClientServer {
@@ -16,6 +20,8 @@ public class SingleMulticastClientServer {
     private MulticastSocket multiClient;
     private MulticastSocket multiServer;
 
+    private List<MessageClient> listeners;
+
     public SingleMulticastClientServer(InetAddress group, int receivePort) throws IOException {
         this.group = group;
         this.receivePort = receivePort;
@@ -27,6 +33,8 @@ public class SingleMulticastClientServer {
         multiServer = new MulticastSocket(receivePort);
         multiServer.setTimeToLive(1);
         multiServer.joinGroup(group);
+
+        listeners = new ArrayList<>();
     }
 
     public void listen() {
@@ -40,9 +48,17 @@ public class SingleMulticastClientServer {
             String result = new String(packet.getData(), packet.getOffset(), packet.getLength());
             System.out.println("received: " + result + " from " + packet.getAddress().getHostName());
 
+            notifyListeners(result, packet.getAddress().getHostName());
+
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("could not receive");
+        }
+    }
+
+    private void notifyListeners(String result, String hostName) {
+        for (MessageClient client : listeners) {
+            client.receiveMessage(result, hostName);
         }
     }
 
@@ -69,11 +85,16 @@ public class SingleMulticastClientServer {
         SingleMulticastClientServer single = new SingleMulticastClientServer(InetAddress.getByName("224.0.0.1"),
                 7654);
 
+        single.run();
+
+    }
+
+    public void run() {
         new Thread(
                 () -> {
                     System.out.println("client is listening");
                     while (true) {
-                        single.listen();
+                        listen();
                     }
                 }
         ).start();
@@ -85,11 +106,14 @@ public class SingleMulticastClientServer {
 
                     while (true) {
                         String msg = scanner.nextLine();
-                        single.send(msg);
+                        send(msg);
                     }
                 }
         ).start();
 
+    }
 
+    public void addListener(MessageClient client) {
+        listeners.add(client);
     }
 }
