@@ -81,14 +81,9 @@ public class SingleMulticastClientServer {
         multiServer.close();
     }
 
-    public static void main(String[] args) throws IOException {
-        SingleMulticastClientServer single = new SingleMulticastClientServer(InetAddress.getByName("224.0.0.1"),
-                7654);
-
-        single.run();
-
-    }
-
+    /**
+     * Starts waiting to receive messages in one thread and in another thread, continuously waits for user input to send
+     */
     public void run() {
         new Thread(
                 () -> {
