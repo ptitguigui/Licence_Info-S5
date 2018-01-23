@@ -1,4 +1,4 @@
-package gui;
+package ex3gui;
 
 import java.io.IOException;
 

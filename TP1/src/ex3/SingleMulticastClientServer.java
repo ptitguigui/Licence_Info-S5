@@ -1,6 +1,6 @@
 package ex3;
 
-import gui.MessageClient;
+import ex3gui.MessageClient;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
