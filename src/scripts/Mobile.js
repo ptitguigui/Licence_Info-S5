@@ -21,7 +21,6 @@ export default class Mobile {
     }
 
     move() {
-        console.log("MOVED");
         this.x += this.vx;
         this.y += this.vy;
     }

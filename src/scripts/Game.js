@@ -53,8 +53,10 @@ export default class Game {
     animate() {
         this.context.clearRect(0, 0, this.myCanvas.width, this.myCanvas.height);
 
-        this.starship.move(this.firstDraw);
-        this.firstDraw = false;
+        if (this.firstDraw || this.starship.isMoving()) {
+            this.starship.move(this);
+            this.firstDraw = false;
+        }
         this.starship.draw();
 
         for (let singleSaucer of this.saucers) {
