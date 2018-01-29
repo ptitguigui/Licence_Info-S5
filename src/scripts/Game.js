@@ -13,6 +13,7 @@ export default class Game {
         this.score = 0;
 
         this.init();
+        this.firstDraw = true;
     }
 
     init() {
@@ -52,8 +53,9 @@ export default class Game {
     animate() {
         this.context.clearRect(0, 0, this.myCanvas.width, this.myCanvas.height);
 
-            this.starship.move();
-            this.starship.draw();
+        this.starship.move(this.firstDraw);
+        this.firstDraw = false;
+        this.starship.draw();
 
         for (let singleSaucer of this.saucers) {
             singleSaucer.move();
@@ -72,6 +74,21 @@ export default class Game {
             case "ArrowDown":
             case "Down":
                 this.starship.moveDown();
+                break;
+            default:
+                return;
+        }
+        event.preventDefault();
+    }
+
+
+    keyUpActionHandler(event) {
+        switch (event.key) {
+            case "ArrowUp":
+            case "Up":
+            case "ArrowDown":
+            case "Down":
+                this.starship.stopMove();
                 break;
             default:
                 return;

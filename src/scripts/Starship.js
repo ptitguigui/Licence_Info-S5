@@ -25,23 +25,43 @@ export default class Starship extends Mobile {
         this.moving = MoveState.DOWN;
     }
 
-    move() {
-        let tempY;
+    move(force) {
 
-        if (this.moving === MoveState.UP) {
-            tempY = this.y -= this.vy;
-            this.vy = -this.vy;
-        } else if (this.moving === MoveState.DOWN) {
-            tempY = this.y += this.vy;
+        if (!force && !this.isMoving()) {
+            return;
         }
 
-        if (tempY >= 0 && tempY <= this.myCanvas.height) {
+        let tempY = -1;
+
+        if (this.moving === MoveState.UP) {
+            this.vy = -this.vy;
+        }
+        tempY = this.y += this.vy;
+
+        if (this.yIsInBounds(tempY)) {
             super.move();
             if (this.moving === MoveState.UP) {
                 this.vy = -this.vy;
             }
+        } else {
+            console.log("refused");
         }
+        console.log("actual y:" + this.y);
+    }
+
+    yIsInBounds(y) {
+        console.log("new Y=" + y + " height = " + this.myCanvas.height);
+        console.log("y < this.myCanvas.height: " + (y < this.myCanvas.height));
+
+        return (y > 0) && (y < this.myCanvas.height);
+    }
+
+    stopMove() {
+        this.moving = MoveState.NONE;
     }
 
 
+    isMoving() {
+        return this.moving != MoveState.NONE;
+    }
 }

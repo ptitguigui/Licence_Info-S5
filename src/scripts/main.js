@@ -12,6 +12,7 @@ var setup = function () {
 
 
     window.addEventListener('keydown', game.keyDownActionHandler.bind(game));
+    window.addEventListener('keyup', game.keyUpActionHandler.bind(game));
 
     let newSaucerButton = document.getElementById("nouvelleSoucoupe");
     newSaucerButton.addEventListener("click", game.addSaucer.bind(game));
