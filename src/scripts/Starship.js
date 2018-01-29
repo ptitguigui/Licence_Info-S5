@@ -7,6 +7,9 @@ export default class Starship extends Mobile {
     constructor(aCanvas, initX, initY) {
         super(aCanvas, starshipSrc, initX, initY, 0, 8);
         this.moving = MoveState.NONE;
+
+        this.ogVY = this.vy;
+        this.ogVX = this.vx;
     }
 
     get up() {
@@ -26,42 +29,33 @@ export default class Starship extends Mobile {
     }
 
     move(force) {
-
         if (!force && !this.isMoving()) {
             return;
         }
 
-        let tempY = -1;
-
-        if (this.moving === MoveState.UP) {
-            this.vy = -this.vy;
+        let calcY;
+        if (this.moving === MoveState.DOWN) {
+            this.vy = this.ogVY;
+        } else if (this.moving === MoveState.UP) {
+            this.vy = -this.ogVY;
         }
-        tempY = this.y += this.vy;
 
-        if (this.yIsInBounds(tempY)) {
+        calcY = this.y + this.vy;
+        if (this.validMove(1, calcY)) {
             super.move();
-            if (this.moving === MoveState.UP) {
-                this.vy = -this.vy;
-            }
-        } else {
-            console.log("refused");
         }
-        console.log("actual y:" + this.y);
-    }
-
-    yIsInBounds(y) {
-        console.log("new Y=" + y + " height = " + this.myCanvas.height);
-        console.log("y < this.myCanvas.height: " + (y < this.myCanvas.height));
-
-        return (y > 0) && (y < this.myCanvas.height);
     }
 
     stopMove() {
         this.moving = MoveState.NONE;
     }
 
+    validMove(calcX, calcY) {
+        return calcX > 0 && calcY > 0 && (calcX < this.myCanvas.width - 40) && (calcY < this.myCanvas.height - 40);
+    }
+
 
     isMoving() {
-        return this.moving != MoveState.NONE;
+        return this.moving === MoveState.UP || this.moving === MoveState.DOWN;
     }
 }
