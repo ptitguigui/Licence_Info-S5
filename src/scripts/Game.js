@@ -25,7 +25,7 @@ export default class Game {
         let x = this.myCanvas.width;
         let y = Math.floor(Math.random() * this.myCanvas.height);
 
-        this.saucers.push(new Saucer(this.myCanvas, x, y));
+        this.saucers.push(new Saucer(this.myCanvas, x, y, this));
         console.log("added saucer");
     }
 
@@ -39,6 +39,14 @@ export default class Game {
 
     setScore(updatedScore) {
         this.score = updatedScore;
+    }
+
+    loseSaucer() {
+        this.score -= 1000;
+    }
+
+    shootDownSaucer() {
+        this.score += 200;
     }
 
     animate() {
