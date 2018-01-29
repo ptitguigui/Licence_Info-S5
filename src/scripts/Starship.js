@@ -27,14 +27,21 @@ export default class Starship extends Mobile {
 
     move() {
         let tempY;
+
         if (this.moving === MoveState.UP) {
             tempY = this.y -= this.vy;
+            this.vy = -this.vy;
         } else if (this.moving === MoveState.DOWN) {
             tempY = this.y += this.vy;
         }
 
         if (tempY >= 0 && tempY <= this.myCanvas.height) {
             super.move();
+            if (this.moving === MoveState.UP) {
+                this.vy = -this.vy;
+            }
         }
     }
+
+
 }

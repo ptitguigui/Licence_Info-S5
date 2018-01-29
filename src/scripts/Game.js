@@ -6,11 +6,11 @@ export default class Game {
     constructor(aCanvas) {
         this.myCanvas = aCanvas;
         this.raf = undefined;
-	this.context = this.myCanvas.getContext('2d');
+        this.context = this.myCanvas.getContext('2d');
 
-	this.starship = undefined;
-	this.saucers = [];
-	this.score = 0;
+        this.starship = undefined;
+        this.saucers = [];
+        this.score = 0;
 
         this.init();
     }
@@ -52,8 +52,8 @@ export default class Game {
     animate() {
         this.context.clearRect(0, 0, this.myCanvas.width, this.myCanvas.height);
 
-        this.starship.move();
-        this.starship.draw();
+            this.starship.move();
+            this.starship.draw();
 
         for (let singleSaucer of this.saucers) {
             singleSaucer.move();
