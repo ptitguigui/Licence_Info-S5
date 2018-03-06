@@ -27,6 +27,16 @@ varP :: Parser Expression
 varP = do res <- nomP
           pure (Var res)
 
+applique :: [Expression] -> Expression
+applique [e]      = e
+applique [e1, e2] = App e1 e2
+applique es       = App (applique (init es)) (last es)
+
+applique' :: [Expression] -> Expression
+applique' = foldl1 App
+
+
+
 
 
 
