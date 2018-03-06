@@ -35,6 +35,21 @@ applique es       = App (applique (init es)) (last es)
 applique' :: [Expression] -> Expression
 applique' = foldl1 App
 
+exprP :: Parser Expression
+exprP = varP
+
+
+exprsP :: Parser Expression
+exprsP = do exprs <- some exprP
+            pure (applique exprs)
+
+lambdaP :: Parser Expression
+lambdaP = do chaine "\\ "
+             lam <- nomP
+             chaine "-> "
+             exprs <- exprsP
+             pure (Lam lam exprs)
+
 
 
 
