@@ -1,4 +1,5 @@
 import Parser
+import Data.Char
 
 type Nom = String
 
@@ -17,7 +18,10 @@ espacesP :: Parser ()
 espacesP = do many (car ' ')
               pure (())
 
-
+nomP :: Parser Nom
+nomP = do res <- some (carQuand isAlpha)
+          espacesP
+          pure (res)
 
 
 
