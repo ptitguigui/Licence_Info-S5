@@ -41,6 +41,7 @@ exprP :: Parser Expression
 exprP = varP
 
 
+-- plusieurs Var sous forme de App
 exprsP :: Parser Expression
 exprsP = do exprs <- some exprP
             pure (applique exprs)
@@ -55,7 +56,17 @@ lambdaP = do chaine "\\"
              pure (Lam lam exprs)
 
 exprP' :: Parser Expression
-exprP' = do exprP <|> lambdaP
+exprP' = do lambdaP <|> exprP
+
+
+-- des Var et Lam entre parantheses
+exprParentheseeP :: Parser Expression
+exprParentheseeP = do car '('
+                      res <- exprsP <|> exprP'
+                      car ')'
+                      pure res
+
+
 
 
 
