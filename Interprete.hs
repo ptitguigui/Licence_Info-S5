@@ -23,6 +23,11 @@ nomP = do res <- some (carQuand isAlpha)
           espacesP
           pure (res)
 
+varP :: Parser Expression
+varP = do res <- nomP
+          pure (Var res)
+
+
 
 
 
