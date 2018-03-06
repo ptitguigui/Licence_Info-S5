@@ -50,7 +50,8 @@ lambdaP = do chaine "\\ "
              exprs <- exprsP
              pure (Lam lam exprs)
 
-
+exprP' :: Parser Expression
+exprP' = do exprP <|> lambdaP
 
 
 
