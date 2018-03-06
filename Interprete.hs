@@ -44,7 +44,8 @@ exprsP = do exprs <- some exprP
             pure (applique exprs)
 
 lambdaP :: Parser Expression
-lambdaP = do chaine "\\ "
+lambdaP = do chaine "\\"
+             espacesP
              lam <- nomP
              chaine "-> "
              exprs <- exprsP
