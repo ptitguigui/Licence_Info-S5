@@ -55,16 +55,23 @@ lambdaP = do chaine "\\"
              exprs <- exprsP
              pure (Lam lam exprs)
 
+-- une Lam ou une Var
 exprP' :: Parser Expression
 exprP' = do lambdaP <|> exprP
 
 
--- des Var et Lam entre parantheses
+-- des Var ou des Lam entre parantheses
 exprParentheseeP :: Parser Expression
 exprParentheseeP = do car '('
                       res <- exprsP <|> exprP'
                       car ')'
                       pure res
+
+exprP'' :: Parser Expression
+exprP'' = do exprP' <|> exprParentheseeP
+
+
+
 
 
 
