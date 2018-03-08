@@ -1,4 +1,4 @@
-package gui;
+package ex3gui;
 
 import ex3.SingleMulticastClientServer;
 
@@ -7,20 +7,34 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.net.InetAddress;
-import java.time.LocalDate;
 
 public class ChatFrame extends JFrame implements MessageClient {
 
-    private final SingleMulticastClientServer clientServer;
+    private SingleMulticastClientServer clientServer;
     private JTextArea chatArea;
+    private JTextArea inputArea;
+
     private String localHost;
     private String extendedLocalhost;
-    private JTextArea inputArea;
     private boolean firstMessage;
 
     public ChatFrame() throws IOException {
         super("Chat");
 
+        initFrame();
+        initServer();
+    }
+
+    private void initServer() throws IOException {
+        clientServer = new SingleMulticastClientServer(InetAddress.getByName("224.0.0.1"),7654);
+
+        clientServer.addListener(this);
+        localHost = InetAddress.getLocalHost().getHostName();
+        extendedLocalhost = localHost + ".fil.univ-lille1.fr";
+        firstMessage = true;
+    }
+
+    private void initFrame() {
         Dimension dim = new Dimension(800, 800);
 
         setPreferredSize(dim);
@@ -31,15 +45,6 @@ public class ChatFrame extends JFrame implements MessageClient {
         this.add(mainPanel);
         this.pack();
         setLocationRelativeTo(null);
-
-
-        clientServer = new SingleMulticastClientServer(InetAddress.getByName("224.0.0.1"),
-                7654);
-
-        clientServer.addListener(this);
-        localHost = InetAddress.getLocalHost().getHostName();
-        extendedLocalhost = localHost + ".fil.univ-lille1.fr";
-        firstMessage = true;
     }
 
     private JPanel setupMainPanel() {
@@ -106,35 +111,49 @@ public class ChatFrame extends JFrame implements MessageClient {
         return inputPanel;
     }
 
-    private void sendMessage(String inputText) {
-        clientServer.send(inputText);
+    /**
+     * Sends a message through the client/server
+     *
+     * @param message the message to send
+     */
+    private void sendMessage(String message) {
+        clientServer.send(message);
         inputArea.setText("");
     }
 
-    public static void main(String[] args) throws IOException {
-        ChatFrame chatFrame = new ChatFrame();
-        chatFrame.setVisible(true);
-        chatFrame.run();
-    }
-
-    private void run() {
+    /**
+     * Starts the client/server
+     */
+    public void run() {
         clientServer.run();
     }
 
     @Override
-    public void receiveMessage(String text, String host) {
-        if (localHost.equals(host) || extendedLocalhost.equals(host)) {
-            host = "you";
-        }
-        host += ":";
-
-        String append = String.format("%-30s %s", host, text);
+    public void receiveMessage(String message, String host) {
+        String chatLogMessage = extractChatLogMessage(message, host);
 
         if (firstMessage) {
-            chatArea.setText(append);
+            chatArea.setText(chatLogMessage);
             firstMessage = false;
         } else {
-            chatArea.append("\n" + append);
+            chatArea.append("\n" + chatLogMessage);
         }
+    }
+
+    /**
+     * @param message the message received
+     * @param host    the host origin
+     * @return the message preceded by the hostname, formatted with 30 chars width for the hostname
+     */
+    private String extractChatLogMessage(String message, String host) {
+        String displayHostname = "";
+        if (localHost.equals(host) || extendedLocalhost.equals(host)) {
+            displayHostname = "you";
+        } else {
+            displayHostname = host;
+        }
+
+        displayHostname += ":";
+        return String.format("%-30s %s", displayHostname, message);
     }
 }
