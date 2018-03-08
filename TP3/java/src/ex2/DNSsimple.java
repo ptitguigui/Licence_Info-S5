@@ -1,4 +1,4 @@
-package ex1;
+package ex2;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
