@@ -22,6 +22,11 @@ int main(int argc, char** argv) {
 	struct sockaddr_in sin;
 	struct hostent *hostinfo;
 
+	if (argv[1] == NULL || argv[2] == NULL) {
+		printf("Utilisation: %s <hostname> <message>\n", argv[0]);
+		exit(1);
+	}
+
 	if(sock == -1) {
 	    perror("socket()");
 	    exit(errno);
